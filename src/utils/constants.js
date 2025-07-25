@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   name: "LaserCut Pro",
   title: "Jasa Laser Cutting Terpercaya #1 di Jawa Barat",
   description: "Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman, 1000+ proyek selesai, garansi kualitas premium. Melayani CNC Router, Laser Fiber, Laser CO2, dan Galvo Engraving.",
-  url: "https://ddos-spec.github.io/jasalasercutting", // URL diperbarui ke base URL GitHub Pages
+  url: "https://ddos-spec.github.io",
   author: "LaserCut Pro Team",
   keywords: "jasa laser cutting, cnc router, laser fiber, laser co2, galvo engraving, jawa barat, bandung, bekasi, bogor, depok, cimahi, sukabumi",
   phone: "+62 812-3456-7890",
@@ -27,7 +27,7 @@ export const SERVICES = [
     description: "Layanan CNC Router presisi tinggi untuk berbagai material kayu, MDF, dan plastik",
     features: ["Presisi 0.1mm", "Material Kayu & MDF", "Ukuran hingga 2x3 meter", "Finishing Premium"],
     price: "Mulai dari Rp 50.000/m²",
-    image: "/jasalasercutting/mesin-cnc-router.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/mesin-cnc-router.webp",
     keywords: "jasa cnc router bandung, cnc router bekasi, cnc router bogor"
   },
   {
@@ -37,7 +37,7 @@ export const SERVICES = [
     description: "Laser Fiber cutting untuk material metal dengan hasil sempurna dan presisi tinggi",
     features: ["Cutting Metal", "Presisi 0.05mm", "Stainless Steel", "Aluminium & Besi"],
     price: "Mulai dari Rp 75.000/m²",
-    image: "/jasalasercutting/mesin-laser-fiber.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/mesin-laser-fiber.webp",
     keywords: "laser fiber cutting, potong stainless steel, laser metal bekasi"
   },
   {
@@ -47,7 +47,7 @@ export const SERVICES = [
     description: "Laser CO2 untuk material non-metal seperti acrylic, kayu, dan kain dengan detail sempurna",
     features: ["Acrylic & Kayu", "Engraving Detail", "Cutting Presisi", "Finishing Halus"],
     price: "Mulai dari Rp 40.000/m²",
-    image: "/jasalasercutting/mesin-laser-co2.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/mesin-laser-co2.webp",
     keywords: "laser co2 acrylic bogor, potong acrylic bandung, laser kayu"
   },
   {
@@ -57,7 +57,7 @@ export const SERVICES = [
     description: "Galvo laser engraving untuk marking, logo, dan detail halus pada berbagai material",
     features: ["Marking Presisi", "Logo & Text", "Material Beragam", "Hasil Permanen"],
     price: "Mulai dari Rp 25.000/pcs",
-    image: "/jasalasercutting/mesin-galvo-engraving.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/mesin-galvo-engraving.webp",
     keywords: "laser engraving depok, marking laser, logo engraving"
   }
 ];
@@ -70,7 +70,7 @@ export const MATERIALS = [
     description: "Cutting ACP (Aluminium Composite Panel) untuk signage dan fasad bangunan",
     thickness: "3mm - 6mm",
     applications: ["Signage", "Fasad", "Interior", "Eksterior"],
-    image: "/jasalasercutting/material-acp-sample.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/material-acp-sample.webp",
     keywords: "potong acp aluminium cimahi, cutting acp bandung"
   },
   {
@@ -80,7 +80,7 @@ export const MATERIALS = [
     description: "Cutting PVC custom untuk berbagai keperluan industri dan kreatif",
     thickness: "1mm - 10mm",
     applications: ["Signage", "Prototype", "Display", "Packaging"],
-    image: "/jasalasercutting/material-pvc-sample.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/material-pvc-sample.webp",
     keywords: "cutting pvc custom sukabumi, potong pvc plastik"
   },
   {
@@ -90,7 +90,7 @@ export const MATERIALS = [
     description: "Laser cutting stainless steel dengan presisi tinggi untuk industri",
     thickness: "0.5mm - 20mm",
     applications: ["Industri", "Arsitektur", "Furniture", "Dekorasi"],
-    image: "/jasalasercutting/material-metal-sample.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/material-metal-sample.webp",
     keywords: "laser cutting stainless steel, potong besi presisi"
   },
   {
@@ -100,7 +100,7 @@ export const MATERIALS = [
     description: "Cutting dan engraving acrylic untuk display dan dekorasi premium",
     thickness: "2mm - 30mm",
     applications: ["Display", "Signage", "Dekorasi", "Prototype"],
-    image: "/jasalasercutting/material-acrylic-sample.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/material-acrylic-sample.webp",
     keywords: "potong acrylic kaca, laser acrylic bandung"
   }
 ];
@@ -113,7 +113,7 @@ export const TESTIMONIALS = [
     position: "Project Manager",
     content: "Kualitas laser cutting terbaik yang pernah kami gunakan. Presisi tinggi dan hasil sempurna untuk semua project signage kami.",
     rating: 5,
-    image: "/jasalasercutting/testimonial-1.webp" // Path gambar diperbaiki
+    image: "/jasalasercutting/testimonial-1.webp"
   },
   {
     id: 2,
@@ -122,7 +122,7 @@ export const TESTIMONIALS = [
     position: "Lead Architect",
     content: "Pelayanan profesional dan hasil cutting yang sangat memuaskan. Recommended untuk semua kebutuhan laser cutting.",
     rating: 5,
-    image: "/jasalasercutting/testimonial-2.webp" // Path gambar diperbaiki
+    image: "/jasalasercutting/testimonial-2.webp"
   },
   {
     id: 3,
@@ -131,7 +131,7 @@ export const TESTIMONIALS = [
     position: "Owner",
     content: "Sudah 3 tahun menggunakan jasa LaserCut Pro. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan.",
     rating: 5,
-    image: "/jasalasercutting/testimonial-3.webp" // Path gambar diperbaiki
+    image: "/jasalasercutting/testimonial-3.webp"
   }
 ];
 
@@ -142,7 +142,7 @@ export const PORTFOLIO = [
     category: "Commercial",
     material: "ACP Aluminium",
     service: "CNC Router",
-    image: "/jasalasercutting/portfolio-hotel-signage.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/portfolio-hotel-signage.webp",
     description: "Pembuatan signage premium untuk hotel bintang 5 dengan detail presisi tinggi"
   },
   {
@@ -151,7 +151,7 @@ export const PORTFOLIO = [
     category: "Industrial",
     material: "Stainless Steel",
     service: "Laser Fiber",
-    image: "/jasalasercutting/portfolio-furniture-steel.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/portfolio-furniture-steel.webp",
     description: "Cutting furniture stainless steel custom untuk restaurant modern"
   },
   {
@@ -160,7 +160,7 @@ export const PORTFOLIO = [
     category: "Retail",
     material: "Acrylic",
     service: "Laser CO2",
-    image: "/jasalasercutting/portfolio-acrylic-display.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/portfolio-acrylic-display.webp",
     description: "Display acrylic premium untuk toko retail dengan engraving logo"
   },
   {
@@ -169,7 +169,7 @@ export const PORTFOLIO = [
     category: "Manufacturing",
     material: "PVC",
     service: "CNC Router",
-    image: "/jasalasercutting/portfolio-prototype-pvc.webp", // Path gambar diperbaiki
+    image: "/jasalasercutting/portfolio-prototype-pvc.webp",
     description: "Prototype komponen industri dengan presisi tinggi menggunakan PVC"
   }
 ];
@@ -211,7 +211,7 @@ export const BLOG_POSTS = [
     category: "Tutorial",
     readTime: "5 menit",
     publishDate: "2024-01-15",
-    image: "/jasalasercutting/blog-material-guide.webp" // Path gambar diperbaiki
+    image: "/jasalasercutting/blog-material-guide.webp"
   },
   {
     id: 2,
@@ -221,7 +221,7 @@ export const BLOG_POSTS = [
     category: "Technical",
     readTime: "7 menit",
     publishDate: "2024-01-10",
-    image: "/jasalasercutting/blog-laser-comparison.webp" // Path gambar diperbaiki
+    image: "/jasalasercutting/blog-laser-comparison.webp"
   },
   {
     id: 3,
@@ -231,37 +231,36 @@ export const BLOG_POSTS = [
     category: "Industry",
     readTime: "6 menit",
     publishDate: "2024-01-05",
-    image: "/jasalasercutting/blog-industry-trends.webp" // Path gambar diperbaiki
+    image: "/jasalasercutting/blog-industry-trends.webp"
   }
 ];
 
-// Perbaikan Kunci ada di sini: Hapus garis miring di awal `href`
 export const NAVIGATION = [
-  { name: "Beranda", href: "https://ddos-spec.github.io/jasalasercutting/", active: true }, // Menggunakan URL absolut untuk Beranda
+  { name: "Beranda", href: "/", active: true },
   { 
     name: "Layanan", 
-    href: "#", 
+    href: "/#services",
     submenu: [
-      { name: "CNC Router", href: "jasa-cnc-router" },
-      { name: "Laser Fiber", href: "jasa-laser-fiber" },
-      { name: "Laser CO2", href: "jasa-laser-co2" },
-      { name: "Galvo Engraving", href: "jasa-galvo-engraving" }
+      { name: "CNC Router", href: "/jasa-cnc-router" },
+      { name: "Laser Fiber", href: "/jasa-laser-fiber" },
+      { name: "Laser CO2", href: "/jasa-laser-co2" },
+      { name: "Galvo Engraving", href: "/jasa-galvo-engraving" }
     ]
   },
   { 
     name: "Material", 
-    href: "#", 
+    href: "/#materials",
     submenu: [
-      { name: "ACP Aluminium", href: "material-acp" },
-      { name: "PVC Plastik", href: "material-pvc" },
-      { name: "Stainless Steel", href: "material-metal" },
-      { name: "Acrylic Kaca", href: "material-acrylic" }
+      { name: "ACP Aluminium", href: "/material-acp" },
+      { name: "PVC Plastik", href: "/material-pvc" },
+      { name: "Stainless Steel", href: "/material-metal" },
+      { name: "Acrylic Kaca", href: "/material-acrylic" }
     ]
   },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "Blog", href: "blog" },
-  { name: "Tentang", href: "about" },
-  { name: "Kontak", href: "contact" }
+  { name: "Portfolio", href: "/#portfolio" },
+  { name: "Blog", href: "/blog" },
+  { name: "Tentang", href: "/about" },
+  { name: "Kontak", href: "/contact" }
 ];
 
 export const WHATSAPP_MESSAGES = {
