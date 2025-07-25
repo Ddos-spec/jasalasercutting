@@ -1,0 +1,403 @@
+---
+// jasa-laser-fiber.astro - Halaman layanan Laser Fiber
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+import { SERVICES, SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
+import { generateMetaTags, generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+// Find Laser Fiber service
+const service = SERVICES.find(s => s.slug === 'jasa-laser-fiber');
+
+// SEO Meta Tags
+const metaTags = generateMetaTags({
+  title: `${service.name} - Cutting Metal Presisi 0.05mm`,
+  description: `${service.description}. Teknologi laser fiber terdepan untuk cutting stainless steel, aluminium, dan besi dengan presisi 0.05mm. Ketebalan hingga 20mm. Quote gratis 24 jam.`,
+  keywords: service.keywords,
+  url: `/${service.slug}`,
+  type: "service",
+  image: service.image
+});
+
+// Structured Data
+const serviceSchema = generateServiceSchema(service);
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Layanan', url: '/#services' },
+  { name: service.name, url: `/${service.slug}` }
+]);
+---
+
+<BaseLayout 
+  title={metaTags.title}
+  description={metaTags.description}
+  keywords={metaTags.keywords}
+  url={metaTags.canonical}
+  jsonLd={[serviceSchema, breadcrumbSchema]}
+>
+  <Header slot="header" />
+  
+  <!-- Hero Section -->
+  <Hero 
+    title={`${service.name} Profesional`}
+    subtitle="Presisi 0.05mm | Cutting Metal | Ketebalan hingga 20mm"
+    description="Teknologi laser fiber terdepan untuk cutting material metal dengan presisi ultra tinggi. Ideal untuk stainless steel, aluminium, besi, dan logam lainnya dengan hasil edge yang halus dan akurat."
+    primaryCTA="Konsultasi Laser Fiber"
+    primaryCTALink={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.fiber)}`}
+    secondaryCTA="Lihat Spesifikasi"
+    secondaryCTALink="#specifications"
+    backgroundImage={service.image}
+    whatsappMessage={WHATSAPP_MESSAGES.fiber}
+  />
+  
+  <!-- Breadcrumb -->
+  <section class="bg-gray-50 py-4">
+    <div class="container-custom">
+      <nav class="flex" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+              </svg>
+              Beranda
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <a href="/#services" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2">Layanan</a>
+            </div>
+          </li>
+          <li aria-current="page">
+            <div class="flex items-center">
+              <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">{service.name}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+  
+  <!-- Service Overview -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="heading-lg text-gray-900 mb-6">Keunggulan Laser Fiber Technology</h2>
+          <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+            Laser Fiber adalah teknologi cutting terdepan untuk material metal dengan presisi ultra tinggi. 
+            Menggunakan serat optik untuk menghasilkan beam laser yang sangat fokus, memberikan hasil cutting 
+            yang bersih, presisi, dan efisien untuk berbagai jenis logam.
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {service.features.map((feature) => (
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-1">
+                  <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">{feature}</h3>
+                  <p class="text-sm text-gray-600">Teknologi terdepan dengan hasil optimal</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div class="bg-blue-50 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-blue-900 mb-3">Harga Kompetitif</h3>
+            <p class="text-2xl font-bold text-blue-600 mb-2">{service.price}</p>
+            <p class="text-sm text-blue-700">*Harga dapat bervariasi tergantung jenis material, ketebalan, dan kompleksitas design</p>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <img 
+            src={service.image}
+            alt="Mesin Laser Fiber dalam operasi"
+            class="w-full h-auto rounded-xl shadow-2xl"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
+          
+          <!-- Floating Stats -->
+          <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-blue-600">0.05mm</div>
+              <div class="text-sm text-gray-600">Presisi</div>
+            </div>
+          </div>
+          
+          <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-green-600">20mm</div>
+              <div class="text-sm text-gray-600">Max Thickness</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Specifications -->
+  <section id="specifications" class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Spesifikasi Teknis Laser Fiber</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Mesin laser fiber kami menggunakan teknologi terdepan dengan spesifikasi tinggi untuk memberikan hasil cutting yang superior.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Technical Specifications -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Spesifikasi Mesin</h3>
+          
+          <div class="space-y-6">
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Laser Power</h4>
+              <p class="text-gray-700">1000W - 3000W Fiber Laser</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Area Kerja</h4>
+              <p class="text-gray-700">1500mm x 3000mm</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Presisi Positioning</h4>
+              <p class="text-gray-700">±0.05mm</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Kecepatan Cutting</h4>
+              <p class="text-gray-700">0-35,000mm/min</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Wavelength</h4>
+              <p class="text-gray-700">1070nm ± 10nm</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Control System</h4>
+              <p class="text-gray-700">CypCut Control System</p>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-gray-900 mb-2">Assist Gas</h4>
+              <p class="text-gray-700">Nitrogen, Oxygen, Compressed Air</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Material Capabilities -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Kemampuan Material</h3>
+          
+          <div class="space-y-6">
+            <div class="bg-blue-50 rounded-lg p-4">
+              <h4 class="font-semibold text-blue-900 mb-3">Stainless Steel</h4>
+              <div class="space-y-2 text-blue-800">
+                <div class="flex justify-between">
+                  <span>SS304, SS316, SS201</span>
+                  <span class="font-medium">0.5mm - 20mm</span>
+                </div>
+                <div class="text-sm text-blue-700">Hasil cutting halus tanpa burr</div>
+              </div>
+            </div>
+            
+            <div class="bg-green-50 rounded-lg p-4">
+              <h4 class="font-semibold text-green-900 mb-3">Carbon Steel</h4>
+              <div class="space-y-2 text-green-800">
+                <div class="flex justify-between">
+                  <span>Mild Steel, SPCC</span>
+                  <span class="font-medium">0.5mm - 25mm</span>
+                </div>
+                <div class="text-sm text-green-700">Cutting cepat dengan kualitas tinggi</div>
+              </div>
+            </div>
+            
+            <div class="bg-purple-50 rounded-lg p-4">
+              <h4 class="font-semibold text-purple-900 mb-3">Aluminium</h4>
+              <div class="space-y-2 text-purple-800">
+                <div class="flex justify-between">
+                  <span>Al5052, Al6061</span>
+                  <span class="font-medium">0.5mm - 15mm</span>
+                </div>
+                <div class="text-sm text-purple-700">Presisi tinggi untuk aplikasi aerospace</div>
+              </div>
+            </div>
+            
+            <div class="bg-orange-50 rounded-lg p-4">
+              <h4 class="font-semibold text-orange-900 mb-3">Material Lainnya</h4>
+              <ul class="space-y-1 text-orange-800 text-sm">
+                <li>• Brass & Copper (hingga 8mm)</li>
+                <li>• Galvanized Steel (hingga 12mm)</li>
+                <li>• Titanium (hingga 6mm)</li>
+                <li>• Spring Steel (hingga 10mm)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Advantages -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Keunggulan Laser Fiber</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Teknologi laser fiber memberikan berbagai keunggulan dibandingkan metode cutting konvensional.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+          <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Kecepatan Tinggi</h3>
+          <p class="text-gray-700">Cutting speed hingga 35m/menit untuk material tipis, meningkatkan produktivitas secara signifikan.</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+          <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Presisi Ultra Tinggi</h3>
+          <p class="text-gray-700">Akurasi positioning ±0.05mm dengan repeatability yang konsisten untuk hasil yang sempurna.</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+          <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Efisiensi Energi</h3>
+          <p class="text-gray-700">Konsumsi energi rendah dengan efisiensi konversi tinggi, mengurangi biaya operasional.</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+          <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Kualitas Edge</h3>
+          <p class="text-gray-700">Hasil cutting dengan edge yang halus, minimal burr, dan heat affected zone yang kecil.</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+          <div class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Fleksibilitas</h3>
+          <p class="text-gray-700">Dapat memotong berbagai jenis material metal dengan ketebalan yang bervariasi.</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+          <div class="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Maintenance Rendah</h3>
+          <p class="text-gray-700">Sistem fiber laser memiliki komponen yang lebih sedikit dan maintenance yang minimal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Applications -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Aplikasi Industri</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Laser fiber kami telah digunakan untuk berbagai aplikasi industri dengan standar kualitas internasional.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 7.172V5L8 4z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Automotive</h3>
+          <p class="text-gray-600 text-sm">Komponen chassis, bracket, dan part presisi untuk industri otomotif</p>
+        </div>
+        
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors duration-300">
+            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Arsitektur</h3>
+          <p class="text-gray-600 text-sm">Panel fasad, railing, dan elemen dekoratif untuk bangunan modern</p>
+        </div>
+        
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors duration-300">
+            <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Elektronik</h3>
+          <p class="text-gray-600 text-sm">Enclosure, heat sink, dan komponen presisi untuk perangkat elektronik</p>
+        </div>
+        
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors duration-300">
+            <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Manufaktur</h3>
+          <p class="text-gray-600 text-sm">Komponen mesin, jig, fixture, dan tooling untuk industri manufaktur</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <CTA 
+    title="Butuh Layanan Laser Fiber Profesional?"
+    description="Dapatkan konsultasi gratis untuk project laser fiber Anda. Tim ahli kami siap membantu dengan teknologi terdepan dan hasil cutting yang presisi untuk material metal Anda."
+    primaryText="Konsultasi Laser Fiber"
+    primaryLink={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.fiber)}`}
+    secondaryText="Dapatkan Quote"
+    secondaryLink="/contact"
+    variant="gradient"
+    size="lg"
+  />
+  
+  <Footer slot="footer" />
+</BaseLayout>
+

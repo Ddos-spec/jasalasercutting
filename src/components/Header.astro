@@ -1,0 +1,294 @@
+---
+// Header.astro - Komponen header dengan navigasi responsif
+import { NAVIGATION, SITE_CONFIG } from '../utils/constants.js';
+---
+
+<header class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 transition-all duration-300" id="main-header">
+  <div class="container-custom">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="/" class="flex items-center space-x-3 group">
+          <img 
+            src="/logo-company.webp" 
+            alt="LaserCut Pro Logo" 
+            class="h-8 w-auto lg:h-10 transition-transform duration-300 group-hover:scale-105"
+            width="120"
+            height="40"
+          />
+          <div class="hidden sm:block">
+            <h1 class="text-xl lg:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+              LaserCut Pro
+            </h1>
+            <p class="text-xs text-gray-600 hidden lg:block">Laser Cutting Terpercaya</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-8" aria-label="Main navigation">
+        {NAVIGATION.map((item) => (
+          <div class="relative group">
+            {item.submenu ? (
+              <div class="relative">
+                <button 
+                  class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 py-2"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span>{item.name}</span>
+                  <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                
+                <!-- Dropdown Menu -->
+                <div class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  <div class="py-2">
+                    {item.submenu.map((subitem) => (
+                      <a 
+                        href={subitem.href}
+                        class="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300 text-sm font-medium"
+                      >
+                        {subitem.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <a 
+                href={item.href}
+                class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"
+                class:list={[item.active && 'text-blue-600 after:w-full']}
+              >
+                {item.name}
+              </a>
+            )}
+          </div>
+        ))}
+      </nav>
+
+      <!-- CTA Buttons -->
+      <div class="hidden lg:flex items-center space-x-4">
+        <a 
+          href={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=Halo,%20saya%20ingin%20konsultasi%20tentang%20jasa%20laser%20cutting.`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-secondary text-sm px-4 py-2"
+        >
+          Konsultasi Gratis
+        </a>
+        <a 
+          href="/contact"
+          class="btn-primary text-sm px-4 py-2"
+        >
+          Dapatkan Quote
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors duration-300"
+        id="mobile-menu-button"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6 text-gray-700" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg class="w-6 h-6 text-gray-700 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div 
+    class="lg:hidden fixed inset-0 top-16 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out"
+    id="mobile-menu"
+  >
+    <div class="flex flex-col h-full">
+      <!-- Mobile Navigation Links -->
+      <nav class="flex-1 px-4 py-6 space-y-2" aria-label="Mobile navigation">
+        {NAVIGATION.map((item) => (
+          <div>
+            {item.submenu ? (
+              <div>
+                <button 
+                  class="flex items-center justify-between w-full text-left text-gray-700 hover:text-blue-600 font-medium py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-300"
+                  onclick="toggleMobileSubmenu(this)"
+                >
+                  <span>{item.name}</span>
+                  <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                
+                <!-- Mobile Submenu -->
+                <div class="hidden pl-4 space-y-1">
+                  {item.submenu.map((subitem) => (
+                    <a 
+                      href={subitem.href}
+                      class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-300"
+                    >
+                      {subitem.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a 
+                href={item.href}
+                class="block text-gray-700 hover:text-blue-600 font-medium py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-300"
+                class:list={[item.active && 'text-blue-600 bg-blue-50']}
+              >
+                {item.name}
+              </a>
+            )}
+          </div>
+        ))}
+      </nav>
+
+      <!-- Mobile CTA Buttons -->
+      <div class="p-4 border-t border-gray-200 space-y-3">
+        <a 
+          href={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=Halo,%20saya%20ingin%20konsultasi%20tentang%20jasa%20laser%20cutting.`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-secondary w-full text-center"
+        >
+          Konsultasi Gratis
+        </a>
+        <a 
+          href="/contact"
+          class="btn-primary w-full text-center"
+        >
+          Dapatkan Quote
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div 
+  class="lg:hidden fixed inset-0 bg-black/50 z-40 opacity-0 invisible transition-all duration-300"
+  id="mobile-menu-overlay"
+  onclick="closeMobileMenu()"
+></div>
+
+<script>
+  // Mobile menu functionality
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  
+  function toggleMobileMenu() {
+    const isOpen = mobileMenu.classList.contains('translate-x-0');
+    
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+  
+  function openMobileMenu() {
+    mobileMenu.classList.remove('translate-x-full');
+    mobileMenu.classList.add('translate-x-0');
+    mobileMenuOverlay.classList.remove('opacity-0', 'invisible');
+    mobileMenuOverlay.classList.add('opacity-100', 'visible');
+    menuIcon.classList.add('hidden');
+    closeIcon.classList.remove('hidden');
+    mobileMenuButton.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('translate-x-0');
+    mobileMenu.classList.add('translate-x-full');
+    mobileMenuOverlay.classList.remove('opacity-100', 'visible');
+    mobileMenuOverlay.classList.add('opacity-0', 'invisible');
+    menuIcon.classList.remove('hidden');
+    closeIcon.classList.add('hidden');
+    mobileMenuButton.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  
+  function toggleMobileSubmenu(button) {
+    const submenu = button.nextElementSibling;
+    const icon = button.querySelector('svg');
+    
+    if (submenu.classList.contains('hidden')) {
+      submenu.classList.remove('hidden');
+      icon.style.transform = 'rotate(180deg)';
+    } else {
+      submenu.classList.add('hidden');
+      icon.style.transform = 'rotate(0deg)';
+    }
+  }
+  
+  // Event listeners
+  mobileMenuButton.addEventListener('click', toggleMobileMenu);
+  
+  // Close mobile menu when clicking on links
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+  
+  // Header scroll effect
+  let lastScrollY = window.scrollY;
+  const header = document.getElementById('main-header');
+  
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    
+    if (currentScrollY > 100) {
+      header.classList.add('shadow-md');
+    } else {
+      header.classList.remove('shadow-md');
+    }
+    
+    // Hide header on scroll down, show on scroll up
+    if (currentScrollY > lastScrollY && currentScrollY > 200) {
+      header.style.transform = 'translateY(-100%)';
+    } else {
+      header.style.transform = 'translateY(0)';
+    }
+    
+    lastScrollY = currentScrollY;
+  });
+  
+  // Make functions global for onclick handlers
+  window.toggleMobileSubmenu = toggleMobileSubmenu;
+  window.closeMobileMenu = closeMobileMenu;
+</script>
+
+<style>
+  /* Additional header styles */
+  #main-header {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Dropdown hover effects */
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+  
+  .group:hover .group-hover\:visible {
+    visibility: visible;
+  }
+  
+  .group:hover .group-hover\:translate-y-0 {
+    transform: translateY(0);
+  }
+  
+  .group:hover .group-hover\:rotate-180 {
+    transform: rotate(180deg);
+  }
+</style>
+

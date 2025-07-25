@@ -1,0 +1,395 @@
+---
+// index.astro - Halaman utama website laser cutting
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+import { SERVICES, MATERIALS, TESTIMONIALS, PORTFOLIO, FAQ, SITE_CONFIG } from '../utils/constants.js';
+import { generateMetaTags, generateFAQSchema, generateReviewSchema } from '../utils/seo.js';
+
+// SEO Meta Tags
+const metaTags = generateMetaTags({
+  title: "Jasa Laser Cutting Terpercaya #1 di Jawa Barat",
+  description: "Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman, 1000+ proyek selesai, garansi kualitas premium. Melayani CNC Router, Laser Fiber, Laser CO2, dan Galvo Engraving.",
+  keywords: "jasa laser cutting, cnc router, laser fiber, laser co2, galvo engraving, jawa barat, bandung, bekasi, bogor, depok, cimahi, sukabumi",
+  url: "/",
+  type: "website"
+});
+
+// Structured Data
+const faqSchema = generateFAQSchema(FAQ);
+const reviewSchema = generateReviewSchema(TESTIMONIALS);
+---
+
+<BaseLayout 
+  title={metaTags.title}
+  description={metaTags.description}
+  keywords={metaTags.keywords}
+  url={metaTags.canonical}
+  jsonLd={[faqSchema, reviewSchema]}
+>
+  <Header slot="header" />
+  
+  <!-- Hero Section -->
+  <Hero />
+  
+  <!-- Services Section -->
+  <section id="services" class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Layanan Laser Cutting Profesional</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Teknologi terdepan dengan presisi tinggi untuk semua kebutuhan industri dan kreatif Anda. 
+          Dari prototyping hingga produksi massal, kami siap memberikan solusi terbaik.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {SERVICES.map((service, index) => (
+          <div class="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+            <div class="relative overflow-hidden rounded-t-xl">
+              <img 
+                src={service.image}
+                alt={service.name}
+                class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                loading="lazy"
+                width="400"
+                height="300"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                {service.name}
+              </h3>
+              
+              <p class="text-gray-600 mb-4 leading-relaxed">
+                {service.description}
+              </p>
+              
+              <div class="space-y-2 mb-6">
+                {service.features.map((feature) => (
+                  <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span class="text-sm text-gray-700">{feature}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-blue-600">{service.price}</span>
+                <a 
+                  href={`/${service.slug}`}
+                  class="btn-primary text-sm px-4 py-2"
+                >
+                  Detail Layanan
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Materials Section -->
+  <section id="materials" class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Material yang Kami Layani</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Berbagai jenis material dengan kualitas terbaik dan hasil cutting yang presisi. 
+          Konsultasikan material Anda dengan tim ahli kami untuk mendapatkan hasil optimal.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {MATERIALS.map((material) => (
+          <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
+            <div class="relative">
+              <img 
+                src={material.image}
+                alt={material.name}
+                class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                width="400"
+                height="200"
+              />
+              <div class="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                {material.thickness}
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-gray-900 mb-3">{material.name}</h3>
+              <p class="text-gray-600 mb-4 text-sm leading-relaxed">{material.description}</p>
+              
+              <div class="space-y-2 mb-4">
+                <h4 class="text-sm font-semibold text-gray-800">Aplikasi:</h4>
+                <div class="flex flex-wrap gap-2">
+                  {material.applications.map((app) => (
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs font-medium">
+                      {app}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <a 
+                href={`/${material.slug}`}
+                class="btn-secondary text-sm px-4 py-2 w-full text-center"
+              >
+                Lihat Detail
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Portfolio Proyek Terbaik</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Lihat hasil karya terbaik kami yang telah dipercaya oleh berbagai industri. 
+          Setiap proyek dikerjakan dengan standar kualitas tinggi dan presisi sempurna.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {PORTFOLIO.map((project) => (
+          <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+            <img 
+              src={project.image}
+              alt={project.title}
+              class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+              width="400"
+              height="300"
+            />
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <span class="inline-block bg-blue-600 px-3 py-1 rounded-full text-xs font-medium mb-2">
+                {project.category}
+              </span>
+              <h3 class="text-lg font-bold mb-2">{project.title}</h3>
+              <p class="text-sm text-gray-200 mb-3">{project.description}</p>
+              <div class="flex items-center justify-between text-xs">
+                <span class="bg-white/20 px-2 py-1 rounded">{project.material}</span>
+                <span class="bg-white/20 px-2 py-1 rounded">{project.service}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <a 
+          href="/portfolio"
+          class="btn-primary text-lg px-8 py-3"
+        >
+          Lihat Semua Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Apa Kata Klien Kami</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Kepuasan klien adalah prioritas utama kami. Dengarkan pengalaman mereka 
+          yang telah mempercayakan proyek laser cutting kepada LaserCut Pro.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {TESTIMONIALS.map((testimonial) => (
+          <div class="bg-white rounded-xl shadow-lg p-8 relative">
+            <!-- Quote Icon -->
+            <div class="absolute top-6 right-6 text-blue-100">
+              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+              </svg>
+            </div>
+            
+            <!-- Rating -->
+            <div class="flex items-center mb-4">
+              {Array.from({ length: testimonial.rating }, (_, i) => (
+                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            
+            <!-- Content -->
+            <p class="text-gray-700 mb-6 leading-relaxed italic">
+              "{testimonial.content}"
+            </p>
+            
+            <!-- Author -->
+            <div class="flex items-center">
+              <img 
+                src={testimonial.image}
+                alt={testimonial.name}
+                class="w-12 h-12 rounded-full object-cover mr-4"
+                loading="lazy"
+                width="48"
+                height="48"
+              />
+              <div>
+                <h4 class="font-bold text-gray-900">{testimonial.name}</h4>
+                <p class="text-sm text-gray-600">{testimonial.position}</p>
+                <p class="text-sm text-blue-600 font-medium">{testimonial.company}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- FAQ Section -->
+  <section id="faq" class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Pertanyaan yang Sering Diajukan</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Temukan jawaban untuk pertanyaan umum tentang layanan laser cutting kami. 
+          Masih ada pertanyaan? Jangan ragu untuk menghubungi tim kami.
+        </p>
+      </div>
+      
+      <div class="max-w-4xl mx-auto">
+        <div class="space-y-6">
+          {FAQ.map((faq, index) => (
+            <div class="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-300">
+              <button 
+                class="flex items-center justify-between w-full text-left"
+                onclick={`toggleFAQ(${index})`}
+              >
+                <h3 class="text-lg font-semibold text-gray-900 pr-4">
+                  {faq.question}
+                </h3>
+                <svg 
+                  class="w-6 h-6 text-gray-500 transform transition-transform duration-300"
+                  id={`faq-icon-${index}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              
+              <div 
+                class="mt-4 text-gray-700 leading-relaxed hidden"
+                id={`faq-answer-${index}`}
+              >
+                {faq.answer}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <CTA 
+    title="Siap Memulai Proyek Laser Cutting Anda?"
+    description="Dapatkan konsultasi gratis dan quote terbaik untuk kebutuhan laser cutting Anda. Tim ahli kami siap membantu mewujudkan ide kreatif Anda."
+    variant="gradient"
+    size="lg"
+  />
+  
+  <Footer slot="footer" />
+</BaseLayout>
+
+<script>
+  // FAQ Toggle Functionality
+  function toggleFAQ(index) {
+    const answer = document.getElementById(`faq-answer-${index}`);
+    const icon = document.getElementById(`faq-icon-${index}`);
+    
+    if (answer.classList.contains('hidden')) {
+      answer.classList.remove('hidden');
+      icon.style.transform = 'rotate(180deg)';
+    } else {
+      answer.classList.add('hidden');
+      icon.style.transform = 'rotate(0deg)';
+    }
+  }
+  
+  // Make function global
+  window.toggleFAQ = toggleFAQ;
+  
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+  
+  // Intersection Observer for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-in-up');
+      }
+    });
+  }, observerOptions);
+  
+  // Observe all sections
+  document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+  });
+</script>
+
+<style>
+  /* Animation classes */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Smooth transitions */
+  * {
+    transition-property: transform, opacity, background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
+

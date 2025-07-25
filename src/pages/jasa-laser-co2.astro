@@ -1,0 +1,471 @@
+---
+// jasa-laser-co2.astro - Halaman layanan Laser CO2
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+import { SERVICES, SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
+import { generateMetaTags, generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+// Find Laser CO2 service
+const service = SERVICES.find(s => s.slug === 'jasa-laser-co2');
+
+// SEO Meta Tags
+const metaTags = generateMetaTags({
+  title: `${service.name} - Cutting Acrylic & Non-Metal Presisi Tinggi`,
+  description: `${service.description}. Teknologi laser CO2 untuk cutting dan engraving acrylic, kayu, kain, kulit dengan detail sempurna. Finishing halus tanpa retak. Quote gratis 24 jam.`,
+  keywords: service.keywords,
+  url: `/${service.slug}`,
+  type: "service",
+  image: service.image
+});
+
+// Structured Data
+const serviceSchema = generateServiceSchema(service);
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Layanan', url: '/#services' },
+  { name: service.name, url: `/${service.slug}` }
+]);
+---
+
+<BaseLayout 
+  title={metaTags.title}
+  description={metaTags.description}
+  keywords={metaTags.keywords}
+  url={metaTags.canonical}
+  jsonLd={[serviceSchema, breadcrumbSchema]}
+>
+  <Header slot="header" />
+  
+  <!-- Hero Section -->
+  <Hero 
+    title={`${service.name} Profesional`}
+    subtitle="Cutting & Engraving | Acrylic & Non-Metal | Detail Sempurna"
+    description="Teknologi laser CO2 terdepan untuk cutting dan engraving material non-metal dengan detail yang sempurna. Ideal untuk acrylic, kayu, kain, kulit, dan material organik lainnya dengan hasil finishing yang halus."
+    primaryCTA="Konsultasi Laser CO2"
+    primaryCTALink={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.co2)}`}
+    secondaryCTA="Lihat Spesifikasi"
+    secondaryCTALink="#specifications"
+    backgroundImage={service.image}
+    whatsappMessage={WHATSAPP_MESSAGES.co2}
+  />
+  
+  <!-- Breadcrumb -->
+  <section class="bg-gray-50 py-4">
+    <div class="container-custom">
+      <nav class="flex" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+              </svg>
+              Beranda
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <a href="/#services" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2">Layanan</a>
+            </div>
+          </li>
+          <li aria-current="page">
+            <div class="flex items-center">
+              <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">{service.name}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+  
+  <!-- Service Overview -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="heading-lg text-gray-900 mb-6">Keunggulan Laser CO2 Technology</h2>
+          <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+            Laser CO2 adalah teknologi cutting dan engraving yang ideal untuk material non-metal. 
+            Menggunakan gas CO2 sebagai medium laser, memberikan hasil cutting yang halus dan 
+            kemampuan engraving dengan detail yang sangat baik untuk berbagai material organik.
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {service.features.map((feature) => (
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-1">
+                  <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">{feature}</h3>
+                  <p class="text-sm text-gray-600">Hasil optimal untuk material non-metal</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div class="bg-blue-50 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-blue-900 mb-3">Harga Terjangkau</h3>
+            <p class="text-2xl font-bold text-blue-600 mb-2">{service.price}</p>
+            <p class="text-sm text-blue-700">*Harga dapat bervariasi tergantung material, ketebalan, dan kompleksitas design</p>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <img 
+            src={service.image}
+            alt="Mesin Laser CO2 dalam operasi"
+            class="w-full h-auto rounded-xl shadow-2xl"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
+          
+          <!-- Floating Features -->
+          <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+            <div class="text-center">
+              <div class="text-lg font-bold text-purple-600">Cutting</div>
+              <div class="text-sm text-gray-600">& Engraving</div>
+            </div>
+          </div>
+          
+          <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+            <div class="text-center">
+              <div class="text-lg font-bold text-green-600">Detail</div>
+              <div class="text-sm text-gray-600">Sempurna</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Specifications -->
+  <section id="specifications" class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Spesifikasi Teknis Laser CO2</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Mesin laser CO2 kami menggunakan teknologi terdepan dengan spesifikasi yang optimal untuk material non-metal.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Technical Specifications -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Spesifikasi Mesin</h3>
+          
+          <div class="space-y-6">
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Laser Power</h4>
+              <p class="text-gray-700">60W - 150W CO2 Laser Tube</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Area Kerja</h4>
+              <p class="text-gray-700">1300mm x 900mm x 150mm</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Presisi Positioning</h4>
+              <p class="text-gray-700">±0.1mm</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Kecepatan Cutting</h4>
+              <p class="text-gray-700">0-24,000mm/min</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Wavelength</h4>
+              <p class="text-gray-700">10.6μm</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Control System</h4>
+              <p class="text-gray-700">RuiDa RDC6442G Controller</p>
+            </div>
+            
+            <div class="border-b border-gray-200 pb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Cooling System</h4>
+              <p class="text-gray-700">Water Cooling System</p>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-gray-900 mb-2">Software Support</h4>
+              <p class="text-gray-700">LaserCAD, CorelDRAW, AutoCAD</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Material Capabilities -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Material yang Dapat Diproses</h3>
+          
+          <div class="space-y-6">
+            <div class="bg-purple-50 rounded-lg p-4">
+              <h4 class="font-semibold text-purple-900 mb-3">Acrylic & Plastik</h4>
+              <div class="space-y-2 text-purple-800">
+                <div class="flex justify-between">
+                  <span>Acrylic (PMMA)</span>
+                  <span class="font-medium">2mm - 30mm</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>PVC, ABS, PC</span>
+                  <span class="font-medium">1mm - 15mm</span>
+                </div>
+                <div class="text-sm text-purple-700">Cutting halus tanpa retak</div>
+              </div>
+            </div>
+            
+            <div class="bg-green-50 rounded-lg p-4">
+              <h4 class="font-semibold text-green-900 mb-3">Kayu & Organik</h4>
+              <div class="space-y-2 text-green-800">
+                <div class="flex justify-between">
+                  <span>Kayu Solid, MDF</span>
+                  <span class="font-medium">3mm - 20mm</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Plywood, Triplek</span>
+                  <span class="font-medium">3mm - 15mm</span>
+                </div>
+                <div class="text-sm text-green-700">Engraving detail tinggi</div>
+              </div>
+            </div>
+            
+            <div class="bg-blue-50 rounded-lg p-4">
+              <h4 class="font-semibold text-blue-900 mb-3">Tekstil & Kulit</h4>
+              <div class="space-y-2 text-blue-800">
+                <div class="flex justify-between">
+                  <span>Kain, Felt, Canvas</span>
+                  <span class="font-medium">1mm - 5mm</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Kulit Asli & Sintetis</span>
+                  <span class="font-medium">1mm - 8mm</span>
+                </div>
+                <div class="text-sm text-blue-700">Edge sealing otomatis</div>
+              </div>
+            </div>
+            
+            <div class="bg-orange-50 rounded-lg p-4">
+              <h4 class="font-semibold text-orange-900 mb-3">Material Lainnya</h4>
+              <ul class="space-y-1 text-orange-800 text-sm">
+                <li>• Kertas & Karton (hingga 3mm)</li>
+                <li>• Karet & Foam (hingga 10mm)</li>
+                <li>• Kaca (engraving only)</li>
+                <li>• Keramik (engraving only)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Cutting vs Engraving -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Cutting vs Engraving</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Laser CO2 dapat melakukan dua fungsi utama: cutting (memotong) dan engraving (mengukir) dengan hasil yang optimal.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Cutting -->
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m2-10v18a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2h8a2 2 0 012 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900">Laser Cutting</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Memotong Material</h4>
+                <p class="text-gray-700 text-sm">Memotong material secara penuh dengan edge yang halus dan presisi tinggi</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Bentuk Kompleks</h4>
+                <p class="text-gray-700 text-sm">Dapat membuat bentuk yang sangat kompleks dan detail dengan akurasi tinggi</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Finishing Halus</h4>
+                <p class="text-gray-700 text-sm">Hasil cutting langsung halus tanpa perlu finishing tambahan</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Aplikasi</h4>
+                <p class="text-gray-700 text-sm">Signage, display, prototype, komponen, dekorasi</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Engraving -->
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-8">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900">Laser Engraving</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Mengukir Permukaan</h4>
+                <p class="text-gray-700 text-sm">Mengukir permukaan material dengan kedalaman yang dapat dikontrol</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Detail Halus</h4>
+                <p class="text-gray-700 text-sm">Dapat membuat detail yang sangat halus termasuk teks kecil dan gambar</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Gradasi Warna</h4>
+                <p class="text-gray-700 text-sm">Dapat membuat efek gradasi dan variasi kedalaman untuk hasil artistik</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Aplikasi</h4>
+                <p class="text-gray-700 text-sm">Logo, teks, artwork, personalisasi, marking</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Applications -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Aplikasi Laser CO2</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Laser CO2 kami telah digunakan untuk berbagai aplikasi kreatif dan industri dengan hasil yang memuaskan.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V1a1 1 0 011-1h2a1 1 0 011 1v3M7 4H5a1 1 0 00-1 1v16a1 1 0 001 1h14a1 1 0 001-1V5a1 1 0 00-1-1h-2M7 4h10M9 9h6m-6 4h6m-6 4h6"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Signage & Display</h3>
+          <p class="text-gray-600 leading-relaxed">Pembuatan papan nama acrylic, display produk, dan signage dengan cutting presisi dan engraving detail.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Dekorasi Interior</h3>
+          <p class="text-gray-600 leading-relaxed">Cutting elemen dekoratif kayu, panel acrylic, dan ornamen untuk interior rumah dan komersial.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Packaging & Label</h3>
+          <p class="text-gray-600 leading-relaxed">Cutting kemasan custom, label produk, dan packaging kreatif dengan detail yang sempurna.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Prototype & Model</h3>
+          <p class="text-gray-600 leading-relaxed">Pembuatan prototype produk, model arsitektur, dan mock-up dengan material acrylic dan kayu.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Fashion & Tekstil</h3>
+          <p class="text-gray-600 leading-relaxed">Cutting kain, kulit, dan material tekstil untuk fashion, aksesoris, dan produk kreatif lainnya.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="w-16 h-16 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Personalisasi</h3>
+          <p class="text-gray-600 leading-relaxed">Engraving nama, logo, dan design personal pada berbagai material untuk hadiah dan souvenir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <CTA 
+    title="Butuh Layanan Laser CO2 Profesional?"
+    description="Dapatkan konsultasi gratis untuk project laser CO2 Anda. Tim ahli kami siap membantu dengan teknologi terdepan untuk cutting dan engraving material non-metal dengan hasil yang sempurna."
+    primaryText="Konsultasi Laser CO2"
+    primaryLink={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.co2)}`}
+    secondaryText="Dapatkan Quote"
+    secondaryLink="/contact"
+    variant="gradient"
+    size="lg"
+  />
+  
+  <Footer slot="footer" />
+</BaseLayout>
+
