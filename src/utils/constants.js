@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   name: "LaserCut Pro",
   title: "Jasa Laser Cutting Terpercaya #1 di Jawa Barat",
   description: "Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman, 1000+ proyek selesai, garansi kualitas premium. Melayani CNC Router, Laser Fiber, Laser CO2, dan Galvo Engraving.",
-  url: "https://ddos-spec.github.io", // Cukup domain utama, tanpa nama repo
+  url: "https://ddos-spec.github.io", // PENTING: HANYA domain utama, tanpa nama repo
   author: "LaserCut Pro Team",
   keywords: "jasa laser cutting, cnc router, laser fiber, laser co2, galvo engraving, jawa barat, bandung, bekasi, bogor, depok, cimahi, sukabumi",
   phone: "+62 812-3456-7890",
@@ -235,7 +235,6 @@ export const BLOG_POSTS = [
   }
 ];
 
-// KRITICAL: Semua path href WAJIB dimulai dengan '/'
 export const NAVIGATION = [
   { name: "Beranda", href: "/", active: true },
   { 
