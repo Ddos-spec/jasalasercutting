@@ -16,7 +16,6 @@ const metaTags = generateMetaTags({
   url: "/",
   type: "website"
 });
-
 // Structured Data
 const faqSchema = generateFAQSchema(FAQ);
 const reviewSchema = generateReviewSchema(TESTIMONIALS);
@@ -31,16 +30,14 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
 >
   <Header slot="header" />
   
-  <!-- Hero Section -->
   <Hero />
   
-  <!-- Services Section -->
   <section id="services" class="section-padding bg-white">
     <div class="container-custom">
       <div class="text-center mb-16">
         <h2 class="heading-lg text-gray-900 mb-6">Layanan Laser Cutting Profesional</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Teknologi terdepan dengan presisi tinggi untuk semua kebutuhan industri dan kreatif Anda. 
+          Teknologi terdepan dengan presisi tinggi untuk semua kebutuhan industri dan kreatif Anda.
           Dari prototyping hingga produksi massal, kami siap memberikan solusi terbaik.
         </p>
       </div>
@@ -79,7 +76,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
                   </div>
                 ))}
               </div>
-              
+          
               <div class="flex items-center justify-between">
                 <span class="text-lg font-bold text-blue-600">{service.price}</span>
                 <a 
@@ -96,13 +93,12 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
     </div>
   </section>
   
-  <!-- Materials Section -->
   <section id="materials" class="section-padding bg-gray-50">
     <div class="container-custom">
       <div class="text-center mb-16">
         <h2 class="heading-lg text-gray-900 mb-6">Material yang Kami Layani</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Berbagai jenis material dengan kualitas terbaik dan hasil cutting yang presisi. 
+          Berbagai jenis material dengan kualitas terbaik dan hasil cutting yang presisi.
           Konsultasikan material Anda dengan tim ahli kami untuk mendapatkan hasil optimal.
         </p>
       </div>
@@ -152,13 +148,12 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
     </div>
   </section>
   
-  <!-- Portfolio Section -->
   <section id="portfolio" class="section-padding bg-white">
     <div class="container-custom">
       <div class="text-center mb-16">
         <h2 class="heading-lg text-gray-900 mb-6">Portfolio Proyek Terbaik</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Lihat hasil karya terbaik kami yang telah dipercaya oleh berbagai industri. 
+          Lihat hasil karya terbaik kami yang telah dipercaya oleh berbagai industri.
           Setiap proyek dikerjakan dengan standar kualitas tinggi dan presisi sempurna.
         </p>
       </div>
@@ -176,11 +171,12 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
             />
             
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
+ 
             <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
               <span class="inline-block bg-blue-600 px-3 py-1 rounded-full text-xs font-medium mb-2">
                 {project.category}
               </span>
+              
               <h3 class="text-lg font-bold mb-2">{project.title}</h3>
               <p class="text-sm text-gray-200 mb-3">{project.description}</p>
               <div class="flex items-center justify-between text-xs">
@@ -194,7 +190,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       
       <div class="text-center mt-12">
         <a 
-          href="/portfolio"
+          href="/jasalasercutting/portfolio" {/* PERUBAHAN: Mengarahkan ke halaman portfolio.astro */}
           class="btn-primary text-lg px-8 py-3"
         >
           Lihat Semua Portfolio
@@ -203,13 +199,13 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
     </div>
   </section>
   
-  <!-- Testimonials Section -->
   <section id="testimonials" class="section-padding bg-gray-50">
     <div class="container-custom">
       <div class="text-center mb-16">
         <h2 class="heading-lg text-gray-900 mb-6">Apa Kata Klien Kami</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Kepuasan klien adalah prioritas utama kami. Dengarkan pengalaman mereka 
+          Kepuasan klien adalah prioritas utama kami.
+          Dengarkan pengalaman mereka 
           yang telah mempercayakan proyek laser cutting kepada LaserCut Pro.
         </p>
       </div>
@@ -217,14 +213,14 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {TESTIMONIALS.map((testimonial) => (
           <div class="bg-white rounded-xl shadow-lg p-8 relative">
-            <!-- Quote Icon -->
+            {/* Quote Icon */}
             <div class="absolute top-6 right-6 text-blue-100">
               <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
               </svg>
             </div>
             
-            <!-- Rating -->
+            {/* Rating */}
             <div class="flex items-center mb-4">
               {Array.from({ length: testimonial.rating }, (_, i) => (
                 <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
@@ -233,12 +229,12 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
               ))}
             </div>
             
-            <!-- Content -->
+            {/* Content */}
             <p class="text-gray-700 mb-6 leading-relaxed italic">
               "{testimonial.content}"
             </p>
             
-            <!-- Author -->
+            {/* Author */}
             <div class="flex items-center">
               <img 
                 src={testimonial.image}
@@ -260,13 +256,12 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
     </div>
   </section>
   
-  <!-- FAQ Section -->
   <section id="faq" class="section-padding bg-white">
     <div class="container-custom">
       <div class="text-center mb-16">
         <h2 class="heading-lg text-gray-900 mb-6">Pertanyaan yang Sering Diajukan</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Temukan jawaban untuk pertanyaan umum tentang layanan laser cutting kami. 
+          Temukan jawaban untuk pertanyaan umum tentang layanan laser cutting kami.
           Masih ada pertanyaan? Jangan ragu untuk menghubungi tim kami.
         </p>
       </div>
@@ -306,7 +301,6 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
     </div>
   </section>
   
-  <!-- CTA Section -->
   <CTA 
     title="Siap Memulai Proyek Laser Cutting Anda?"
     description="Dapatkan konsultasi gratis dan quote terbaik untuk kebutuhan laser cutting Anda. Tim ahli kami siap membantu mewujudkan ide kreatif Anda."
@@ -334,7 +328,6 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
   
   // Make function global
   window.toggleFAQ = toggleFAQ;
-  
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -348,13 +341,11 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       }
     });
   });
-  
   // Intersection Observer for animations
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   };
-  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -362,7 +353,6 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       }
     });
   }, observerOptions);
-  
   // Observe all sections
   document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
@@ -392,4 +382,3 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>
-
