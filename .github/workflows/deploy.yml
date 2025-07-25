@@ -1,0 +1,60 @@
+# Nama workflow, bisa disesuain sama nama proyek
+name: Deploy LaserCut Pro to GitHub Pages
+
+# Kapan workflow ini jalan
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Izin buat si Actions
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Daftar kerjaan (jobs)
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          # README minta v18+, kita pake 20 yang LTS dan lebih baru
+          node-version: '20'
+          # Cache buat 'npm' biar install lebih ngebut ke depannya
+          cache: 'npm'
+
+      - name: Install dependencies
+        # Perintah install sesuai dokumentasi di README.md
+        run: npm install
+
+      - name: Build static files
+        # Perintah build sesuai dokumentasi di README.md
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Arahin ke folder 'dist' sesuai instruksi deploy di README.md
+          path: './dist'
+
+  deploy:
+    # Job ini sama, gak perlu diubah
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
