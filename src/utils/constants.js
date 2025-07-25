@@ -338,7 +338,7 @@ export const NAVIGATION = [
       { name: "GRC", href: "/jasalasercutting/material-grc" }
     ]
   },
-  { name: "Portfolio", href: "/jasalasercutting/#portfolio" },
+  { name: "Portfolio", href: "/jasalasercutting/portfolio" },
   { name: "Blog", href: "/jasalasercutting/blog" },
   { name: "Tentang", href: "/jasalasercutting/about" },
   { name: "Kontak", href: "/jasalasercutting/contact" }
@@ -352,4 +352,3 @@ export const WHATSAPP_MESSAGES = {
   engraving: "Halo, saya butuh jasa laser engraving. Bisa konsultasi?",
   quote: "Halo, saya ingin request quote untuk project laser cutting."
 };
-
