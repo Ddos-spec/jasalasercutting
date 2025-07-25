@@ -1,9 +1,8 @@
-// App constants untuk website laser cutting (FIXED)
 export const SITE_CONFIG = {
   name: "LaserCut Pro",
   title: "Jasa Laser Cutting Terpercaya #1 di Jawa Barat",
   description: "Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman, 1000+ proyek selesai, garansi kualitas premium. Melayani CNC Router, Laser Fiber, Laser CO2, dan Galvo Engraving.",
-  url: "https://ddos-spec.github.io", // PENTING: HANYA domain utama, tanpa nama repo
+  url: "https://ddos-spec.github.io/jasalasercutting", // PENTING: HANYA domain utama, tanpa nama repo
   author: "LaserCut Pro Team",
   keywords: "jasa laser cutting, cnc router, laser fiber, laser co2, galvo engraving, jawa barat, bandung, bekasi, bogor, depok, cimahi, sukabumi",
   phone: "+62 812-3456-7890",
@@ -65,7 +64,7 @@ export const SERVICES = [
 export const MATERIALS = [
   {
     id: "acp",
-    name: "ACP Aluminium",
+    name: "ACP",
     slug: "material-acp",
     description: "Cutting ACP (Aluminium Composite Panel) untuk signage dan fasad bangunan",
     thickness: "3mm - 6mm",
@@ -85,7 +84,7 @@ export const MATERIALS = [
   },
   {
     id: "metal",
-    name: "Stainless Steel",
+    name: "Stainless Steel / Metal",
     slug: "material-metal",
     description: "Laser cutting stainless steel dengan presisi tinggi untuk industri",
     thickness: "0.5mm - 20mm",
@@ -102,6 +101,26 @@ export const MATERIALS = [
     applications: ["Display", "Signage", "Dekorasi", "Prototype"],
     image: "/jasalasercutting/material-acrylic-sample.webp",
     keywords: "potong acrylic kaca, laser acrylic bandung"
+  },
+  {
+    id: "ply-wood-multiplex",
+    name: "Ply Wood / Multiplex",
+    slug: "material-ply-wood-multiplex",
+    description: "Cutting dan engraving Ply Wood / Multiplex untuk furniture dan dekorasi",
+    thickness: "3mm - 20mm",
+    applications: ["Furniture", "Dekorasi", "Kerajinan", "Interior"],
+    image: "/jasalasercutting/material-plywood-sample.webp",
+    keywords: "potong plywood, laser kayu, multiplex"
+  },
+  {
+    id: "grc",
+    name: "GRC",
+    slug: "material-grc",
+    description: "Cutting GRC (Glassfibre Reinforced Concrete) untuk fasad dan ornamen bangunan",
+    thickness: "8mm - 15mm",
+    applications: ["Fasad", "Ornamen", "Panel", "Eksterior"],
+    image: "/jasalasercutting/material-grc-sample.webp",
+    keywords: "potong grc, grc laser cutting, fasad grc"
   }
 ];
 
@@ -232,35 +251,97 @@ export const BLOG_POSTS = [
     readTime: "6 menit",
     publishDate: "2024-01-05",
     image: "/jasalasercutting/blog-industry-trends.webp"
+  },
+  {
+    id: 4,
+    title: "5 Kesalahan Umum Saat Memilih Jasa Laser Cutting (dan Cara Menghindarinya)",
+    slug: "kesalahan-umum-memilih-jasa-laser-cutting",
+    excerpt: "Hindari kesalahan fatal yang bisa merugikan project Anda dengan tips dari ahli laser cutting",
+    category: "Tips",
+    readTime: "8 menit",
+    publishDate: "2024-01-20",
+    image: "/jasalasercutting/blog-common-mistakes.webp"
+  },
+  {
+    id: 5,
+    title: "Panduan Lengkap: Cara Menyiapkan File Desain (DXF, AI, CDR) untuk Laser Cutting",
+    slug: "panduan-file-desain-laser-cutting",
+    excerpt: "Tutorial step-by-step menyiapkan file desain yang optimal untuk hasil laser cutting terbaik",
+    category: "Tutorial",
+    readTime: "10 menit",
+    publishDate: "2024-01-18",
+    image: "/jasalasercutting/blog-file-preparation.webp"
+  },
+  {
+    id: 6,
+    title: "GRC vs ACP: Mana Material Terbaik untuk Fasad Bangunan Anda?",
+    slug: "grc-vs-acp-material-fasad-bangunan",
+    excerpt: "Perbandingan komprehensif antara GRC dan ACP untuk membantu Anda memilih material fasad yang tepat",
+    category: "Comparison",
+    readTime: "9 menit",
+    publishDate: "2024-01-16",
+    image: "/jasalasercutting/blog-grc-vs-acp.webp"
+  },
+  {
+    id: 7,
+    title: "Teknik Laser Engraving: Dari Kayu hingga Metal untuk Branding Produk Anda",
+    slug: "teknik-laser-engraving-branding-produk",
+    excerpt: "Eksplorasi teknik laser engraving pada berbagai material untuk menciptakan branding produk yang memorable",
+    category: "Technical",
+    readTime: "12 menit",
+    publishDate: "2024-01-14",
+    image: "/jasalasercutting/blog-laser-engraving-techniques.webp"
+  },
+  {
+    id: 8,
+    title: "Studi Kasus: Bagaimana CNC Router Mengubah Industri Furniture Custom",
+    slug: "cnc-router-industri-furniture-custom",
+    excerpt: "Analisis mendalam bagaimana teknologi CNC Router merevolusi industri furniture custom di Indonesia",
+    category: "Case Study",
+    readTime: "11 menit",
+    publishDate: "2024-01-12",
+    image: "/jasalasercutting/blog-cnc-furniture-case-study.webp"
+  },
+  {
+    id: 9,
+    title: "Perawatan Hasil Laser Cutting pada Stainless Steel agar Tidak Kusam",
+    slug: "perawatan-laser-cutting-stainless-steel",
+    excerpt: "Tips dan trik profesional untuk menjaga hasil laser cutting stainless steel tetap berkilau dan awet",
+    category: "Maintenance",
+    readTime: "6 menit",
+    publishDate: "2024-01-08",
+    image: "/jasalasercutting/blog-stainless-steel-maintenance.webp"
   }
 ];
 
 export const NAVIGATION = [
-  { name: "Beranda", href: "/", active: true },
+  { name: "Beranda", href: "/jasalasercutting/", active: true },
   { 
     name: "Layanan", 
-    href: "/#services",
+    href: "/jasalasercutting/#services",
     submenu: [
-      { name: "CNC Router", href: "/jasa-cnc-router" },
-      { name: "Laser Fiber", href: "/jasa-laser-fiber" },
-      { name: "Laser CO2", href: "/jasa-laser-co2" },
-      { name: "Galvo Engraving", href: "/jasa-galvo-engraving" }
+      { name: "CNC Router", href: "/jasalasercutting/jasa-cnc-router" },
+      { name: "Laser Fiber", href: "/jasalasercutting/jasa-laser-fiber" },
+      { name: "Laser CO2", href: "/jasalasercutting/jasa-laser-co2" },
+      { name: "Galvo Engraving", href: "/jasalasercutting/jasa-galvo-engraving" }
     ]
   },
   { 
     name: "Material", 
-    href: "/#materials",
+    href: "/jasalasercutting/#materials",
     submenu: [
-      { name: "ACP Aluminium", href: "/material-acp" },
-      { name: "PVC Plastik", href: "/material-pvc" },
-      { name: "Stainless Steel", href: "/material-metal" },
-      { name: "Acrylic Kaca", href: "/material-acrylic" }
+      { name: "ACP", href: "/jasalasercutting/material-acp" },
+      { name: "PVC Plastik", href: "/jasalasercutting/material-pvc" },
+      { name: "Stainless Steel / Metal", href: "/jasalasercutting/material-metal" },
+      { name: "Acrylic Kaca", href: "/jasalasercutting/material-acrylic" },
+      { name: "Ply Wood / Multiplex", href: "/jasalasercutting/material-ply-wood-multiplex" },
+      { name: "GRC", href: "/jasalasercutting/material-grc" }
     ]
   },
-  { name: "Portfolio", href: "/#portfolio" },
-  { name: "Blog", href: "/blog" },
-  { name: "Tentang", href: "/about" },
-  { name: "Kontak", href: "/contact" }
+  { name: "Portfolio", href: "/jasalasercutting/#portfolio" },
+  { name: "Blog", href: "/jasalasercutting/blog" },
+  { name: "Tentang", href: "/jasalasercutting/about" },
+  { name: "Kontak", href: "/jasalasercutting/contact" }
 ];
 
 export const WHATSAPP_MESSAGES = {
@@ -271,3 +352,4 @@ export const WHATSAPP_MESSAGES = {
   engraving: "Halo, saya butuh jasa laser engraving. Bisa konsultasi?",
   quote: "Halo, saya ingin request quote untuk project laser cutting."
 };
+
