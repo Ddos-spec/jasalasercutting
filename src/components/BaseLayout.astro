@@ -24,8 +24,7 @@ const {
   jsonLd
 } = Astro.props;
 
-// --- PERBAIKAN DIMULAI DARI SINI ---
-// Menggunakan Astro.site dan memastikan nilainya ada
+// KRITICAL: Menggunakan Astro.site dan memastikan nilainya ada
 if (!Astro.site) {
   throw new Error('SITE_URL environment variable is not set. Please update your astro.config.mjs');
 }
@@ -37,7 +36,6 @@ const fullTitle = title ? `${title} | ${siteName}` : defaultTitle;
 // Cara paling benar membuat URL, anti error path ganda
 const fullUrl = new URL(url || Astro.url.pathname, siteUrl);
 const fullImage = new URL(image, siteUrl);
-// --- PERBAIKAN SELESAI ---
 ---
 
 <!DOCTYPE html>
