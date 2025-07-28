@@ -186,7 +186,7 @@ Buat file `.env.production` jika diperlukan:
 ```env
 SITE_URL=https://yourdomain.com
 CONTACT_EMAIL=info@yourdomain.com
-WHATSAPP_NUMBER=6281234567890
+WHATSAPP_NUMBER=6285165693179
 ```
 
 ### Build Optimization

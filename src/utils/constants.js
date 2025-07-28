@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
   author: "LaserCut Pro Team",
   keywords: "jasa laser cutting, cnc router, laser fiber, laser co2, galvo engraving, jawa barat, bandung, bekasi, bogor, depok, cimahi, sukabumi",
   phone: "+62 812-3456-7890",
-  whatsapp: "6281234567890", 
+  whatsapp: "6285165693179", 
   email: "info@lasercut-pro.com",
   address: "Jl. Industri Raya No. 123, Bandung, Jawa Barat 40123",
   businessHours: "Senin - Sabtu: 08:00 - 17:00 WIB",
