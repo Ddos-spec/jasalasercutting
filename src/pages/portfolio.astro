@@ -1,277 +1,438 @@
 ---
-// Header.astro - Komponen header dengan navigasi responsif
-import { NAVIGATION, SITE_CONFIG } from '../utils/constants.js';
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { PORTFOLIO } from '../utils/constants.js';
 
-// Filter navigasi untuk menghilangkan link "Kontak"
-const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
+// Sort portfolio items by id (newest first)
+const sortedPortfolio = PORTFOLIO.sort((a, b) => b.id - a.id);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Portfolio LaserCut Pro",
+  "description": "Koleksi project laser cutting, CNC router, dan engraving terbaik dari LaserCut Pro",
+  "url": `${Astro.site}portfolio/`,
+  "publisher": {
+    "@type": "Organization",
+    "name": "LaserCut Pro"
+  }
+};
 ---
 
-<header class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 transition-all duration-300" id="main-header">
-  <div class="container-custom">
-    <div class="flex items-center justify-between h-16 lg:h-20">
-      <div class="flex items-center">
-        <a href="/jasalasercutting/" class="flex items-center space-x-3 group">
-          <div class="sm:block">
-            <h1 class="text-xl lg:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-              LaserCut Pro
-            </h1>
-            <p class="text-xs text-gray-600 hidden lg:block">Laser Cutting Terpercaya</p>
-          </div>
-        </a>
+<BaseLayout 
+  title="Portfolio - Project Laser Cutting & CNC Router Terbaik"
+  description="Lihat koleksi project laser cutting, CNC router, dan engraving terbaik dari LaserCut Pro. Hasil berkualitas tinggi dengan presisi sempurna"
+  keywords="portfolio laser cutting, project cnc router, hasil laser fiber, karya laser co2, galeri manufaktur"
+  jsonLd={jsonLd}
+>
+  <Header slot="header" />
+  
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl lg:text-5xl font-bold mb-6">
+        Portfolio LaserCut Pro
+      </h1>
+      <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+        Koleksi project laser cutting, CNC router, dan engraving terbaik dengan presisi tinggi dan hasil berkualitas premium
+      </p>
+    </div>
+  </section>
+
+  <!-- Portfolio Filter Section -->
+  <section class="py-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-center gap-4">
+        <button class="portfolio-filter active px-6 py-2 rounded-full bg-blue-600 text-white font-medium transition-colors" data-filter="all">
+          Semua Project
+        </button>
+        <button class="portfolio-filter px-6 py-2 rounded-full bg-white text-gray-700 border border-gray-300 hover:bg-blue-600 hover:text-white font-medium transition-colors" data-filter="cnc-router">
+          CNC Router
+        </button>
+        <button class="portfolio-filter px-6 py-2 rounded-full bg-white text-gray-700 border border-gray-300 hover:bg-blue-600 hover:text-white font-medium transition-colors" data-filter="laser-fiber">
+          Laser Fiber
+        </button>
+        <button class="portfolio-filter px-6 py-2 rounded-full bg-white text-gray-700 border border-gray-300 hover:bg-blue-600 hover:text-white font-medium transition-colors" data-filter="laser-co2">
+          Laser CO2
+        </button>
       </div>
+    </div>
+  </section>
 
-      <nav class="hidden lg:flex items-center space-x-8" aria-label="Main navigation">
-        {filteredNavigation.map((item) => (
-          <div class="relative group">
-            {item.submenu ? (
-              <div class="relative">
-                <button
-                  class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 py-2"
-                  aria-haspopup="true"
-                  aria-expanded="false"
+  <!-- Portfolio Grid -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+        {sortedPortfolio.map((item) => (
+          <article class={`portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1`} data-category={item.service.toLowerCase().replace(/\s+/g, '-')}>
+            <div class="relative group">
+              <img 
+                src={item.image} 
+                alt={item.title}
+                class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+                <button 
+                  class="opacity-0 group-hover:opacity-100 bg-white text-gray-900 px-4 py-2 rounded-lg font-medium transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
+                  onclick={`openModal(${item.id})`}
                 >
-                  <span>{item.name}</span>
-                  <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
+                  Lihat Detail
                 </button>
-
-                <div class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                  <div class="py-2">
-                    {item.submenu.map((subitem) => (
-                      <a
-                        href={subitem.href}
-                        class="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300 text-sm font-medium"
-                      >
-                        {subitem.name}
-                      </a>
-                    ))}
-                  </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
+                  {item.service}
+                </span>
+                <span class="text-sm text-gray-500">{item.material}</span>
+              </div>
+              <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                {item.title}
+              </h2>
+              <p class="text-gray-600 mb-4 line-clamp-3">
+                {item.description}
+              </p>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-500">
+                  {item.category}
+                </span>
+                <div class="flex items-center text-sm text-blue-600 font-medium">
+                  {item.service}
                 </div>
               </div>
-            ) : (
-              <a
-                href={item.href}
-                class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"
-                class:list={[item.active && 'text-blue-600 after:w-full']}
-              >
-                {item.name}
-              </a>
-            )}
-          </div>
+            </div>
+          </article>
         ))}
-      </nav>
-
-      <div class="hidden lg:flex items-center space-x-4">
-        {/* Tombol Konsultasi Gratis Dihilangkan */}
-        <a
-          href="/jasalasercutting/contact"
-          class="btn-primary text-sm px-4 py-2"
-        >
-          Kontak Kita
-        </a>
       </div>
+    </div>
+  </section>
 
-      <button
-        class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors duration-300"
-        id="mobile-menu-button"
-        aria-label="Toggle mobile menu"
-        aria-expanded="false"
-      >
-        <svg class="w-6 h-6 text-gray-700" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-        <svg class="w-6 h-6 text-gray-700 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
+  <!-- Portfolio Modal -->
+  <div id="portfolio-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="relative">
+        <button 
+          class="absolute top-4 right-4 z-10 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors"
+          onclick="closeModal()"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <div id="modal-content">
+          <!-- Modal content will be populated by JavaScript -->
+        </div>
+      </div>
     </div>
   </div>
 
-  <div
-    class="lg:hidden fixed inset-0 top-16 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out"
-    id="mobile-menu"
-  >
-    <div class="flex flex-col h-full">
-      <nav class="flex-1 px-4 py-6 space-y-2" aria-label="Mobile navigation">
-        {filteredNavigation.map((item) => (
-          <div>
-            {item.submenu ? (
-              <div>
-                <button
-                  class="flex items-center justify-between w-full text-left text-gray-700 hover:text-blue-600 font-medium py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-300"
-                  onclick="window.toggleMobileSubmenu(this)"
-                >
-                  <span>{item.name}</span>
-                  <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                </button>
-                <div class="hidden pl-4 space-y-1">
-                  {item.submenu.map((subitem) => (
-                    <a
-                      href={subitem.href}
-                      class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-300"
-                    >
-                      {subitem.name}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <a
-                href={item.href}
-                class="block text-gray-700 hover:text-blue-600 font-medium py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-300"
-                class:list={[item.active && 'text-blue-600 bg-blue-50']}
-              >
-                {item.name}
-              </a>
-            )}
-          </div>
-        ))}
-      </nav>
-
-      <div
-        class="p-4 border-t border-gray-200 space-y-3">
-        {/* Tombol Konsultasi Gratis Dihilangkan */}
-        <a
-          href="/jasalasercutting/contact"
-          class="btn-primary w-full text-center"
+  <!-- CTA Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">
+        Siap Wujudkan Project Impian Anda?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Dari konsep hingga hasil jadi, kami siap membantu mewujudkan project laser cutting dan CNC router dengan kualitas terbaik
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="https://api.whatsapp.com/send?phone=6281234567890&text=Halo,%20saya%20tertarik%20dengan%20jasa%20laser%20cutting.%20Bisa%20konsultasi?"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors inline-flex items-center justify-center"
         >
-          Kontak Kita
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+          </svg>
+          Konsultasi via WhatsApp
+        </a>
+        <a 
+          href="/rajacuttinglaser/contact" 
+          class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+        >
+          Request Quote
         </a>
       </div>
     </div>
-  </div>
-</header>
+  </section>
 
-<div
-  class="lg:hidden fixed inset-0 bg-black/50 z-40 opacity-0 invisible transition-all duration-300"
-  id="mobile-menu-overlay"
-></div>
+  <Footer slot="footer" />
+</BaseLayout>
 
 <script>
-  // Mendeklarasikan tipe global untuk fungsi yang dipanggil dari onclick
-  declare global {
-    interface Window {
-      toggleMobileSubmenu: (button: HTMLButtonElement) => void;
-      closeMobileMenu: () => void;
-    }
-  }
+  // Portfolio filter functionality
+  const filterButtons = document.querySelectorAll('.portfolio-filter');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-  const menuIcon = document.getElementById('menu-icon');
-  const closeIcon = document.getElementById('close-icon');
-  const header = document.getElementById('main-header');
-
-  function openMobileMenu() {
-    if (mobileMenu && mobileMenuOverlay && menuIcon && closeIcon && mobileMenuButton) {
-      mobileMenu.classList.remove('translate-x-full');
-      mobileMenu.classList.add('translate-x-0');
-      mobileMenuOverlay.classList.remove('opacity-0', 'invisible');
-      mobileMenuOverlay.classList.add('opacity-100', 'visible');
-      menuIcon.classList.add('hidden');
-      closeIcon.classList.remove('hidden');
-      mobileMenuButton.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closeMobileMenu() {
-    if (mobileMenu && mobileMenuOverlay && menuIcon && closeIcon && mobileMenuButton) {
-      mobileMenu.classList.remove('translate-x-0');
-      mobileMenu.classList.add('translate-x-full');
-      mobileMenuOverlay.classList.remove('opacity-100', 'visible');
-      mobileMenuOverlay.classList.add('opacity-0', 'invisible');
-      menuIcon.classList.remove('hidden');
-      closeIcon.classList.add('hidden');
-      mobileMenuButton.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-  }
-
-  function toggleMobileMenu() {
-    if (mobileMenu) {
-      const isOpen = mobileMenu.classList.contains('translate-x-0');
-      if (isOpen) {
-        closeMobileMenu();
-      } else {
-        openMobileMenu();
-      }
-    }
-  }
-
-  function toggleMobileSubmenu(button: HTMLButtonElement) {
-    const submenu = button.nextElementSibling as HTMLElement | null;
-    const icon = button.querySelector('svg');
-    if (submenu && icon) {
-      if (submenu.classList.contains('hidden')) {
-        submenu.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
-      } else {
-        submenu.classList.add('hidden');
-        icon.style.transform = 'rotate(0deg)';
-      }
-    }
-  }
-
-  // Event listeners
-  if (mobileMenuButton) {
-    mobileMenuButton.addEventListener('click', toggleMobileMenu);
-  }
-  if (mobileMenuOverlay) {
-    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-  }
-
-  document.querySelectorAll('#mobile-menu a').forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+      
+      // Update active button
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active', 'bg-blue-600', 'text-white');
+        btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+      });
+      
+      button.classList.add('active', 'bg-blue-600', 'text-white');
+      button.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+      
+      // Filter portfolio items
+      portfolioItems.forEach(item => {
+        const service = item.getAttribute('data-category');
+        if (filter === 'all' || service === filter) {
+          item.style.display = 'block';
+          setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'scale(1)';
+          }, 50);
+        } else {
+          item.style.opacity = '0';
+          item.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 300);
+        }
+      });
+    });
   });
 
-  let lastScrollY = window.scrollY;
-  window.addEventListener('scroll', () => {
-    if (!header) return;
-    const currentScrollY = window.scrollY;
+  // Modal functionality
+  const modal = document.getElementById('portfolio-modal');
+  const modalContent = document.getElementById('modal-content');
 
-    if (currentScrollY > 100) {
-      header.classList.add('shadow-md');
-    } else {
-      header.classList.remove('shadow-md');
+  function openModal(id) {
+    // Portfolio data berdasarkan constants.js
+    const portfolioData = {
+      1: {
+        title: 'Signage Hotel Bintang 5',
+        image: '/rajacuttinglaser/images/singagehote.webp',
+        category: 'Commercial',
+        material: 'ACP Aluminium',
+        service: 'CNC Router',
+        description: 'Pembuatan signage premium untuk hotel bintang 5 dengan detail presisi tinggi menggunakan teknologi CNC Router terdepan.',
+        details: [
+          'Material: ACP Aluminium 4mm thickness',
+          'Dimensi: 300cm x 150cm x 4cm',
+          'Finishing: Anti UV coating',
+          'Mounting: Stainless steel frame',
+          'LED: Integrated LED system'
+        ],
+        duration: '5 Hari',
+        completedDate: '2024-01-15'
+      },
+      2: {
+        title: 'Furniture Custom Stainless',
+        image: '/rajacuttinglaser/images/furnituremetal.webp',
+        category: 'Industrial',
+        material: 'Stainless Steel',
+        service: 'Laser Fiber',
+        description: 'Cutting furniture stainless steel custom untuk restaurant modern dengan presisi laser fiber.',
+        details: [
+          'Material: Stainless Steel 304 - 3mm',
+          'Dimensi: Custom sesuai design',
+          'Finishing: Mirror polish',
+          'Edge: Precision laser cut',
+          'Quality: Food grade certified'
+        ],
+        duration: '7 Hari',
+        completedDate: '2024-01-10'
+      },
+      3: {
+        title: 'Display Acrylic Premium',
+        image: '/rajacuttinglaser/images/displyacrylic.webp',
+        category: 'Retail',
+        material: 'Acrylic',
+        service: 'Laser CO2',
+        description: 'Display acrylic premium untuk toko retail dengan engraving logo menggunakan laser CO2.',
+        details: [
+          'Material: Acrylic clear 8mm',
+          'Dimensi: 50cm x 30cm x 20cm',
+          'Engraving: Laser precision logo',
+          'Edge: Polished finish',
+          'Assembly: Modular system'
+        ],
+        duration: '3 Hari',
+        completedDate: '2024-01-05'
+      },
+      4: {
+        title: 'Prototype Industri',
+        image: '/rajacuttinglaser/images/prototype.webp',
+        category: 'Manufacturing',
+        material: 'PVC',
+        service: 'CNC Router',
+        description: 'Prototype komponen industri dengan presisi tinggi menggunakan PVC berkualitas.',
+        details: [
+          'Material: PVC rigid 10mm',
+          'Dimensi: Sesuai spesifikasi',
+          'Toleransi: ±0.1mm precision',
+          'Surface: Smooth finishing',
+          'Testing: Quality assured'
+        ],
+        duration: '4 Hari',
+        completedDate: '2024-01-01'
+      }
+    };
+
+    const item = portfolioData[id];
+    if (!item) return;
+
+    modalContent.innerHTML = `
+      <img src="${item.image}" alt="${item.title}" class="w-full h-64 md:h-96 object-cover">
+      <div class="p-6 md:p-8">
+        <div class="flex items-center justify-between mb-4">
+          <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
+            ${item.service}
+          </span>
+          <span class="text-sm text-gray-500">${item.material}</span>
+        </div>
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">${item.title}</h2>
+        <p class="text-gray-600 mb-6 text-lg leading-relaxed">${item.description}</p>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-3">Detail Spesifikasi:</h3>
+            <ul class="space-y-2">
+              ${item.details.map(detail => `<li class="text-gray-600 flex items-start"><span class="text-blue-600 mr-2">•</span>${detail}</li>`).join('')}
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-3">Informasi Project:</h3>
+            <div class="space-y-3">
+              <div class="flex items-center text-gray-600">
+                <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Durasi: ${item.duration}
+              </div>
+              <div class="flex items-center text-gray-600">
+                <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 4v10a2 2 0 002 2h4a2 2 0 002 2V11a2 2 0 00-2-2H10a2 2 0 00-2 2z"></path>
+                </svg>
+                Kategori: ${item.category}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t pt-6">
+          <p class="text-center text-gray-600 mb-4">Tertarik dengan project serupa?</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a 
+              href="https://api.whatsapp.com/send?phone=6281234567890&text=Halo,%20saya%20tertarik%20dengan%20project%20${encodeURIComponent(item.title)}.%20Bisa%20konsultasi?"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition-colors inline-flex items-center justify-center"
+            >
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+              </svg>
+              Chat WhatsApp
+            </a>
+            <a 
+              href="/rajacuttinglaser/contact" 
+              class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-2 rounded-lg font-medium transition-colors text-center"
+            >
+              Request Quote
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  // Close modal when clicking outside
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
     }
+  });
 
-    if (currentScrollY > lastScrollY && currentScrollY > 200) {
-      header.style.transform = 'translateY(-100%)';
-    } else {
-      header.style.transform = 'translateY(0)';
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal();
     }
-
-
-    lastScrollY = currentScrollY;
   });
 
   // Make functions global for onclick handlers
-  window.toggleMobileSubmenu = toggleMobileSubmenu;
-  window.closeMobileMenu = closeMobileMenu;
+  window.openModal = openModal;
+  window.closeModal = closeModal;
 </script>
 
 <style>
-  /* Additional header styles */
-  #main-header {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
-  /* Dropdown hover effects */
-  .group:hover .group-hover\:opacity-100 {
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.portfolio-item {
+  transition: all 0.3s ease;
+}
+
+.portfolio-filter.active {
+  background-color: #2563eb !important;
+  color: white !important;
+  border-color: #2563eb !important;
+}
+
+/* Modal animations */
+#portfolio-modal {
+  animation: fadeIn 0.3s ease-out;
+}
+
+#portfolio-modal > div {
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to { 
     opacity: 1;
+    transform: scale(1);
   }
-  .group:hover .group-hover\:visible {
-    visibility: visible;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .portfolio-item img {
+    height: 200px;
   }
-  .group:hover .group-hover\:translate-y-0 {
-    transform: translateY(0);
+  
+  #portfolio-modal > div {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
   }
-  .group:hover .group-hover\:rotate-180 {
-    transform: rotate(180deg);
-  }
+}
 </style>
