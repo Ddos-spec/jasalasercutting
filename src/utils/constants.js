@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
   author: "LaserCut Pro Team",
   keywords: "jasa laser cutting, cnc router, laser fiber, laser co2, galvo engraving, jawa barat, bandung, bekasi, bogor, depok, cimahi, sukabumi",
   phone: "+62 812-3456-7890",
-  whatsapp: "6281234567890",
+  whatsapp: "6281234567890", 
   email: "info@lasercut-pro.com",
   address: "Jl. Industri Raya No. 123, Bandung, Jawa Barat 40123",
   businessHours: "Senin - Sabtu: 08:00 - 17:00 WIB",
@@ -26,7 +26,7 @@ export const SERVICES = [
     description: "Layanan CNC Router presisi tinggi untuk berbagai material kayu, MDF, dan plastik",
     features: ["Presisi 0.1mm", "Material Kayu & MDF", "Ukuran hingga 2x3 meter", "Finishing Premium"],
     price: "Mulai dari Rp 50.000/m²",
-    image: "/jasalasercutting/mesin-cnc-router.webp",
+    image: "/jasalasercutting/images/cncrouter.webp",
     keywords: "jasa cnc router bandung, cnc router bekasi, cnc router bogor"
   },
   {
@@ -36,7 +36,7 @@ export const SERVICES = [
     description: "Laser Fiber cutting untuk material metal dengan hasil sempurna dan presisi tinggi",
     features: ["Cutting Metal", "Presisi 0.05mm", "Stainless Steel", "Aluminium & Besi"],
     price: "Mulai dari Rp 75.000/m²",
-    image: "/jasalasercutting/mesin-laser-fiber.webp",
+    image: "/jasalasercutting/images/laserfiber.webp",
     keywords: "laser fiber cutting, potong stainless steel, laser metal bekasi"
   },
   {
@@ -46,7 +46,7 @@ export const SERVICES = [
     description: "Laser CO2 untuk material non-metal seperti acrylic, kayu, dan kain dengan detail sempurna",
     features: ["Acrylic & Kayu", "Engraving Detail", "Cutting Presisi", "Finishing Halus"],
     price: "Mulai dari Rp 40.000/m²",
-    image: "/jasalasercutting/mesin-laser-co2.webp",
+    image: "/jasalasercutting/images/co2.webp",
     keywords: "laser co2 acrylic bogor, potong acrylic bandung, laser kayu"
   },
   {
@@ -56,7 +56,7 @@ export const SERVICES = [
     description: "Galvo laser engraving untuk marking, logo, dan detail halus pada berbagai material",
     features: ["Marking Presisi", "Logo & Text", "Material Beragam", "Hasil Permanen"],
     price: "Mulai dari Rp 25.000/pcs",
-    image: "/jasalasercutting/mesin-galvo-engraving.webp",
+    image: "/jasalasercutting/images/engraving.webp",
     keywords: "laser engraving depok, marking laser, logo engraving"
   }
 ];
@@ -69,7 +69,7 @@ export const MATERIALS = [
     description: "Cutting ACP (Aluminium Composite Panel) untuk signage dan fasad bangunan",
     thickness: "3mm - 6mm",
     applications: ["Signage", "Fasad", "Interior", "Eksterior"],
-    image: "/jasalasercutting/material-acp-sample.webp",
+    image: "/jasalasercutting/images/acp.webp",
     keywords: "potong acp aluminium cimahi, cutting acp bandung"
   },
   {
@@ -79,7 +79,7 @@ export const MATERIALS = [
     description: "Cutting PVC custom untuk berbagai keperluan industri dan kreatif",
     thickness: "1mm - 10mm",
     applications: ["Signage", "Prototype", "Display", "Packaging"],
-    image: "/jasalasercutting/material-pvc-sample.webp",
+    image: "/jasalasercutting/images/pvc.webp",
     keywords: "cutting pvc custom sukabumi, potong pvc plastik"
   },
   {
@@ -89,7 +89,7 @@ export const MATERIALS = [
     description: "Laser cutting stainless steel dengan presisi tinggi untuk industri",
     thickness: "0.5mm - 20mm",
     applications: ["Industri", "Arsitektur", "Furniture", "Dekorasi"],
-    image: "/jasalasercutting/material-metal-sample.webp",
+    image: "/jasalasercutting/images/stainlesssteel.webp",
     keywords: "laser cutting stainless steel, potong besi presisi"
   },
   {
@@ -99,7 +99,7 @@ export const MATERIALS = [
     description: "Cutting dan engraving acrylic untuk display dan dekorasi premium",
     thickness: "2mm - 30mm",
     applications: ["Display", "Signage", "Dekorasi", "Prototype"],
-    image: "/jasalasercutting/material-acrylic-sample.webp",
+    image: "/jasalasercutting/images/Acrylic.webp",
     keywords: "potong acrylic kaca, laser acrylic bandung"
   },
   {
@@ -109,7 +109,7 @@ export const MATERIALS = [
     description: "Cutting dan engraving Ply Wood / Multiplex untuk furniture dan dekorasi",
     thickness: "3mm - 20mm",
     applications: ["Furniture", "Dekorasi", "Kerajinan", "Interior"],
-    image: "/jasalasercutting/material-plywood-sample.webp",
+    image: "/jasalasercutting/images/Ply Wood.webp",
     keywords: "potong plywood, laser kayu, multiplex"
   },
   {
@@ -119,7 +119,7 @@ export const MATERIALS = [
     description: "Cutting GRC (Glassfibre Reinforced Concrete) untuk fasad dan ornamen bangunan",
     thickness: "8mm - 15mm",
     applications: ["Fasad", "Ornamen", "Panel", "Eksterior"],
-    image: "/jasalasercutting/material-grc-sample.webp",
+    image: "/jasalasercutting/images/grc.webp",
     keywords: "potong grc, grc laser cutting, fasad grc"
   }
 ];
@@ -132,7 +132,7 @@ export const TESTIMONIALS = [
     position: "Project Manager",
     content: "Kualitas laser cutting terbaik yang pernah kami gunakan. Presisi tinggi dan hasil sempurna untuk semua project signage kami.",
     rating: 5,
-    image: "/jasalasercutting/testimonial-1.webp"
+    image: "/jasalasercutting/images/budisantoso.webp"
   },
   {
     id: 2,
@@ -141,7 +141,7 @@ export const TESTIMONIALS = [
     position: "Lead Architect",
     content: "Pelayanan profesional dan hasil cutting yang sangat memuaskan. Recommended untuk semua kebutuhan laser cutting.",
     rating: 5,
-    image: "/jasalasercutting/testimonial-2.webp"
+    image: "/jasalasercutting/images/Sari Dewi.webp"
   },
   {
     id: 3,
@@ -150,7 +150,7 @@ export const TESTIMONIALS = [
     position: "Owner",
     content: "Sudah 3 tahun menggunakan jasa LaserCut Pro. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan.",
     rating: 5,
-    image: "/jasalasercutting/testimonial-3.webp"
+    image: "/jasalasercutting/images/Ahmad Rizki.webp"
   }
 ];
 
@@ -161,7 +161,7 @@ export const PORTFOLIO = [
     category: "Commercial",
     material: "ACP Aluminium",
     service: "CNC Router",
-    image: "/jasalasercutting/portfolio-hotel-signage.webp",
+    image: "/jasalasercutting/images/singagehote.webp",
     description: "Pembuatan signage premium untuk hotel bintang 5 dengan detail presisi tinggi"
   },
   {
@@ -170,7 +170,7 @@ export const PORTFOLIO = [
     category: "Industrial",
     material: "Stainless Steel",
     service: "Laser Fiber",
-    image: "/jasalasercutting/portfolio-furniture-steel.webp",
+    image: "/jasalasercutting/images/furnituremetal.webp",
     description: "Cutting furniture stainless steel custom untuk restaurant modern"
   },
   {
@@ -179,7 +179,7 @@ export const PORTFOLIO = [
     category: "Retail",
     material: "Acrylic",
     service: "Laser CO2",
-    image: "/jasalasercutting/portfolio-acrylic-display.webp",
+    image: "/jasalasercutting/images/displyacrylic.webp",
     description: "Display acrylic premium untuk toko retail dengan engraving logo"
   },
   {
@@ -188,7 +188,7 @@ export const PORTFOLIO = [
     category: "Manufacturing",
     material: "PVC",
     service: "CNC Router",
-    image: "/jasalasercutting/portfolio-prototype-pvc.webp",
+    image: "/jasalasercutting/images/prototype.webp",
     description: "Prototype komponen industri dengan presisi tinggi menggunakan PVC"
   }
 ];
@@ -230,7 +230,7 @@ export const BLOG_POSTS = [
     category: "Tutorial",
     readTime: "5 menit",
     publishDate: "2024-01-15",
-    image: "/jasalasercutting/blog-material-guide.webp"
+    image: "/jasalasercutting/images/acp.webp"
   },
   {
     id: 2,
@@ -240,7 +240,7 @@ export const BLOG_POSTS = [
     category: "Technical",
     readTime: "7 menit",
     publishDate: "2024-01-10",
-    image: "/jasalasercutting/blog-laser-comparison.webp"
+    image: "/jasalasercutting/images/laserfiber.webp"
   },
   {
     id: 3,
@@ -250,7 +250,7 @@ export const BLOG_POSTS = [
     category: "Industry",
     readTime: "6 menit",
     publishDate: "2024-01-05",
-    image: "/jasalasercutting/blog-industry-trends.webp"
+    image: "/jasalasercutting/images/cncrouter.webp"
   },
   {
     id: 4,
@@ -260,7 +260,7 @@ export const BLOG_POSTS = [
     category: "Tips",
     readTime: "8 menit",
     publishDate: "2024-01-20",
-    image: "/jasalasercutting/blog-common-mistakes.webp"
+    image: "/jasalasercutting/images/co2.webp"
   },
   {
     id: 5,
@@ -270,7 +270,7 @@ export const BLOG_POSTS = [
     category: "Tutorial",
     readTime: "10 menit",
     publishDate: "2024-01-18",
-    image: "/jasalasercutting/blog-file-preparation.webp"
+    image: "/jasalasercutting/images/engraving.webp"
   },
   {
     id: 6,
@@ -280,7 +280,7 @@ export const BLOG_POSTS = [
     category: "Comparison",
     readTime: "9 menit",
     publishDate: "2024-01-16",
-    image: "/jasalasercutting/blog-grc-vs-acp.webp"
+    image: "/jasalasercutting/images/grc.webp"
   },
   {
     id: 7,
@@ -290,7 +290,7 @@ export const BLOG_POSTS = [
     category: "Technical",
     readTime: "12 menit",
     publishDate: "2024-01-14",
-    image: "/jasalasercutting/blog-laser-engraving-techniques.webp"
+    image: "/jasalasercutting/images/stainlesssteel.webp"
   },
   {
     id: 8,
@@ -300,7 +300,7 @@ export const BLOG_POSTS = [
     category: "Case Study",
     readTime: "11 menit",
     publishDate: "2024-01-12",
-    image: "/jasalasercutting/blog-cnc-furniture-case-study.webp"
+    image: "/jasalasercutting/images/Ply Wood.webp"
   },
   {
     id: 9,
@@ -310,7 +310,7 @@ export const BLOG_POSTS = [
     category: "Maintenance",
     readTime: "6 menit",
     publishDate: "2024-01-08",
-    image: "/jasalasercutting/blog-stainless-steel-maintenance.webp"
+    image: "/jasalasercutting/images/Acrylic.webp"
   }
 ];
 
