@@ -5,14 +5,18 @@ import Footer from '../../components/Footer.astro';
 import { BLOG_POSTS } from '../../utils/constants.js';
 
 // Sort blog posts by date (newest first)
-const sortedPosts = BLOG_POSTS.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+const sortedPosts = BLOG_POSTS.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
+
+// Safely construct the base URL
+const baseUrl = Astro.site ? Astro.site.toString() : 'https://www.tepatlaser.com'; // Sesuaikan dengan URL produksi Anda
+const blogUrl = `${baseUrl}blog/`;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
   "name": "Blog LaserCut Pro",
   "description": "Tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur",
-  "url": `${Astro.site}blog/`,
+  "url": blogUrl,
   "publisher": {
     "@type": "Organization",
     "name": "LaserCut Pro"
@@ -60,7 +64,7 @@ const jsonLd = {
                 <span class="text-sm text-gray-500">{post.readTime}</span>
               </div>
               <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                <a href={`/jasalasercutting/blog/${post.slug}`} class="hover:text-blue-600 transition-colors">
+                <a href={`blog/${post.slug}/`} class="hover:text-blue-600 transition-colors">
                   {post.title}
                 </a>
               </h2>
@@ -69,14 +73,14 @@ const jsonLd = {
               </p>
               <div class="flex items-center justify-between">
                 <span class="text-sm text-gray-500">
-                  {new Date(post.publishDate).toLocaleDateString('id-ID', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
-                </span>
+  {new Date(post.publishDate).toLocaleDateString('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric' // Pastikan string ditutup dengan '
+  })}
+</span>
                 <a 
-                  href={`/jasalasercutting/blog/${post.slug}`}
+                  href={`blog/${post.slug}/`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
                   Baca Selengkapnya →
@@ -111,7 +115,7 @@ const jsonLd = {
           Konsultasi via WhatsApp
         </a>
         <a 
-          href="/jasalasercutting/contact" 
+          href="contact/" 
           class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors"
         >
           Request Quote
@@ -138,4 +142,3 @@ const jsonLd = {
   overflow: hidden;
 }
 </style>
-

@@ -310,7 +310,7 @@ Gunakan CDN untuk static assets:
 ```bash
 # Optimize images before deployment
 npm install -g imagemin-cli
-imagemin public/images/* --out-dir=public/images/optimized/
+imagemin public//images/* --out-dir=public//images/optimized/
 ```
 
 ### 3. Caching Strategy

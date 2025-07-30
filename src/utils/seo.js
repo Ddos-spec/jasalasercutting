@@ -1,4 +1,4 @@
-// SEO utilities untuk optimasi meta tags dan structured data
+// SEO utilities untuk optimasi meta tags dan structured data - Optimized for Jabodetabek
 import { SITE_CONFIG } from './constants.js';
 
 export function generateMetaTags({
@@ -60,28 +60,42 @@ export function generateJsonLd({ title, description, url, image, type = 'website
     address: {
       '@type': 'PostalAddress',
       streetAddress: SITE_CONFIG.address,
-      addressLocality: 'Bandung',
-      addressRegion: 'Jawa Barat',
-      postalCode: '40123',
+      addressLocality: 'Jakarta Selatan',
+      addressRegion: 'DKI Jakarta',
+      postalCode: '12560',
       addressCountry: 'ID'
     },
     openingHours: 'Mo-Sa 08:00-17:00',
     sameAs: Object.values(SITE_CONFIG.socialMedia),
     areaServed: [
-      'Bandung',
-      'Bekasi', 
-      'Bogor',
+      'Jakarta',
+      'Bogor', 
       'Depok',
-      'Cimahi',
-      'Sukabumi',
-      'Jawa Barat'
+      'Tangerang',
+      'Bekasi',
+      'Jakarta Pusat',
+      'Jakarta Utara',
+      'Jakarta Selatan',
+      'Jakarta Barat',
+      'Jakarta Timur',
+      'Tangerang Selatan',
+      'Kota Bogor',
+      'Kabupaten Bogor',
+      'Kota Bekasi',
+      'Kabupaten Bekasi',
+      'Kota Depok',
+      'Kota Tangerang',
+      'Kabupaten Tangerang'
     ],
     serviceType: [
-      'Laser Cutting',
-      'CNC Router',
-      'Laser Fiber',
-      'Laser CO2',
-      'Galvo Engraving'
+      'Laser Cutting Akurat',
+      'CNC Router Cepat',
+      'Laser Fiber Presisi',
+      'Laser CO2 Akrilik',
+      'Galvo Engraving',
+      'Cutting Metal',
+      'Potong Kayu',
+      'Cutting Akrilik'
     ]
   };
 
@@ -202,13 +216,24 @@ export function generateServiceSchema(service) {
       email: SITE_CONFIG.email
     },
     areaServed: [
-      'Bandung',
+      'Jakarta',
+      'Bogor',
+      'Depok', 
+      'Tangerang',
       'Bekasi',
-      'Bogor', 
-      'Depok',
-      'Cimahi',
-      'Sukabumi',
-      'Jawa Barat'
+      'Jakarta Pusat',
+      'Jakarta Utara',
+      'Jakarta Selatan',
+      'Jakarta Barat',
+      'Jakarta Timur',
+      'Tangerang Selatan',
+      'Kota Bogor',
+      'Kabupaten Bogor',
+      'Kota Bekasi',
+      'Kabupaten Bekasi',
+      'Kota Depok',
+      'Kota Tangerang',
+      'Kabupaten Tangerang'
     ],
     offers: {
       '@type': 'Offer',
@@ -243,7 +268,7 @@ export function generateProductSchema(material) {
   };
 }
 
-// Utility untuk generate sitemap
+// Utility untuk generate sitemap - Updated for Jabodetabek
 export function generateSitemapUrls() {
   const baseUrls = [
     { url: '/', priority: 1.0, changefreq: 'weekly' },
@@ -263,13 +288,24 @@ export function generateSitemapUrls() {
     '/material-acp',
     '/material-pvc',
     '/material-metal',
-    '/material-acrylic'
+    '/material-acrylic',
+    '/material-ply-wood-multiplex',
+    '/material-grc'
   ].map(url => ({ url, priority: 0.8, changefreq: 'monthly' }));
 
-  return [...baseUrls, ...serviceUrls, ...materialUrls];
+  // Location-specific URLs for Jabodetabek SEO
+  const locationUrls = [
+    '/laser-cutting-jakarta',
+    '/laser-cutting-bogor',
+    '/laser-cutting-depok',
+    '/laser-cutting-tangerang',
+    '/laser-cutting-bekasi'
+  ].map(url => ({ url, priority: 0.7, changefreq: 'monthly' }));
+
+  return [...baseUrls, ...serviceUrls, ...materialUrls, ...locationUrls];
 }
 
-// Utility untuk robots.txt
+// Utility untuk robots.txt - Updated for Jabodetabek
 export function generateRobotsTxt() {
   return `User-agent: *
 Allow: /
@@ -289,8 +325,80 @@ Disallow: /api/
 Allow: /
 Allow: /jasa-*
 Allow: /material-*
+Allow: /laser-cutting-*
 Allow: /blog*
 Allow: /about
 Allow: /contact`;
 }
 
+// Generate local business schema for Jabodetabek cities
+export function generateLocalBusinessSchema(city) {
+  const cityCoordinates = {
+    'Jakarta': { lat: -6.2088, lng: 106.8456 },
+    'Bogor': { lat: -6.5971, lng: 106.8060 },
+    'Depok': { lat: -6.4025, lng: 106.7942 },
+    'Tangerang': { lat: -6.1781, lng: 106.6298 },
+    'Bekasi': { lat: -6.2383, lng: 106.9756 }
+  };
+
+  const coords = cityCoordinates[city] || cityCoordinates['Jakarta'];
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': `${SITE_CONFIG.url}#business-${city.toLowerCase()}`,
+    name: `${SITE_CONFIG.name} - Laser Cutting ${city}`,
+    description: `Jasa laser cutting akurat & cepat di ${city}. Spesialis akrilik, kayu, metal dengan teknologi terdepan.`,
+    url: SITE_CONFIG.url,
+    telephone: SITE_CONFIG.phone,
+    email: SITE_CONFIG.email,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: city,
+      addressRegion: city === 'Jakarta' ? 'DKI Jakarta' : 'Jawa Barat',
+      addressCountry: 'ID'
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: coords.lat,
+      longitude: coords.lng
+    },
+    openingHours: 'Mo-Sa 08:00-17:00',
+    priceRange: '$$',
+    areaServed: {
+      '@type': 'City',
+      name: city
+    },
+    serviceArea: {
+      '@type': 'GeoCircle',
+      geoMidpoint: {
+        '@type': 'GeoCoordinates',
+        latitude: coords.lat,
+        longitude: coords.lng
+      },
+      geoRadius: '50000'
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Layanan Laser Cutting',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Laser Cutting Akurat',
+            description: `Layanan laser cutting presisi tinggi di ${city}`
+          }
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'CNC Router Cepat',
+            description: `Layanan CNC router cepat dan akurat di ${city}`
+          }
+        }
+      ]
+    }
+  };
+}

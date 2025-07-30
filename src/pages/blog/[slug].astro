@@ -35,7 +35,7 @@ const jsonLd = {
     "name": "LaserCut Pro",
     "logo": {
       "@type": "ImageObject",
-      "url": new URL('/jasalasercutting/logo-company.webp', Astro.site).href
+      "url": new URL('logo-company.webp', Astro.site).href
     }
   },
   "mainEntityOfPage": {
@@ -61,9 +61,9 @@ const jsonLd = {
       <!-- Breadcrumb -->
       <nav class="mb-8">
         <ol class="flex items-center space-x-2 text-sm text-gray-500">
-          <li><a href="/jasalasercutting/" class="hover:text-blue-600">Beranda</a></li>
+          <li><a href="" class="hover:text-blue-600">Beranda</a></li>
           <li>/</li>
-          <li><a href="/jasalasercutting/blog" class="hover:text-blue-600">Blog</a></li>
+          <li><a href="blog" class="hover:text-blue-600">Blog</a></li>
           <li>/</li>
           <li class="text-gray-900">{post.title}</li>
         </ol>
@@ -166,7 +166,7 @@ const jsonLd = {
               Konsultasi Gratis
             </a>
             <a 
-              href="/jasalasercutting/contact" 
+              href="contact" 
               class="border-2 border-white text-white hover:bg-white hover:text-blue-700 px-6 py-3 rounded-lg font-semibold transition-colors"
             >
               Request Quote
@@ -201,7 +201,7 @@ const jsonLd = {
                   <span class="text-sm text-gray-500">{relatedPost.readTime}</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">
-                  <a href={`/jasalasercutting/blog/${relatedPost.slug}`} class="hover:text-blue-600 transition-colors">
+                  <a href={`blog/${relatedPost.slug}`} class="hover:text-blue-600 transition-colors">
                     {relatedPost.title}
                   </a>
                 </h3>
@@ -209,7 +209,7 @@ const jsonLd = {
                   {relatedPost.excerpt}
                 </p>
                 <a 
-                  href={`/jasalasercutting/blog/${relatedPost.slug}`}
+                  href={`blog/${relatedPost.slug}`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
                   Baca Selengkapnya →

@@ -1,13 +1,12 @@
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
-// https://astro.build/config
+// https://astro.build/config  
 export default defineConfig({
-  // WAJIB: Konfigurasi untuk deploy ke GitHub Pages
-  // Ganti 'ddos-spec' dengan username GitHub lu
-  // Ganti 'jasalasercutting' dengan nama repository lu
-  site: 'https://ddos-spec.github.io',
-  base: '/jasalasercutting',
+  // PENTING: Konfigurasi untuk deploy ke domain kustom Anda
+  site: 'https://www.tepatlaser.com', // Ganti dengan domain utama Anda
+  base: '/', // Karena dihosting di root domain, bukan subfolder
   
   integrations: [tailwind()],
   
@@ -26,6 +25,6 @@ export default defineConfig({
   // Custom build configuration
   build: {
     inlineStylesheets: 'auto',
-    assets: '_assets'
+    assets: '_assets' // Ini opsional, tetap bisa digunakan
   },
 });

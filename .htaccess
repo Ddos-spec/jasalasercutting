@@ -1,0 +1,87 @@
+# .htaccess - Konfigurasi Dasar untuk Website Astro Statis di cPanel
+
+# -----------------------------------------------------------------------------
+# 1. KOMPRESI GZIP
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/json image/svg+xml
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 2. CACHE BROWSER
+# -----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/bmp "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+  ExpiresByType image/vnd.microsoft.icon "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+  ExpiresByType application/json "access plus 1 hour"
+  ExpiresByType application/manifest+json "access plus 0 seconds"
+  ExpiresByType application/x-web-app-manifest+json "access plus 0 seconds"
+  ExpiresByType text/cache-manifest "access plus 0 seconds"
+  
+  <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|otf|eot|pdf)$">
+    Header append Cache-Control "public, immutable"
+  </FilesMatch>
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 3. KEAMANAN & HEADER DASAR
+# -----------------------------------------------------------------------------
+<Files ~ "^\.(env|htaccess|htpasswd|git)">
+    Order allow,deny
+    Deny from all
+    Satisfy all
+</Files>
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header always append X-Frame-Options SAMEORIGIN
+  Header set X-Content-Type-Options nosniff
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 4. ROUTING STATIS ASTRO - INI YANG PENTING
+#     Memastikan routing dan asset path bekerja dengan benar
+# -----------------------------------------------------------------------------
+RewriteEngine On
+
+# --- Aturan Routing Utama untuk Astro ---
+# Jika permintaan adalah untuk file fisik YANG ADA, hentikan dan sajikan file tersebut.
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Jika permintaan adalah untuk direktori fisik YANG ADA, hentikan.
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Untuk semua permintaan lainnya (file/direktori tidak ditemukan),
+# arahkan ke index.html di root direktori.
+# Ini memungkinkan routing Astro bekerja dengan benar.
+RewriteRule ^.*$ /index.html [L,QSA]
+# ---------------------------------------
+
+# -----------------------------------------------------------------------------
+# 5. MISC
+# -----------------------------------------------------------------------------
+AddType image/webp .webp
+AddType image/avif .avif

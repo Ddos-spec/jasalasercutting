@@ -38,7 +38,7 @@ Website profesional untuk jasa laser cutting dengan teknologi Astro.js, Tailwind
 ```
 laser-cutting-website/
 ├── public/                 # Static assets
-│   ├── images/            # Gambar dan foto
+│   ├── /images/            # Gambar dan foto
 │   ├── icons/             # Icon dan favicon
 │   ├── assets/            # Asset lainnya
 │   ├── robots.txt         # SEO robots
@@ -134,8 +134,8 @@ npm run format
 3. **Komponen Styling**: Edit langsung di file `.astro`
 
 ### Menambah Gambar
-1. Letakkan gambar di folder `public/images/`
-2. Gunakan path `/images/nama-file.jpg` di kode
+1. Letakkan gambar di folder `public//images/`
+2. Gunakan path `//images/nama-file.jpg` di kode
 3. Pastikan format WebP untuk optimasi
 
 ## 📱 Responsive Breakpoints

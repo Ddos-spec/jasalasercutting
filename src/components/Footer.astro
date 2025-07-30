@@ -1,5 +1,5 @@
 ---
-// Footer.astro - Komponen footer dengan informasi lengkap
+// Footer.astro - Versi debug untuk troubleshoot logo
 import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants.js';
 ---
 
@@ -11,21 +11,29 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
       <!-- Company Info -->
       <div class="lg:col-span-1">
         <div class="flex items-center space-x-3 mb-6">
+          <!-- Debug: Test multiple logo sources -->
           <img 
-            src="/logo-company.webp" 
-            alt="LaserCut Pro Logo" 
+            src="/images/logo.webp" 
+            alt="Tepat Laser Logo" 
             class="h-10 w-auto"
             width="120"
             height="40"
+            onerror="this.onerror=null; this.src='//images/Logo.webp'; console.log('Trying Logo.webp');"
+            onload="console.log('Logo loaded successfully');"
           />
+          <!-- Fallback jika logo tidak ada -->
+          <div class="fallback-logo bg-blue-600 h-10 w-10 rounded flex items-center justify-center text-white font-bold text-xs" style="display: none;">
+            TL
+          </div>
+          
           <div>
-            <h3 class="text-xl font-bold">LaserCut Pro</h3>
+            <h3 class="text-xl font-bold">Tepat Laser</h3>
             <p class="text-sm text-gray-400">Laser Cutting Terpercaya</p>
           </div>
         </div>
         
         <p class="text-gray-300 mb-6 leading-relaxed">
-          Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman melayani berbagai industri di Jawa Barat.
+          Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman melayani berbagai industri di jabodetabek
         </p>
         
         <!-- Social Media Links -->
@@ -87,7 +95,7 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
           {SERVICES.map((service) => (
             <li>
               <a 
-                href={`/${service.slug}`}
+                href={`${service.slug}/`}
                 class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group"
               >
                 <svg class="w-4 h-4 mr-2 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,7 +115,7 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
           {MATERIALS.map((material) => (
             <li>
               <a 
-                href={`/${material.slug}`}
+                href={`${material.slug}/`}
                 class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group"
               >
                 <svg class="w-4 h-4 mr-2 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -203,7 +211,7 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
         <!-- Copyright -->
         <div class="text-center md:text-left">
           <p class="text-gray-400 text-sm">
-            © 2024 LaserCut Pro. All rights reserved. | 
+            © 2024 Tepat Laser. All rights reserved. | 
             <a href="/privacy-policy" class="hover:text-white transition-colors duration-300">Privacy Policy</a> | 
             <a href="/terms-of-service" class="hover:text-white transition-colors duration-300">Terms of Service</a>
           </p>
@@ -251,5 +259,30 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
       behavior: 'smooth'
     });
   });
-</script>
 
+  // Debug script untuk cek logo
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Footer loaded');
+    
+    // Cek apakah file logo ada
+    const logoImg = document.querySelector('footer img[alt="Tepat Laser Logo"]');
+    const fallbackLogo = document.querySelector('.fallback-logo');
+    
+    if (logoImg) {
+      logoImg.addEventListener('error', function() {
+        console.log('Logo failed to load, showing fallback');
+        this.style.display = 'none';
+        if (fallbackLogo) {
+          fallbackLogo.style.display = 'flex';
+        }
+      });
+      
+      logoImg.addEventListener('load', function() {
+        console.log('Logo loaded successfully');
+        if (fallbackLogo) {
+          fallbackLogo.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>
