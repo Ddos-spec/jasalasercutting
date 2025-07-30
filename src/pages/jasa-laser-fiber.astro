@@ -16,7 +16,7 @@ const metaTags = generateMetaTags({
   title: `${service.name} - Presisi Tinggi untuk Material Metal`,
   description: `${service.description}. Teknologi laser fiber tercepat & akurat untuk cutting stainless steel, carbon steel, aluminium hingga ketebalan 20mm. Quote gratis 24 jam.`,
   keywords: service.keywords,
-  url: `${service.slug}/`, // Disesuaikan dengan struktur URL
+  url: `/${service.slug}`,, // Disesuaikan dengan struktur URL
   type: "service",
   image: service.image,
   // --- TAMBAHAN UNTUK MENGATASI ERROR ---
@@ -31,7 +31,7 @@ const serviceSchema = generateServiceSchema(service);
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: 'Beranda', url: '' },
   { name: 'Layanan', url: '#services' },
-  { name: service.name, url: `${service.slug}/` }
+  { name: service.name, url: `/${service.slug}`, }
 ]);
 ---
 
