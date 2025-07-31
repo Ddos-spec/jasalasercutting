@@ -132,7 +132,7 @@ export const MATERIALS = [
     description: "Kayu engineered dengan permukaan halus, ideal untuk painting dan aplikasi dekoratif",
     thickness: "3mm - 25mm",
     applications: ["Furniture", "Dekorasi", "Craft", "Model"],
-    image: "/jasalasercutting/images/MDF.webp", // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/mdf.webp", // Fixed GitHub Pages path
     keywords: "potong mdf jakarta, laser cutting mdf bekasi, cutting mdf bogor, potong mdf depok, laser mdf tangerang"
   },
   {
@@ -152,7 +152,7 @@ export const MATERIALS = [
     description: "Berbagai jenis logam untuk aplikasi industri, arsitektur, dan branding produk",
     thickness: "0.5mm - 10mm",
     applications: ["Industri", "Arsitektur", "Automotif", "Branding"],
-    image: "/jasalasercutting/images/Metal.webp", // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/metal.webp", // Fixed GitHub Pages path
     keywords: "potong stainless jakarta, laser cutting metal bekasi, cutting alumunium bogor, potong besi depok, laser stainless tangerang"
   },
   {
