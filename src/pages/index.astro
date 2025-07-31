@@ -1,12 +1,12 @@
 ---
-// index.astro - Halaman utama website laser cutting
+// index.astro - Halaman utama website laser cutting (FIXED)
 import BaseLayout from '../components/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/Hero.astro';
 import CTA from '../components/CTA.astro';
 import { SERVICES, MATERIALS, TESTIMONIALS, PORTFOLIO, FAQ, SITE_CONFIG } from '../utils/constants.js';
-import { generateMetaTags, generateFAQSchema, generateReviewSchema } from '../utils/seo.js';
+import { generateMetaTags, generateFAQSchema, generateReviewSchema } from '../utils/seo.ts';
 
 // SEO Meta Tags - Dioptimalkan untuk Jabodetabek
 const metaTags = generateMetaTags({
@@ -15,7 +15,7 @@ const metaTags = generateMetaTags({
   keywords: "jasa laser cutting jakarta, laser cutting bogor, laser cutting depok, laser cutting tangerang, laser cutting bekasi, cnc router jabodetabek, laser fiber cutting, potong akrilik jakarta, potong kayu bogor, cutting metal depok, laser engraving tangerang, galvo engraving bekasi",
   url: "/",
   type: "website",
-  image: "hero-laser.webp",
+  image: "logo.webp",
   publishedTime: "2024-01-01T00:00:00Z",
   modifiedTime: "2024-01-01T00:00:00Z",
   author: SITE_CONFIG.author
@@ -24,19 +24,36 @@ const metaTags = generateMetaTags({
 // Structured Data
 const faqSchema = generateFAQSchema(FAQ);
 const reviewSchema = generateReviewSchema(TESTIMONIALS);
+
+// Function to create proper URL with base path - Fixed typing
+function createUrl(path: string | undefined | null): string {
+  if (!path || path === null || path === undefined) {
+    return SITE_CONFIG.url || '/';
+  }
+  
+  const pathStr = String(path);
+  const cleanPath = pathStr.startsWith('/') ? pathStr.slice(1) : pathStr;
+  
+  if (cleanPath === '' || cleanPath === '/') {
+    return SITE_CONFIG.url || '/';
+  }
+  
+  if (cleanPath.startsWith('#')) {
+    return `${SITE_CONFIG.url || ''}${cleanPath}`;
+  }
+  
+  return `${SITE_CONFIG.url || ''}${cleanPath}`;
+}
 ---
 
-<BaseLayout 
-  title={metaTags.title}
-  description={metaTags.description}
-  keywords={metaTags.keywords}
-  url={metaTags.canonical}
+<BaseLayout
+  metaTags={metaTags}
   jsonLd={[faqSchema, reviewSchema]}
 >
   <Header slot="header" />
-  
+
   <Hero />
-  
+
   <section id="services" class="section-padding bg-white">
     <div class="container-custom">
       <div class="text-center mb-16">
@@ -46,12 +63,12 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
           Dari prototyping hingga produksi massal, kami siap memberikan solusi terbaik.
         </p>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {SERVICES.map((service, index) => (
           <div class="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
             <div class="relative overflow-hidden rounded-t-xl">
-              <img 
+              <img
                 src={service.image}
                 alt={service.name}
                 class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
@@ -61,16 +78,16 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            
+
             <div class="p-6">
               <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
                 {service.name}
               </h3>
-              
+
               <p class="text-gray-600 mb-4 leading-relaxed">
                 {service.description}
               </p>
-              
+
               <div class="space-y-2 mb-6">
                 {service.features.map((feature) => (
                   <div class="flex items-center space-x-2">
@@ -81,9 +98,9 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
                   </div>
                 ))}
               </div>
-          
+
               <div class="space-y-3">
-                <a 
+                <a
                   href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(`Halo, saya tertarik dengan ${service.name}. Bisa konsultasi gratis tentang kebutuhan project saya?`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -94,10 +111,10 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
                   </svg>
                   <span>Konsultasi Gratis via WA</span>
                 </a>
-                
-                <a href={`${service.slug}/`} class="btn-secondary text-sm px-4 py-2 w-full text-center">
-  Detail Layanan
-</a>
+
+                <a href={createUrl(service.slug)} class="btn-secondary text-sm px-4 py-2 w-full text-center">
+                  Detail Layanan
+                </a>
               </div>
             </div>
           </div>
@@ -105,7 +122,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       </div>
     </div>
   </section>
-  
+
   <section id="materials" class="section-padding bg-gray-50">
     <div class="container-custom">
       <div class="text-center mb-16">
@@ -115,12 +132,12 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
           Konsultasikan material Anda dengan tim ahli kami untuk mendapatkan hasil optimal.
         </p>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {MATERIALS.map((material) => (
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {MATERIALS.slice(0, 6).map((material) => (
           <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
             <div class="relative">
-              <img 
+              <img
                 src={material.image}
                 alt={material.name}
                 class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
@@ -132,11 +149,11 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
                 {material.thickness}
               </div>
             </div>
-            
+
             <div class="p-6">
               <h3 class="text-lg font-bold text-gray-900 mb-3">{material.name}</h3>
               <p class="text-gray-600 mb-4 text-sm leading-relaxed">{material.description}</p>
-              
+
               <div class="space-y-2 mb-4">
                 <h4 class="text-sm font-semibold text-gray-800">Aplikasi:</h4>
                 <div class="flex flex-wrap gap-2">
@@ -147,17 +164,28 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
                   ))}
                 </div>
               </div>
-              
-              <a href={`${material.slug}/`} class="btn-secondary text-sm px-4 py-2 w-full text-center">
-  Lihat Detail
-</a>
+
+              <a href={createUrl(material.slug)} class="btn-secondary text-sm px-4 py-2 w-full text-center">
+                Lihat Detail
+              </a>
             </div>
           </div>
         ))}
       </div>
+
+      {MATERIALS.length > 6 && (
+        <div class="text-center mt-12">
+          <a
+            href={createUrl("material")}
+            class="btn-primary text-lg px-8 py-3"
+          >
+            Lihat Semua Material
+          </a>
+        </div>
+      )}
     </div>
   </section>
-  
+
   <section id="portfolio" class="section-padding bg-white">
     <div class="container-custom">
       <div class="text-center mb-16">
@@ -167,11 +195,11 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
           Setiap proyek dikerjakan dengan standar kualitas tinggi dan presisi sempurna.
         </p>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {PORTFOLIO.map((project) => (
           <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
-            <img 
+            <img
               src={project.image}
               alt={project.title}
               class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
@@ -179,14 +207,14 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
               width="400"
               height="300"
             />
-            
+
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
- 
+
             <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
               <span class="inline-block bg-blue-600 px-3 py-1 rounded-full text-xs font-medium mb-2">
                 {project.category}
               </span>
-              
+
               <h3 class="text-lg font-bold mb-2">{project.title}</h3>
               <p class="text-sm text-gray-200 mb-3">{project.description}</p>
               <div class="flex items-center justify-between text-xs">
@@ -197,10 +225,10 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
           </div>
         ))}
       </div>
-      
+
       <div class="text-center mt-12">
-        <a 
-          href="portfolio"
+        <a
+          href={createUrl("portfolio")}
           class="btn-primary text-lg px-8 py-3"
         >
           Lihat Semua Portfolio
@@ -208,7 +236,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       </div>
     </div>
   </section>
-  
+
   <section id="testimonials" class="section-padding bg-gray-50">
     <div class="container-custom">
       <div class="text-center mb-16">
@@ -218,7 +246,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
           Dengarkan pengalaman mereka yang telah mempercayakan proyek laser cutting kepada Tepat Laser.
         </p>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {TESTIMONIALS.map((testimonial) => (
           <div class="bg-white rounded-xl shadow-lg p-8 relative">
@@ -227,7 +255,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
               </svg>
             </div>
-            
+
             <div class="flex items-center mb-4">
               {Array.from({ length: testimonial.rating }, (_, i) => (
                 <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
@@ -235,13 +263,13 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
                 </svg>
               ))}
             </div>
-            
+
             <p class="text-gray-700 mb-6 leading-relaxed italic">
               "{testimonial.content}"
             </p>
-            
+
             <div class="flex items-center">
-              <img 
+              <img
                 src={testimonial.image}
                 alt={testimonial.name}
                 class="w-12 h-12 rounded-full object-cover mr-4"
@@ -260,7 +288,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       </div>
     </div>
   </section>
-  
+
   <section id="faq" class="section-padding bg-white">
     <div class="container-custom">
       <div class="text-center mb-16">
@@ -270,30 +298,30 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
           Masih ada pertanyaan? Jangan ragu untuk menghubungi tim kami.
         </p>
       </div>
-      
+
       <div class="max-w-4xl mx-auto">
         <div class="space-y-6">
           {FAQ.map((faq, index) => (
             <div class="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-300">
-              <button 
+              <button
                 class="flex items-center justify-between w-full text-left"
                 data-faq-index={index}
               >
                 <h3 class="text-lg font-semibold text-gray-900 pr-4">
                   {faq.question}
                 </h3>
-                <svg 
+                <svg
                   class="w-6 h-6 text-gray-500 transform transition-transform duration-300"
                   id={`faq-icon-${index}`}
-                  fill="none" 
-                  stroke="currentColor" 
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </button>
-              
-              <div 
+
+              <div
                 class="mt-4 text-gray-700 leading-relaxed hidden"
                 id={`faq-answer-${index}`}
               >
@@ -305,23 +333,23 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       </div>
     </div>
   </section>
-  
-  <CTA 
+
+  <CTA
     title="Siap Memulai Proyek Laser Cutting Anda?"
     description="Dapatkan konsultasi gratis dan quote terbaik untuk kebutuhan laser cutting Anda. Tim ahli kami siap membantu mewujudkan ide kreatif Anda."
     variant="gradient"
     size="lg"
   />
-  
+
   <Footer slot="footer" />
 </BaseLayout>
 
 <script>
-  // FAQ Toggle Functionality
+  // FAQ Toggle Functionality - Fixed typing
   function toggleFAQ(index: number): void {
     const answer = document.getElementById(`faq-answer-${index}`);
     const icon = document.getElementById(`faq-icon-${index}`);
-    
+
     if (answer && icon) {
       if (answer.classList.contains('hidden')) {
         answer.classList.remove('hidden');
@@ -332,37 +360,41 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       }
     }
   }
-  
-  // Event delegation for FAQ buttons
+
+  // Event delegation for FAQ buttons - Fixed typing
   document.addEventListener('DOMContentLoaded', () => {
     const faqButtons = document.querySelectorAll('[data-faq-index]');
     faqButtons.forEach(button => {
       button.addEventListener('click', (e) => {
-        const index = parseInt((e.currentTarget as HTMLElement).getAttribute('data-faq-index') || '0');
+        const target = e.currentTarget as HTMLElement;
+        const index = parseInt(target.getAttribute('data-faq-index') || '0');
         toggleFAQ(index);
       });
     });
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+
+    // Smooth scroll for anchor links - Fixed typing
+    document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
+      anchor.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href') || '');
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+        const href = this.getAttribute('href');
+        if (href) {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
         }
       });
     });
-    
+
     // Intersection Observer for animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -370,7 +402,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
         }
       });
     }, observerOptions);
-    
+
     // Observe all sections
     document.querySelectorAll('section').forEach(section => {
       observer.observe(section);
@@ -383,7 +415,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
   .animate-fade-in-up {
     animation: fadeInUp 0.8s ease-out forwards;
   }
-  
+
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -394,7 +426,7 @@ const reviewSchema = generateReviewSchema(TESTIMONIALS);
       transform: translateY(0);
     }
   }
-  
+
   /* Smooth transitions */
   * {
     transition-property: transform, opacity, background-color, border-color, color, fill, stroke;

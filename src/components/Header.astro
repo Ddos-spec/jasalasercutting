@@ -1,43 +1,57 @@
 ---
-// Header.astro - Komponen header dengan navigasi responsif lengkap dan diperbaiki
+// Header.astro - Komponen header dengan navigasi responsif dan dropdown click
 import { NAVIGATION, SITE_CONFIG } from '../utils/constants.js';
 
+interface NavigationItem {
+  name: string;
+  href: string;
+  submenu?: Array<{
+    name: string;
+    href: string;
+  }>;
+  active?: boolean;
+}
+
 // Function to create proper URL with base path
-function createUrl(path) {
-  // Remove leading slash if exists to avoid double slashes
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+function createUrl(path: string | null | undefined): string {
+  if (!path || path === null || path === undefined) {
+    return SITE_CONFIG.url || '/';
+  }
   
-  // If it's root path, return base URL
+  const pathStr = String(path);
+  const cleanPath = pathStr.startsWith('/') ? pathStr.slice(1) : pathStr;
+  
   if (cleanPath === '' || cleanPath === '/') {
-    return SITE_CONFIG.url;
+    return SITE_CONFIG.url || '/';
   }
   
-  // For hash links (like /#services), append to base URL
   if (cleanPath.startsWith('#')) {
-    return `${SITE_CONFIG.url}${cleanPath}`;
+    return `${SITE_CONFIG.url || ''}${cleanPath}`;
   }
   
-  // For regular pages, combine base URL with path
-  return `${SITE_CONFIG.url}${cleanPath}`;
+  return `${SITE_CONFIG.url || ''}${cleanPath}`;
 }
 
 // Filter navigasi untuk menghilangkan link "Kontak"
-const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
+// Filter and process navigation items
+const filteredNavigation = (NAVIGATION ?? [])
+  .filter((item): item is NavigationItem => Boolean(item) && item.name !== "Kontak");
+
 // Process navigation to include proper URLs
-const processedNavigation = filteredNavigation.map(item => ({
+const processedNavigation: NavigationItem[] = filteredNavigation.map(item => ({
   ...item,
-  href: createUrl(item.href),
-  submenu: item.submenu ? item.submenu.map(subitem => ({
+  href: createUrl(item.href) || '/',
+  submenu: item.submenu?.map(subitem => ({
     ...subitem,
-    href: createUrl(subitem.href)
-  })) : undefined
+    href: createUrl(subitem.href) || '/'
+  }))
 }));
 ---
 <header class="fixed top-0 left-0 right-0 z-40 bg-white border-b border-gray-200" id="main-header">
   <div class="container-custom">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center">
-        <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
+        <a href={SITE_CONFIG?.url || '/'} class="flex items-center space-x-3">
           <div class="sm:block">
             <h1 class="text-xl font-bold text-gray-900">
               Tepat Laser
@@ -47,24 +61,27 @@ const processedNavigation = filteredNavigation.map(item => ({
         </a>
       </div>
       <nav class="hidden lg:flex items-center space-x-8" aria-label="Main navigation">
-        {processedNavigation.map((item) => (
-          <div class="relative group">
-            {item.submenu 
-? (
+        {processedNavigation.map((item, index) => (
+          <div class="relative">
+            {item?.submenu ? (
               <div class="relative">
                 <button
-                  class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium py-2"
+                  class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium py-2 desktop-dropdown-btn"
+                  data-dropdown-index={index}
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
                   <span>{item.name}</span>
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
-                <div class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 hidden group-hover:block">
+                <div 
+                  class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 hidden dropdown-menu"
+                  data-dropdown-menu={index}
+                >
                   <div class="py-2">
-                    {item.submenu.map((subitem) => (
+                    {item.submenu?.map((subitem) => (
                       <a
                         href={subitem.href}
                         class="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 text-sm font-medium"
@@ -79,7 +96,7 @@ const processedNavigation = filteredNavigation.map(item => ({
               <a
                 href={item.href}
                 class="text-gray-700 hover:text-blue-600 font-medium py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"
-                class:list={[item.active && 'text-blue-600 after:w-full']}
+                class:list={{'text-blue-600 after:w-full': item.active}}
               >
                 {item.name}
               </a>
@@ -116,7 +133,7 @@ const processedNavigation = filteredNavigation.map(item => ({
   >
     <div class="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-4">
       <div class="flex items-center">
-        <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
+        <a href={SITE_CONFIG?.url || '/'} class="flex items-center space-x-3">
           <h1 class="text-xl font-bold text-gray-900">Tepat Laser</h1>
         </a>
       </div>
@@ -131,56 +148,46 @@ const processedNavigation = filteredNavigation.map(item => ({
       </button>
     </div>
     <div class="flex flex-col min-h-screen bg-white">
-      <nav class="flex-1 px-4 py-6 space-y-2" aria-label="Mobile navigation">
+            <nav class="flex-1 px-4 py-6 space-y-2" aria-label="Mobile navigation">
         {processedNavigation.map((item, index) => (
           <div>
-            {item.submenu ?
-(
+            {item?.submenu ? (
               <div>
                 <button
-                  class="flex items-center justify-between w-full text-left text-gray-700 font-medium py-3 px-4 rounded-lg hover:bg-gray-50"
-                  data-submenu-index={index}
+                  class="flex items-center justify-between w-full text-left text-gray-700 font-medium py-3 px-4 rounded-lg hover:bg-gray-50 mobile-dropdown-btn"
+                  data-mobile-submenu-index={index}
                   aria-expanded="false"
                 >
                   <span>{item.name}</span>
-                  <svg 
-                    class="w-5 h-5" 
-                    id={`submenu-icon-${index}`}
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 <div 
-                  class="hidden bg-gray-50 rounded-lg mx-2 mt-1"
-                  id={`submenu-${index}`}
+                  class="hidden pl-4 space-y-2"
+                  data-mobile-submenu={index}
                 >
-                  <div class="pl-4 pt-2 pb-2 space-y-1">
-                    {item.submenu.map((subitem) => (
-                      <a
-                        href={subitem.href}
-                        class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-white text-sm font-medium"
-                      >
-                        {subitem.name}
-                      </a>
-                    ))}
-                  </div>
+                  {item.submenu?.map((subitem) => (
+                    <a
+                      href={subitem.href}
+                      class="block px-4 py-2 text-gray-700 hover:text-blue-600 text-sm"
+                    >
+                      {subitem.name}
+                    </a>
+                  ))}
                 </div>
               </div>
             ) : (
               <a
                 href={item.href}
-                class="block text-gray-700 hover:text-blue-600 font-medium py-3 px-4 rounded-lg hover:bg-gray-50"
-                class:list={[item.active && 'text-blue-600 bg-blue-50']}
+                class="block w-full text-left text-gray-700 font-medium py-3 px-4 rounded-lg hover:bg-gray-50"
+                class:list={{'text-blue-600 bg-blue-50': item.active}}
               >
                 {item.name}
               </a>
             )}
           </div>
         ))}
-      </nav>
       <div class="p-4 border-t border-gray-200 space-y-3 bg-white">
         <a
           href={createUrl("contact")}
@@ -190,7 +197,7 @@ const processedNavigation = filteredNavigation.map(item => ({
         </a>
         <div class="grid grid-cols-2 gap-3">
           <a
-            href={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent("Halo, saya tertarik dengan jasa laser cutting. Bisa konsultasi gratis?")}`}
+            href={`https://api.whatsapp.com/send?phone=${SITE_CONFIG?.whatsapp || ''}&text=${encodeURIComponent("Halo, saya tertarik dengan jasa laser cutting. Bisa konsultasi gratis?")}`}
             target="_blank"
             rel="noopener noreferrer"
             class="bg-green-600 hover:bg-green-700 text-white text-center py-2 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2"
@@ -201,7 +208,7 @@ const processedNavigation = filteredNavigation.map(item => ({
             <span>WhatsApp</span>
           </a>
           <a
-            href={`tel:${SITE_CONFIG.phone}`}
+            href={`tel:${SITE_CONFIG?.phone || ''}`}
             class="bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,7 +233,10 @@ const processedNavigation = filteredNavigation.map(item => ({
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const menuIcon = document.getElementById('menu-icon');
     const closeIcon = document.getElementById('close-icon');
-    const header = document.getElementById('main-header');
+
+    // Desktop dropdown functionality
+    const desktopDropdownBtns = document.querySelectorAll('.desktop-dropdown-btn');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
 
     // Mobile menu toggle functions
     function openMobileMenu() {
@@ -249,76 +259,123 @@ const processedNavigation = filteredNavigation.map(item => ({
         mobileMenuButton?.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
 
-        // Reset submenus
-        document.querySelectorAll('[id^="submenu-"]').forEach((submenu) => {
+        // Reset mobile submenus
+        document.querySelectorAll('.mobile-submenu').forEach((submenu) => {
           submenu.classList.add('hidden');
         });
-        document.querySelectorAll('[id^="submenu-icon-"]').forEach((icon) => {
-          icon.style.transform = 'rotate(0deg)';
+        document.querySelectorAll('.mobile-dropdown-arrow').forEach((arrow) => {
+          arrow.style.transform = 'rotate(0deg)';
         });
-        document.querySelectorAll('[data-submenu-index]').forEach((button) => {
+        document.querySelectorAll('.mobile-dropdown-btn').forEach((button) => {
           button.setAttribute('aria-expanded', 'false');
         });
       }
     }
 
-    function toggleMobileMenu() {
-      if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-        closeMobileMenu();
-      } else {
-        openMobileMenu();
-      }
-    }
+    // Desktop dropdown click handlers
+    desktopDropdownBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const index = btn.getAttribute('data-dropdown-index');
+        const targetMenu = document.querySelector(`[data-dropdown-menu="${index}"]`);
+        const arrow = btn.querySelector('.dropdown-arrow');
+        
+        if (!targetMenu) return;
 
-    // Submenu toggle function
-    function toggleSubmenu(index) {
-      const submenu = document.getElementById(`submenu-${index}`);
-      const icon = document.getElementById(`submenu-icon-${index}`);
-      const button = document.querySelector(`[data-submenu-index="${index}"]`);
+        const isOpen = !targetMenu.classList.contains('hidden');
+        
+        // Close all other dropdowns
+        dropdownMenus.forEach((menu, menuIndex) => {
+          if (menu !== targetMenu) {
+            menu.classList.add('hidden');
+            const otherBtn = document.querySelector(`[data-dropdown-index="${menuIndex}"]`);
+            const otherArrow = otherBtn?.querySelector('.dropdown-arrow');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+            if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+          }
+        });
 
-      if (!submenu || !icon || !button) return;
+        // Toggle current dropdown
+        if (isOpen) {
+          targetMenu.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+          if (arrow) arrow.style.transform = 'rotate(0deg)';
+        } else {
+          targetMenu.classList.remove('hidden');
+          btn.setAttribute('aria-expanded', 'true');
+          if (arrow) arrow.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+
+    // Mobile submenu toggle function
+    function toggleMobileSubmenu(index) {
+      const submenu = document.querySelector(`[data-mobile-submenu="${index}"]`);
+      const arrow = document.querySelector(`[data-mobile-submenu-index="${index}"] .mobile-dropdown-arrow`);
+      const button = document.querySelector(`[data-mobile-submenu-index="${index}"]`);
+
+      if (!submenu || !arrow || !button) return;
 
       const isOpen = !submenu.classList.contains('hidden');
       if (isOpen) {
         submenu.classList.add('hidden');
-        icon.style.transform = 'rotate(0deg)';
+        arrow.style.transform = 'rotate(0deg)';
         button.setAttribute('aria-expanded', 'false');
       } else {
         // Close other submenus first
-        document.querySelectorAll('[id^="submenu-"]:not(#submenu-' + index + ')').forEach((otherSubmenu) => {
-          otherSubmenu.classList.add('hidden');
-          const otherIndex = otherSubmenu.id.split('-')[1];
-          const otherIcon = document.getElementById(`submenu-icon-${otherIndex}`);
-          const otherButton = document.querySelector(`[data-submenu-index="${otherIndex}"]`);
-          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
-          if (otherButton) otherButton.setAttribute('aria-expanded', 'false');
+        document.querySelectorAll('.mobile-submenu').forEach((otherSubmenu, otherIndex) => {
+          if (otherSubmenu !== submenu) {
+            otherSubmenu.classList.add('hidden');
+            const otherArrow = document.querySelector(`[data-mobile-submenu-index="${otherIndex}"] .mobile-dropdown-arrow`);
+            const otherButton = document.querySelector(`[data-mobile-submenu-index="${otherIndex}"]`);
+            if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+            if (otherButton) otherButton.setAttribute('aria-expanded', 'false');
+          }
         });
 
         submenu.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
+        arrow.style.transform = 'rotate(180deg)';
         button.setAttribute('aria-expanded', 'true');
       }
     }
 
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.relative')) {
+        dropdownMenus.forEach((menu, index) => {
+          menu.classList.add('hidden');
+          const btn = document.querySelector(`[data-dropdown-index="${index}"]`);
+          const arrow = btn?.querySelector('.dropdown-arrow');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+          if (arrow) arrow.style.transform = 'rotate(0deg)';
+        });
+      }
+    });
+
     // Event listeners
     mobileMenuButton?.addEventListener('click', (e) => {
       e.preventDefault();
-      toggleMobileMenu();
+      openMobileMenu();
     });
+    
     mobileMenuCloseButton?.addEventListener('click', (e) => {
       e.preventDefault();
       closeMobileMenu();
     });
+    
     mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
 
-    // Submenu button event listeners
-    document.querySelectorAll('[data-submenu-index]').forEach((button) => {
+    // Mobile submenu button event listeners
+    document.querySelectorAll('.mobile-dropdown-btn').forEach((button) => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
-        const index = parseInt(button.getAttribute('data-submenu-index') || '0');
-        toggleSubmenu(index);
+        const index = parseInt(button.getAttribute('data-mobile-submenu-index') || '0');
+        toggleMobileSubmenu(index);
       });
     });
+
     // Close mobile menu when clicking on nav links
     document.querySelectorAll('#mobile-menu a[href]').forEach((link) => {
       link.addEventListener('click', () => {
@@ -327,16 +384,30 @@ const processedNavigation = filteredNavigation.map(item => ({
         }, 100);
       });
     });
+
     // Close menu on window resize to desktop
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 1024) {
         closeMobileMenu();
       }
     });
+
     // Handle escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
-        closeMobileMenu();
+      if (e.key === 'Escape') {
+        // Close desktop dropdowns
+        dropdownMenus.forEach((menu, index) => {
+          menu.classList.add('hidden');
+          const btn = document.querySelector(`[data-dropdown-index="${index}"]`);
+          const arrow = btn?.querySelector('.dropdown-arrow');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+          if (arrow) arrow.style.transform = 'rotate(0deg)';
+        });
+        
+        // Close mobile menu if open
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+          closeMobileMenu();
+        }
       }
     });
   });
@@ -345,11 +416,6 @@ const processedNavigation = filteredNavigation.map(item => ({
   /* Header styles */
   #main-header {
     transition: none;
-  }
-
-  /* Desktop dropdown hover effects */
-  .group:hover .group-hover\:block {
-    display: block;
   }
 
   /* Smooth scrolling for mobile menu */
@@ -365,8 +431,9 @@ const processedNavigation = filteredNavigation.map(item => ({
     border-radius: 4px;
   }
 
-  /* Submenu icon rotation */
-  [id^="submenu-icon-"] {
+  /* Dropdown arrow rotation */
+  .dropdown-arrow,
+  .mobile-dropdown-arrow {
     transition: transform 0.2s ease-in-out;
   }
 

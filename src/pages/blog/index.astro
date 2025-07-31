@@ -1,4 +1,5 @@
 ---
+// blog./index,astro (filecode)
 import BaseLayout from '../../components/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -8,7 +9,7 @@ import { BLOG_POSTS } from '../../utils/constants.js';
 const sortedPosts = BLOG_POSTS.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
 // Safely construct the base URL
-const baseUrl = Astro.site ? Astro.site.toString() : 'https://www.tepatlaser.com'; // Sesuaikan dengan URL produksi Anda
+const baseUrl = Astro.site ? Astro.site.toString() : 'https://ddos-spec.github.io/jasalasercutting/'; // Sesuaikan dengan URL produksi Anda
 const blogUrl = `${baseUrl}blog/`;
 
 const jsonLd = {
@@ -28,10 +29,10 @@ const jsonLd = {
   title="Blog - Tips & Tutorial Laser Cutting Terbaru"
   description="Dapatkan tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur dari para ahli LaserCut Pro"
   keywords="blog laser cutting, tutorial cnc router, tips laser fiber, panduan laser co2, artikel manufaktur"
-  jsonLd={jsonLd}
+  jsonLd={[jsonLd]}
 >
   <Header slot="header" />
-  
+
   <!-- Hero Section -->
   <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

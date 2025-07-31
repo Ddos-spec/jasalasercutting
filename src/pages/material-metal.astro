@@ -2,39 +2,48 @@
 import BaseLayout from '../components/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { MATERIALS, SERVICES } from '../utils/constants.js';
+import { MATERIALS, SERVICES, SITE_CONFIG } from '../utils/constants.js';
+import { generateMetaTags, generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo.ts';
 
 const material = MATERIALS.find(m => m.id === 'metal');
-const recommendedService = SERVICES.find(s => s.id === 'laser-fiber');
+if (!material) throw new Error('Material metal not found');
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": material.name,
-  "description": material.description,
-  "category": "Laser Cutting Material",
-  "brand": {
-    "@type": "Brand",
-    "name": "Tepat Laser"
-  },
-  "offers": {
-    "@type": "Offer",
-    "availability": "https://schema.org/InStock",
-    "priceCurrency": "IDR",
-    "seller": {
-      "@type": "Organization",
-      "name": "Tepat Laser"
-    }
-  }
-};
+const recommendedService = SERVICES.find(s => s.id === 'laser-fiber');
+if (!recommendedService) throw new Error('Recommended service not found');
+
+// Generate Meta Tags
+const metaTags = generateMetaTags({
+  title: `${material.name} - Material Laser Cutting Premium`,
+  description: material.description,
+  keywords: material.keywords,
+  url: `/jasalasercutting/material-metal/`,
+  type: "article",
+  image: material.image,
+  publishedTime: "2024-01-01T00:00:00Z", 
+  modifiedTime: "2024-01-01T00:00:00Z",
+  author: SITE_CONFIG.author
+});
+
+// Generate structured data
+const serviceSchema = recommendedService ? generateServiceSchema(recommendedService) : null;
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '' },
+  { name: 'Material', url: '#materials' },
+  { name: material.name, url: `/jasalasercutting/material-metal/` }
+]);
+
+// Combine schemas for jsonLd
+const jsonLd = [serviceSchema, breadcrumbSchema].filter(Boolean);
+
 ---
 
-<BaseLayout 
-  title={`${material.name} - Material Laser Cutting Premium`}
-  description={material.description}
-  keywords={material.keywords}
-  image={material.image}
+<BaseLayout
+  title={metaTags.title}
+  description={metaTags.description}
+  keywords={metaTags.keywords}
+  url={metaTags.canonical}
   jsonLd={jsonLd}
+  type="article"
 >
   <Header slot="header" />
   
@@ -203,7 +212,7 @@ const jsonLd = {
               ))}
             </div>
             <div class="mt-6">
-              <span class="text-2xl font-bold text-red-600">{recommendedService.price}</span>
+              <span class="text-2xl font-bold text-red-600">Hubungi untuk harga</span>
             </div>
           </div>
           <div>
@@ -252,4 +261,3 @@ const jsonLd = {
 
   <Footer slot="footer" />
 </BaseLayout>
-

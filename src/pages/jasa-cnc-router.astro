@@ -1,37 +1,45 @@
 ---
-// jasa-cnc-router.astro - Halaman layanan CNC Router
+// jasa-cnc-router.astro - Halaman layanan CNC Router (FIXED)
 import BaseLayout from '../components/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/Hero.astro';
 import CTA from '../components/CTA.astro';
 import { SERVICES, SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
-import { generateMetaTags, generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+import { generateMetaTags, generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo.ts';
 
-// Find CNC Router service
+// Find CNC Router service - Fixed with proper error handling
 const service = SERVICES.find(s => s.slug === 'jasa-cnc-router');
 
-// SEO Meta Tags - PERBAIKAN: Menambahkan publishedTime, modifiedTime, dan author
+// Handle case where service is not found
+if (!service) {
+  throw new Error('CNC Router service not found in SERVICES array');
+}
+
+// SEO Meta Tags - Fixed with proper service handling
 const metaTags = generateMetaTags({
   title: `${service.name} - Presisi Tinggi untuk Material Kayu & MDF`,
   description: `${service.description}. Teknologi CNC Router terdepan dengan presisi 0.1mm. Melayani cutting kayu, MDF, dan plastik hingga ukuran 2x3 meter. Quote gratis 24 jam.`,
   keywords: service.keywords,
-  url: `/${service.slug}`,, // Disesuaikan dengan struktur URL
+  url: `/jasa-cnc-router/`,
   type: "service",
   image: service.image,
-  // --- TAMBAHAN UNTUK MENGATASI ERROR ---
-  publishedTime: "2024-01-01T00:00:00Z", // Tanggal publikasi statis
-  modifiedTime: "2024-01-01T00:00:00Z", // Tanggal modifikasi statis
-  author: SITE_CONFIG.author // Mengambil author dari konfigurasi
-  // --------------------------------------
+  publishedTime: "2024-01-01T00:00:00Z",
+  modifiedTime: "2024-01-01T00:00:00Z",
+  author: SITE_CONFIG.author
 });
 
-// Structured Data
-const serviceSchema = generateServiceSchema(service);
+// Structured Data - Now safe to use service
+const serviceSchema = generateServiceSchema({
+  name: service.name,
+  description: service.description,
+  price: "Competitive pricing"
+});
+
 const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: 'Beranda', url: '' },
-  { name: 'Layanan', url: '#services' },
-  { name: service.name, url: `/${service.slug}`, }
+  { name: 'Beranda', url: '/' },
+  { name: 'Layanan', url: '/#services' },
+  { name: service.name, url: '/jasa-cnc-router/' }
 ]);
 ---
 
@@ -110,6 +118,8 @@ const breadcrumbSchema = generateBreadcrumbSchema([
             alt={service.name}
             class="rounded-xl shadow-xl w-full"
             loading="lazy"
+            width="600"
+            height="400"
           />
           <div class="absolute -bottom-6 -left-6 bg-white rounded-lg shadow-lg p-6">
             <div class="text-3xl font-bold text-blue-600 mb-1">0.1mm</div>
@@ -235,8 +245,63 @@ const breadcrumbSchema = generateBreadcrumbSchema([
     </div>
   </section>
 
+  <!-- Service Features -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-4">Keunggulan Layanan CNC Router Kami</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Mengapa memilih layanan CNC Router dari LaserCut Pro untuk project Anda
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {service.features.map((feature, index) => (
+          <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">{feature}</h3>
+            <p class="text-gray-600 text-sm">Feature unggulan yang menjadikan layanan kami terdepan di industri</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-4">Aplikasi CNC Router</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Berbagai aplikasi industri yang dapat ditangani dengan teknologi CNC Router kami
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {service.applications.map((application, index) => (
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300">
+            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+              <span class="text-2xl font-bold text-blue-600">{index + 1}</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">{application}</h3>
+            <p class="text-gray-600 text-sm">Solusi profesional untuk industri {application.toLowerCase()}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
-  <CTA />
+  <CTA 
+    title="Butuh CNC Router Profesional?"
+    description="Konsultasikan kebutuhan CNC Router Anda dengan tim ahli kami. Dapatkan quote terbaik dan solusi tepat untuk project Anda."
+    variant="gradient"
+    size="lg"
+  />
 
   <Footer slot="footer" />
 </BaseLayout>

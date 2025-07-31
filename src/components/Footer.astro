@@ -13,12 +13,12 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
         <div class="flex items-center space-x-3 mb-6">
           <!-- Debug: Test multiple logo sources -->
           <img 
-            src="/images/logo.webp" 
+            src="images/logo.webp" 
             alt="Tepat Laser Logo" 
             class="h-10 w-auto"
             width="120"
             height="40"
-            onerror="this.onerror=null; this.src='//images/Logo.webp'; console.log('Trying Logo.webp');"
+            onerror="this.onerror=null; this.src='/images/Logo.webp'; console.log('Trying Logo.webp');"
             onload="console.log('Logo loaded successfully');"
           />
           <!-- Fallback jika logo tidak ada -->
@@ -95,7 +95,7 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
           {SERVICES.map((service) => (
             <li>
               <a 
-                href={`${service.slug}/`}
+                href={`/jasalasercutting/${service.slug}/`}
                 class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group"
               >
                 <svg class="w-4 h-4 mr-2 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
           {MATERIALS.map((material) => (
             <li>
               <a 
-                href={`${material.slug}/`}
+                href={`/jasalasercutting/${material.slug}/`}
                 class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group"
               >
                 <svg class="w-4 h-4 mr-2 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -243,33 +243,35 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
   // Back to top functionality
   const backToTopButton = document.getElementById('back-to-top');
   
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backToTopButton.classList.remove('translate-y-16', 'opacity-0');
-      backToTopButton.classList.add('translate-y-0', 'opacity-100');
-    } else {
-      backToTopButton.classList.remove('translate-y-0', 'opacity-100');
-      backToTopButton.classList.add('translate-y-16', 'opacity-0');
-    }
-  });
-  
-  backToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.remove('translate-y-16', 'opacity-0');
+        backToTopButton.classList.add('translate-y-0', 'opacity-100');
+      } else {
+        backToTopButton.classList.remove('translate-y-0', 'opacity-100');
+        backToTopButton.classList.add('translate-y-16', 'opacity-0');
+      }
     });
-  });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 
   // Debug script untuk cek logo
   document.addEventListener('DOMContentLoaded', function() {
     console.log('Footer loaded');
     
     // Cek apakah file logo ada
-    const logoImg = document.querySelector('footer img[alt="Tepat Laser Logo"]');
-    const fallbackLogo = document.querySelector('.fallback-logo');
+    const logoImg = document.querySelector('footer img[alt="Tepat Laser Logo"]') as HTMLImageElement | null;
+    const fallbackLogo = document.querySelector('.fallback-logo') as HTMLElement | null;
     
     if (logoImg) {
-      logoImg.addEventListener('error', function() {
+      logoImg.addEventListener('error', function(this: HTMLImageElement) {
         console.log('Logo failed to load, showing fallback');
         this.style.display = 'none';
         if (fallbackLogo) {
@@ -277,7 +279,7 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
         }
       });
       
-      logoImg.addEventListener('load', function() {
+      logoImg.addEventListener('load', function(this: HTMLImageElement) {
         console.log('Logo loaded successfully');
         if (fallbackLogo) {
           fallbackLogo.style.display = 'none';
