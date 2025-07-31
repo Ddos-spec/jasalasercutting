@@ -1,15 +1,43 @@
 ---
 // Header.astro - Komponen header dengan navigasi responsif lengkap dan diperbaiki
 import { NAVIGATION, SITE_CONFIG } from '../utils/constants.js';
+
+// Function to create proper URL with base path
+function createUrl(path) {
+  // Remove leading slash if exists to avoid double slashes
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  
+  // If it's root path, return base URL
+  if (cleanPath === '' || cleanPath === '/') {
+    return SITE_CONFIG.url;
+  }
+  
+  // For hash links (like /#services), append to base URL
+  if (cleanPath.startsWith('#')) {
+    return `${SITE_CONFIG.url}${cleanPath}`;
+  }
+  
+  // For regular pages, combine base URL with path
+  return `${SITE_CONFIG.url}${cleanPath}`;
+}
+
 // Filter navigasi untuk menghilangkan link "Kontak"
 const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
+// Process navigation to include proper URLs
+const processedNavigation = filteredNavigation.map(item => ({
+  ...item,
+  href: createUrl(item.href),
+  submenu: item.submenu ? item.submenu.map(subitem => ({
+    ...subitem,
+    href: createUrl(subitem.href)
+  })) : undefined
+}));
 ---
 <header class="fixed top-0 left-0 right-0 z-40 bg-white border-b border-gray-200" id="main-header">
   <div class="container-custom">
     <div class="flex items-center justify-between h-16">
-      <!-- Logo Section -->
       <div class="flex items-center">
-        <a href="" class="flex items-center space-x-3">
+        <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
           <div class="sm:block">
             <h1 class="text-xl font-bold text-gray-900">
               Tepat Laser
@@ -18,11 +46,11 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
           </div>
         </a>
       </div>
-      <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center space-x-8" aria-label="Main navigation">
-        {filteredNavigation.map((item) => (
+        {processedNavigation.map((item) => (
           <div class="relative group">
-            {item.submenu ? (
+            {item.submenu 
+? (
               <div class="relative">
                 <button
                   class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium py-2"
@@ -59,16 +87,14 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
           </div>
         ))}
       </nav>
-      <!-- Desktop Action Buttons -->
       <div class="hidden lg:flex items-center space-x-4">
         <a
-          href="contact"
+          href={createUrl("contact")}
           class="btn-primary text-sm px-4 py-2"
         >
           Kontak Kita
         </a>
       </div>
-      <!-- Mobile Menu Button -->
       <button
         class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100"
         id="mobile-menu-button"
@@ -84,20 +110,17 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       </button>
     </div>
   </div>
-  <!-- Mobile Menu -->
   <div
     class="lg:hidden fixed inset-0 top-0 bg-white z-50 hidden overflow-y-auto"
     id="mobile-menu"
   >
-    <!-- Mobile Header Spacer -->
     <div class="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-4">
       <div class="flex items-center">
-        <a href="" class="flex items-center space-x-3">
+        <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
           <h1 class="text-xl font-bold text-gray-900">Tepat Laser</h1>
         </a>
       </div>
-       <!-- Close Button inside mobile menu -->
-      <button
+       <button
         class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100"
         id="mobile-menu-close-button"
         aria-label="Close mobile menu"
@@ -108,11 +131,11 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       </button>
     </div>
     <div class="flex flex-col min-h-screen bg-white">
-      <!-- Mobile Navigation -->
       <nav class="flex-1 px-4 py-6 space-y-2" aria-label="Mobile navigation">
-        {filteredNavigation.map((item, index) => (
+        {processedNavigation.map((item, index) => (
           <div>
-            {item.submenu ? (
+            {item.submenu ?
+(
               <div>
                 <button
                   class="flex items-center justify-between w-full text-left text-gray-700 font-medium py-3 px-4 rounded-lg hover:bg-gray-50"
@@ -158,15 +181,13 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
           </div>
         ))}
       </nav>
-      <!-- Mobile Action Buttons -->
       <div class="p-4 border-t border-gray-200 space-y-3 bg-white">
         <a
-          href="contact"
+          href={createUrl("contact")}
           class="btn-primary w-full text-center block py-3"
         >
           Kontak Kita
         </a>
-        <!-- Mobile Quick Actions -->
         <div class="grid grid-cols-2 gap-3">
           <a
             href={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent("Halo, saya tertarik dengan jasa laser cutting. Bisa konsultasi gratis?")}`}
@@ -193,7 +214,6 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
     </div>
   </div>
 </header>
-<!-- Mobile Menu Overlay -->
 <div
   class="lg:hidden fixed inset-0 bg-black/50 z-20 hidden"
   id="mobile-menu-overlay"
@@ -201,14 +221,14 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button'); // Tambahkan ini
+    const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const menuIcon = document.getElementById('menu-icon');
     const closeIcon = document.getElementById('close-icon');
     const header = document.getElementById('main-header');
 
-    // Mobile menu toggle functions (disederhanakan)
+    // Mobile menu toggle functions
     function openMobileMenu() {
       if (mobileMenu && mobileMenuOverlay) {
         mobileMenu.classList.remove('hidden');
@@ -250,7 +270,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       }
     }
 
-    // Submenu toggle function (disederhanakan)
+    // Submenu toggle function
     function toggleSubmenu(index) {
       const submenu = document.getElementById(`submenu-${index}`);
       const icon = document.getElementById(`submenu-icon-${index}`);
@@ -259,13 +279,12 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       if (!submenu || !icon || !button) return;
 
       const isOpen = !submenu.classList.contains('hidden');
-
       if (isOpen) {
         submenu.classList.add('hidden');
         icon.style.transform = 'rotate(0deg)';
         button.setAttribute('aria-expanded', 'false');
       } else {
-        // Tutup submenu lainnya terlebih dahulu
+        // Close other submenus first
         document.querySelectorAll('[id^="submenu-"]:not(#submenu-' + index + ')').forEach((otherSubmenu) => {
           otherSubmenu.classList.add('hidden');
           const otherIndex = otherSubmenu.id.split('-')[1];
@@ -286,12 +305,10 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       e.preventDefault();
       toggleMobileMenu();
     });
-
-    mobileMenuCloseButton?.addEventListener('click', (e) => { // Tambahkan ini
+    mobileMenuCloseButton?.addEventListener('click', (e) => {
       e.preventDefault();
       closeMobileMenu();
     });
-
     mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
 
     // Submenu button event listeners
@@ -302,7 +319,6 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
         toggleSubmenu(index);
       });
     });
-
     // Close mobile menu when clicking on nav links
     document.querySelectorAll('#mobile-menu a[href]').forEach((link) => {
       link.addEventListener('click', () => {
@@ -311,14 +327,12 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
         }, 100);
       });
     });
-
     // Close menu on window resize to desktop
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 1024) {
         closeMobileMenu();
       }
     });
-
     // Handle escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
@@ -336,11 +350,6 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
   /* Desktop dropdown hover effects */
   .group:hover .group-hover\:block {
     display: block;
-  }
-
-  /* Mobile submenu */
-  [id^="submenu-"] {
-    /* Hapus transition */
   }
 
   /* Smooth scrolling for mobile menu */
