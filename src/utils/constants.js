@@ -1,23 +1,23 @@
 // src/utils/constants.js
 
 export const SITE_CONFIG = {
-  name: "LaserCut Pro",
-  title: "Jasa Laser Cutting Akurat & Cepat #1 Jabodetabek - Akrilik, Kayu, Metal",
-  description: "Laser cutting presisi tinggi & pengerjaan cepat di Jabodetabek! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Jakarta, Bogor, Depok, Tangerang, Bekasi.",
-  keywords: "laser cutting jakarta, cnc router bekasi, laser fiber bogor, laser co2 depok, cutting akrilik tangerang, potong kayu jabodetabek, laser metal jakarta",
+  name: "Tepat Laser",
+  title: "Jasa Laser Cutting Profesional #1 Banten - Akrilik, Kayu, Metal",
+  description: "Laser cutting presisi tinggi & pengerjaan cepat di Banten! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Serang, Tangerang, Cilegon, Pandeglang, Lebak.",
+  keywords: "laser cutting banten, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal banten",
   url: "https://ddos-spec.github.io/jasalasercutting/",
-  author: "LaserCut Pro Team",
+  author: "Tepat Laser Team",
   whatsapp: "6285165693179",
-  email: "info@jasalasercutting.com",
-  address: "Jl. Raya Bogor No. 123, Jakarta Timur",
+  email: "info@tepatlaser.com",
+  address: "Jl. Raya Serang No. 123, Kota Serang, Banten",
   phone: "+62 851 6569 3179",
   businessHours: "Senin - Sabtu: 08.00 - 17.00 WIB",
   socialMedia: {
     whatsapp: "https://api.whatsapp.com/send?phone=6285165693179",
-    instagram: "https://instagram.com/lasercutpro",
-    facebook: "https://facebook.com/lasercutpro",
-    youtube: "https://youtube.com/lasercutpro",
-    linkedin: "https://linkedin.com/company/lasercutpro"
+    instagram: "https://instagram.com/tepatlaser",
+    facebook: "https://facebook.com/tepatlaser",
+    youtube: "https://youtube.com/tepatlaser",
+    linkedin: "https://linkedin.com/company/tepatlaser"
   }
 };
 
@@ -64,8 +64,8 @@ export const SERVICES = [
       "Ideal untuk signage, dekorasi, prototyping"
     ],
     applications: ["Signage", "Dekorasi", "Prototyping", "Kemasan"],
-    image: "/jasalasercutting/images/co2.webp", // Fixed GitHub Pages path
-    keywords: "jasa laser co2 jakarta, cutting akrilik bogor, laser kayu depok, potong mdf tangerang, laser cutting bekasi, cutting kain jakarta, laser karet bogor"
+    image: "/jasalasercutting/images/co2.webp",
+    keywords: "jasa laser co2 banten, cutting akrilik serang, laser kayu tangerang, potong mdf cilegon, laser cutting pandeglang, cutting kain lebak, laser karet banten"
   },
   {
     id: "laser-fiber",
@@ -79,8 +79,8 @@ export const SERVICES = [
       "Tidak memerlukan bahan kimia berbahaya"
     ],
     applications: ["Industri", "Automotif", "Elektronik", "Branding"],
-    image: "/jasalasercutting/images/laserfiber.webp", // Fixed GitHub Pages path
-    keywords: "jasa laser fiber jakarta, cutting stainless bogor, laser alumunium depok, potong besi tangerang, laser cutting metal bekasi, marking tembaga jakarta"
+    image: "/jasalasercutting/images/laserfiber.webp",
+    keywords: "jasa laser fiber banten, cutting stainless serang, laser alumunium tangerang, potong besi cilegon, laser cutting metal pandeglang, marking tembaga lebak"
   },
   {
     id: "cnc-router",
@@ -94,8 +94,8 @@ export const SERVICES = [
       "Finishing presisi untuk detail rumit"
     ],
     applications: ["Fasad", "Furniture", "Moulding", "Signage"],
-    image: "/jasalasercutting/images/cncrouter.webp", // Fixed GitHub Pages path
-    keywords: "jasa cnc router jakarta, cutting acp bogor, laser grc depok, potong kayu tangerang, cnc router bekasi, carving akrilik jakarta"
+    image: "/jasalasercutting/images/cncrouter.webp",
+    keywords: "jasa cnc router banten, cutting acp serang, laser grc tangerang, potong kayu cilegon, cnc router pandeglang, carving akrilik lebak"
   },
   {
     id: "galvo-engraving",
@@ -109,8 +109,8 @@ export const SERVICES = [
       "Ideal untuk serial number, logo, QR code"
     ],
     applications: ["Branding", "Personalisasi", "Traceability", "Promosi"],
-    image: "/jasalasercutting/images/galvo.webp", // Fixed GitHub Pages path
-    keywords: "jasa galvo engraving jakarta, laser engraving bogor, engrave depok, potong engraving tangerang, laser engrave bekasi, branding produk jakarta"
+    image: "/jasalasercutting/images/galvo.webp",
+    keywords: "jasa galvo engraving banten, laser engraving serang, engrave tangerang, potong engraving cilegon, laser engrave pandeglang, branding produk lebak"
   }
 ];
 
@@ -122,8 +122,8 @@ export const MATERIALS = [
     description: "Material transparan berkualitas tinggi untuk berbagai aplikasi signage dan dekorasi",
     thickness: "1mm - 20mm",
     applications: ["Signage", "Display", "Dekorasi", "Prototyping"],
-    image: "/jasalasercutting/images/Acrylic.webp", // Fixed GitHub Pages path
-    keywords: "potong akrilik jakarta, cutting acrylic bekasi, laser acrylic bogor, potong acrylic depok, cutting acrylic tangerang"
+    image: "/jasalasercutting/images/Acrylic.webp",
+    keywords: "potong akrilik banten, cutting acrylic serang, laser acrylic tangerang, potong acrylic cilegon, cutting acrylic pandeglang"
   },
   {
     id: "mdf",
@@ -132,8 +132,8 @@ export const MATERIALS = [
     description: "Kayu engineered dengan permukaan halus, ideal untuk painting dan aplikasi dekoratif",
     thickness: "3mm - 25mm",
     applications: ["Furniture", "Dekorasi", "Craft", "Model"],
-    image: "/jasalasercutting/images/mdf.webp", // Fixed GitHub Pages path
-    keywords: "potong mdf jakarta, laser cutting mdf bekasi, cutting mdf bogor, potong mdf depok, laser mdf tangerang"
+    image: "/jasalasercutting/images/mdf.webp",
+    keywords: "potong mdf banten, laser cutting mdf serang, cutting mdf tangerang, potong mdf cilegon, laser mdf pandeglang"
   },
   {
     id: "plywood",
@@ -142,8 +142,8 @@ export const MATERIALS = [
     description: "Kayu lapis berkualitas untuk kekuatan struktural dan tampilan alami yang menarik",
     thickness: "3mm - 25mm",
     applications: ["Furniture", "Dekorasi", "Kerajinan", "Interior"],
-    image: "/jasalasercutting/images/Ply Wood.webp", // Fixed GitHub Pages path
-    keywords: "potong plywood jakarta, laser kayu bekasi, cutting multiplex bogor, potong kayu depok, laser plywood tangerang"
+    image: "/jasalasercutting/images/Ply Wood.webp",
+    keywords: "potong plywood banten, laser kayu serang, cutting multiplex tangerang, potong kayu cilegon, laser plywood pandeglang"
   },
   {
     id: "metal",
@@ -152,8 +152,8 @@ export const MATERIALS = [
     description: "Berbagai jenis logam untuk aplikasi industri, arsitektur, dan branding produk",
     thickness: "0.5mm - 10mm",
     applications: ["Industri", "Arsitektur", "Automotif", "Branding"],
-    image: "/jasalasercutting/images/metal.webp", // Fixed GitHub Pages path
-    keywords: "potong stainless jakarta, laser cutting metal bekasi, cutting alumunium bogor, potong besi depok, laser stainless tangerang"
+    image: "/jasalasercutting/images/metal.webp",
+    keywords: "potong stainless banten, laser cutting metal serang, cutting alumunium tangerang, potong besi cilegon, laser stainless pandeglang"
   },
   {
     id: "acp",
@@ -162,8 +162,8 @@ export const MATERIALS = [
     description: "Panel komposit ringan namun kuat untuk aplikasi fasad dan signage premium",
     thickness: "2mm - 6mm",
     applications: ["Signage", "Fasad", "Interior", "Eksterior"],
-    image: "/jasalasercutting/images/acp.webp", // Fixed GitHub Pages path
-    keywords: "potong acp aluminium jakarta, cutting acp bekasi, acp laser bogor, potong acp depok, cutting acp tangerang"
+    image: "/jasalasercutting/images/acp.webp",
+    keywords: "potong acp aluminium banten, cutting acp serang, acp laser tangerang, potong acp cilegon, cutting acp pandeglang"
   },
   {
     id: "pvc",
@@ -172,8 +172,8 @@ export const MATERIALS = [
     description: "Cutting PVC custom untuk berbagai keperluan industri dan kreatif",
     thickness: "1mm - 10mm",
     applications: ["Signage", "Prototype", "Display", "Packaging"],
-    image: "/jasalasercutting/images/pvc.webp", // Fixed GitHub Pages path
-    keywords: "potong pvc jakarta, cutting pvc bekasi, laser pvc bogor, potong pvc depok, cutting pvc tangerang"
+    image: "/jasalasercutting/images/pvc.webp",
+    keywords: "potong pvc banten, cutting pvc serang, laser pvc tangerang, potong pvc cilegon, cutting pvc pandeglang"
   },
   {
     id: "grc",
@@ -182,8 +182,8 @@ export const MATERIALS = [
     description: "Cutting GRC (Glassfibre Reinforced Concrete) untuk fasad dan ornamen bangunan",
     thickness: "8mm - 15mm",
     applications: ["Fasad", "Ornamen", "Panel", "Eksterior"],
-    image: "/jasalasercutting/images/grc.webp", // Fixed GitHub Pages path
-    keywords: "potong grc jakarta, grc laser cutting bekasi, fasad grc bogor, cutting grc depok, laser grc tangerang"
+    image: "/jasalasercutting/images/grc.webp",
+    keywords: "potong grc banten, grc laser cutting serang, fasad grc tangerang, cutting grc cilegon, laser grc pandeglang"
   }
 ];
 
@@ -191,68 +191,68 @@ export const TESTIMONIALS = [
   {
     id: 1,
     name: "Budi Santoso",
-    company: "PT. Kreatif Nusantara Jakarta",
+    company: "PT. Kreatif Nusantara Serang",
     position: "Project Manager",
-    content: "Kualitas laser cutting terbaik yang pernah kami gunakan di Jakarta. Presisi tinggi dan hasil sempurna untuk semua project signage kami.",
+    content: "Kualitas laser cutting terbaik yang pernah kami gunakan di Banten. Presisi tinggi dan hasil sempurna untuk semua project signage kami.",
     rating: 5,
-    image: "/jasalasercutting/images/budisantoso.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/budisantoso.webp"
   },
   {
     id: 2,
     name: "Sari Dewi",
-    company: "Studio Arsitektur Modern Bekasi",
+    company: "Studio Arsitektur Modern Tangerang",
     position: "Lead Architect",
-    content: "Pelayanan profesional dan hasil cutting yang sangat memuaskan. Recommended untuk semua kebutuhan laser cutting di Jabodetabek.",
+    content: "Pelayanan profesional dan hasil cutting yang sangat memuaskan. Recommended untuk semua kebutuhan laser cutting di Banten.",
     rating: 5,
-    image: "/jasalasercutting/images/Sari Dewi.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/Sari Dewi.webp"
   },
   {
     id: 3,
     name: "Ahmad Rizki",
-    company: "Furniture Mebel Jaya Bogor",
+    company: "Furniture Mebel Jaya Cilegon",
     position: "Owner",
-    content: "Sudah 3 tahun menggunakan jasa LaserCut Pro. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan, pengiriman ke Bogor juga cepat.",
+    content: "Sudah 3 tahun menggunakan jasa Tepat Laser. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan, pengiriman ke Cilegon juga cepat.",
     rating: 5,
-    image: "/jasalasercutting/images/Ahmad Rizki.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/Ahmad Rizki.webp"
   }
 ];
 
 export const PORTFOLIO = [
   {
     id: 1,
-    title: "Signage Hotel Bintang 5 Jakarta",
+    title: "Signage Hotel Bintang 5 Serang",
     category: "Commercial",
     material: "ACP Aluminium",
     service: "CNC Router",
-    image: "/jasalasercutting/images/singagehote.webp", // Fixed GitHub Pages path
-    description: "Pembuatan signage premium untuk hotel bintang 5 di Jakarta dengan detail presisi tinggi"
+    image: "/jasalasercutting/images/singagehote.webp",
+    description: "Pembuatan signage premium untuk hotel bintang 5 di Serang dengan detail presisi tinggi"
   },
   {
     id: 2,
-    title: "Furniture Custom Stainless Bekasi",
+    title: "Furniture Custom Stainless Tangerang",
     category: "Industrial",
     material: "Stainless Steel",
     service: "Laser Fiber",
-    image: "/jasalasercutting/images/furnituremetal.webp", // Fixed GitHub Pages path
-    description: "Cutting furniture stainless steel custom untuk restaurant modern di Bekasi"
+    image: "/jasalasercutting/images/furnituremetal.webp",
+    description: "Cutting furniture stainless steel custom untuk restaurant modern di Tangerang"
   },
   {
     id: 3,
-    title: "Display Acrylic Premium Bogor",
+    title: "Display Acrylic Premium Cilegon",
     category: "Retail",
     material: "Acrylic",
     service: "Laser CO2",
-    image: "/jasalasercutting/images/displyacrylic.webp", // Fixed GitHub Pages path
-    description: "Display acrylic premium untuk toko retail di Bogor dengan engraving logo"
+    image: "/jasalasercutting/images/displyacrylic.webp",
+    description: "Display acrylic premium untuk toko retail di Cilegon dengan engraving logo"
   },
   {
     id: 4,
-    title: "Prototype Industri Tangerang",
+    title: "Prototype Industri Pandeglang",
     category: "Manufacturing",
     material: "PVC",
     service: "CNC Router",
-    image: "/jasalasercutting/images/prototype.webp", // Fixed GitHub Pages path
-    description: "Prototype komponen industri dengan presisi tinggi menggunakan PVC untuk klien di Tangerang"
+    image: "/jasalasercutting/images/prototype.webp",
+    description: "Prototype komponen industri dengan presisi tinggi menggunakan PVC untuk klien di Pandeglang"
   }
 ];
 
@@ -287,13 +287,13 @@ export const FAQ = [
 export const BLOG_POSTS = [
   {
     id: 1,
-    title: "Cara Memilih Material yang Tepat untuk Laser Cutting di Jakarta",
-    slug: "cara-memilih-material-laser-cutting-jakarta",
-    excerpt: "Panduan lengkap memilih material yang sesuai untuk project laser cutting Anda di Jabodetabek",
+    title: "Cara Memilih Material yang Tepat untuk Laser Cutting di Banten",
+    slug: "cara-memilih-material-laser-cutting-banten",
+    excerpt: "Panduan lengkap memilih material yang sesuai untuk project laser cutting Anda di Banten",
     category: "Tutorial",
     readTime: "5 menit",
     publishDate: "2024-01-15",
-    image: "/jasalasercutting/images/acp.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/acp.webp"
   },
   {
     id: 2,
@@ -303,27 +303,27 @@ export const BLOG_POSTS = [
     category: "Technical",
     readTime: "7 menit",
     publishDate: "2024-01-10",
-    image: "/jasalasercutting/images/laserfiber.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/laserfiber.webp"
   },
   {
     id: 3,
-    title: "Tren Industri Kreatif Jakarta 2024: Peluang Laser Cutting",
-    slug: "tren-industri-kreatif-jakarta-2024",
-    excerpt: "Insight tentang perkembangan industri kreatif di Jakarta dan peluang bisnis laser cutting",
+    title: "Tren Industri Kreatif Banten 2024: Peluang Laser Cutting",
+    slug: "tren-industri-kreatif-banten-2024",
+    excerpt: "Insight tentang perkembangan industri kreatif di Banten dan peluang bisnis laser cutting",
     category: "Industry",
     readTime: "6 menit",
     publishDate: "2024-01-05",
-    image: "/jasalasercutting/images/cncrouter.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/cncrouter.webp"
   },
   {
     id: 4,
-    title: "5 Kesalahan Umum Saat Memilih Jasa Laser Cutting di Jabodetabek",
-    slug: "kesalahan-umum-memilih-jasa-laser-cutting-jabodetabek",
-    excerpt: "Hindari kesalahan fatal yang bisa merugikan project Anda dengan tips dari ahli laser cutting Jabodetabek",
+    title: "5 Kesalahan Umum Saat Memilih Jasa Laser Cutting di Banten",
+    slug: "kesalahan-umum-memilih-jasa-laser-cutting-banten",
+    excerpt: "Hindari kesalahan fatal yang bisa merugikan project Anda dengan tips dari ahli laser cutting Banten",
     category: "Tips",
     readTime: "8 menit",
     publishDate: "2024-01-20",
-    image: "/jasalasercutting/images/co2.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/co2.webp"
   },
   {
     id: 5,
@@ -333,7 +333,7 @@ export const BLOG_POSTS = [
     category: "Tutorial",
     readTime: "10 menit",
     publishDate: "2024-01-18",
-    image: "/jasalasercutting/images/engraving.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/engraving.webp"
   },
   {
     id: 6,
@@ -343,7 +343,7 @@ export const BLOG_POSTS = [
     category: "Analysis",
     readTime: "9 menit",
     publishDate: "2024-01-08",
-    image: "/jasalasercutting/images/pvc.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/pvc.webp"
   },
   {
     id: 7,
@@ -353,17 +353,17 @@ export const BLOG_POSTS = [
     category: "Technical",
     readTime: "12 menit",
     publishDate: "2024-01-14",
-    image: "/jasalasercutting/images/galvo.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/galvo.webp"
   },
   {
     id: 8,
-    title: "Studi Kasus: Bagaimana CNC Router Mengubah Industri Furniture Custom di Bekasi",
-    slug: "cnc-router-industri-furniture-custom-bekasi",
-    excerpt: "Analisis mendalam bagaimana teknologi CNC Router merevolusi industri furniture custom di Bekasi dan sekitarnya",
+    title: "Studi Kasus: Bagaimana CNC Router Mengubah Industri Furniture Custom di Banten",
+    slug: "cnc-router-industri-furniture-custom-banten",
+    excerpt: "Analisis mendalam bagaimana teknologi CNC Router merevolusi industri furniture custom di Banten dan sekitarnya",
     category: "Case Study",
     readTime: "11 menit",
     publishDate: "2024-01-12",
-    image: "/jasalasercutting/images/Ply Wood.webp" // Fixed GitHub Pages path
+    image: "/jasalasercutting/images/Ply Wood.webp"
   }
 ];
 
