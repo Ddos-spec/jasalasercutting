@@ -292,7 +292,7 @@ export const BLOG_POSTS = [
     excerpt: "Panduan lengkap memilih material yang sesuai untuk project laser cutting Anda di Banten",
     category: "Tutorial",
     readTime: "5 menit",
-    publishDate: "2024-01-15",
+    publishDate: "2025-01-15",
     image: "/jasalasercutting/images/acp.webp"
   },
   {
@@ -302,17 +302,17 @@ export const BLOG_POSTS = [
     excerpt: "Analisis teknis dan aplikatif antara teknologi laser CO2 dan Fiber untuk kebutuhan bisnis Anda",
     category: "Technical",
     readTime: "7 menit",
-    publishDate: "2024-01-10",
+    publishDate: "2025-01-10",
     image: "/jasalasercutting/images/laserfiber.webp"
   },
   {
     id: 3,
-    title: "Tren Industri Kreatif Banten 2024: Peluang Laser Cutting",
-    slug: "tren-industri-kreatif-banten-2024",
+    title: "Tren Industri Kreatif Banten 2025: Peluang Laser Cutting",
+    slug: "tren-industri-kreatif-banten-2025",
     excerpt: "Insight tentang perkembangan industri kreatif di Banten dan peluang bisnis laser cutting",
     category: "Industry",
     readTime: "6 menit",
-    publishDate: "2024-01-05",
+    publishDate: "2025-01-05",
     image: "/jasalasercutting/images/cncrouter.webp"
   },
   {
@@ -322,7 +322,7 @@ export const BLOG_POSTS = [
     excerpt: "Hindari kesalahan fatal yang bisa merugikan project Anda dengan tips dari ahli laser cutting Banten",
     category: "Tips",
     readTime: "8 menit",
-    publishDate: "2024-01-20",
+    publishDate: "2025-01-20",
     image: "/jasalasercutting/images/co2.webp"
   },
   {
@@ -332,7 +332,7 @@ export const BLOG_POSTS = [
     excerpt: "Tutorial step-by-step menyiapkan file desain yang optimal untuk hasil laser cutting terbaik dan akurat",
     category: "Tutorial",
     readTime: "10 menit",
-    publishDate: "2024-01-18",
+    publishDate: "2025-01-18",
     image: "/jasalasercutting/images/engraving.webp"
   },
   {
@@ -342,7 +342,7 @@ export const BLOG_POSTS = [
     excerpt: "Breakdown biaya komprehensif membandingkan laser cutting dengan metode konvensional untuk berbagai material",
     category: "Analysis",
     readTime: "9 menit",
-    publishDate: "2024-01-08",
+    publishDate: "2025-01-08",
     image: "/jasalasercutting/images/pvc.webp"
   },
   {
@@ -352,7 +352,7 @@ export const BLOG_POSTS = [
     excerpt: "Eksplorasi teknik laser engraving cepat pada berbagai material untuk menciptakan branding produk yang memorable",
     category: "Technical",
     readTime: "12 menit",
-    publishDate: "2024-01-14",
+    publishDate: "2025-01-14",
     image: "/jasalasercutting/images/galvo.webp"
   },
   {
@@ -362,7 +362,7 @@ export const BLOG_POSTS = [
     excerpt: "Analisis mendalam bagaimana teknologi CNC Router merevolusi industri furniture custom di Banten dan sekitarnya",
     category: "Case Study",
     readTime: "11 menit",
-    publishDate: "2024-01-12",
+    publishDate: "2025-01-12",
     image: "/jasalasercutting/images/Ply Wood.webp"
   }
 ];

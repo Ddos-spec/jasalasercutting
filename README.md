@@ -179,7 +179,7 @@ Untuk pertanyaan teknis atau kustomisasi lebih lanjut:
 
 ## 📄 License
 
-Copyright © 2024 LaserCut Pro. All rights reserved.
+Copyright © 2025 LaserCut Pro. All rights reserved.
 
 ---
 
