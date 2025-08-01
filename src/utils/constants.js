@@ -2,14 +2,14 @@
 
 export const SITE_CONFIG = {
   name: "Jasa Cutting Laser",
-  title: "Jasa Laser Cutting Profesional #1 Banten - Akrilik, Kayu, Metal",
-  description: "Laser cutting presisi tinggi & pengerjaan cepat di Banten! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Serang, Tangerang, Cilegon, Pandeglang, Lebak.",
-  keywords: "laser cutting banten, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal banten",
+  title: "Jasa Laser Cutting Profesional #1 indonesia - Akrilik, Kayu, Metal",
+  description: "Laser cutting presisi tinggi & pengerjaan cepat di indonesia! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Serang, Tangerang, Cilegon, Pandeglang, Lebak.",
+  keywords: "laser cutting indonesia, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal indonesia",
   url: "https://ddos-spec.github.io/jasalasercutting/",
   author: "Jasa Cutting Laser Team",
   whatsapp: "6285165693179",
   email: "info@tepatlaser.com",
-  address: "Jl. Raya Serang No. 123, Kota Serang, Banten",
+  address: "Jl. Raya Serang No. 123, Kota Serang, indonesia",
   phone: "+62 851 6569 3179",
   businessHours: "Senin - Sabtu: 08.00 - 17.00 WIB",
   socialMedia: {
@@ -65,7 +65,7 @@ export const SERVICES = [
     ],
     applications: ["Signage", "Dekorasi", "Prototyping", "Kemasan"],
     image: "/jasalasercutting/images/co2.webp",
-    keywords: "jasa laser co2 banten, cutting akrilik serang, laser kayu tangerang, potong mdf cilegon, laser cutting pandeglang, cutting kain lebak, laser karet banten"
+    keywords: "jasa laser co2 indonesia, cutting akrilik serang, laser kayu tangerang, potong mdf cilegon, laser cutting pandeglang, cutting kain lebak, laser karet indonesia"
   },
   {
     id: "laser-fiber",
@@ -80,7 +80,7 @@ export const SERVICES = [
     ],
     applications: ["Industri", "Automotif", "Elektronik", "Branding"],
     image: "/jasalasercutting/images/laserfiber.webp",
-    keywords: "jasa laser fiber banten, cutting stainless serang, laser alumunium tangerang, potong besi cilegon, laser cutting metal pandeglang, marking tembaga lebak"
+    keywords: "jasa laser fiber indonesia, cutting stainless serang, laser alumunium tangerang, potong besi cilegon, laser cutting metal pandeglang, marking tembaga lebak"
   },
   {
     id: "cnc-router",
@@ -95,7 +95,7 @@ export const SERVICES = [
     ],
     applications: ["Fasad", "Furniture", "Moulding", "Signage"],
     image: "/jasalasercutting/images/cncrouter.webp",
-    keywords: "jasa cnc router banten, cutting acp serang, laser grc tangerang, potong kayu cilegon, cnc router pandeglang, carving akrilik lebak"
+    keywords: "jasa cnc router indonesia, cutting acp serang, laser grc tangerang, potong kayu cilegon, cnc router pandeglang, carving akrilik lebak"
   },
   {
     id: "galvo-engraving",
@@ -110,7 +110,7 @@ export const SERVICES = [
     ],
     applications: ["Branding", "Personalisasi", "Traceability", "Promosi"],
     image: "/jasalasercutting/images/galvo.webp",
-    keywords: "jasa galvo engraving banten, laser engraving serang, engrave tangerang, potong engraving cilegon, laser engrave pandeglang, branding produk lebak"
+    keywords: "jasa galvo engraving indonesia, laser engraving serang, engrave tangerang, potong engraving cilegon, laser engrave pandeglang, branding produk lebak"
   }
 ];
 
@@ -123,7 +123,7 @@ export const MATERIALS = [
     thickness: "1mm - 20mm",
     applications: ["Signage", "Display", "Dekorasi", "Prototyping"],
     image: "/jasalasercutting/images/Acrylic.webp",
-    keywords: "potong akrilik banten, cutting acrylic serang, laser acrylic tangerang, potong acrylic cilegon, cutting acrylic pandeglang"
+    keywords: "potong akrilik indonesia, cutting acrylic serang, laser acrylic tangerang, potong acrylic cilegon, cutting acrylic pandeglang"
   },
   {
     id: "mdf",
@@ -133,7 +133,7 @@ export const MATERIALS = [
     thickness: "3mm - 25mm",
     applications: ["Furniture", "Dekorasi", "Craft", "Model"],
     image: "/jasalasercutting/images/mdf.webp",
-    keywords: "potong mdf banten, laser cutting mdf serang, cutting mdf tangerang, potong mdf cilegon, laser mdf pandeglang"
+    keywords: "potong mdf indonesia, laser cutting mdf serang, cutting mdf tangerang, potong mdf cilegon, laser mdf pandeglang"
   },
   {
     id: "plywood",
@@ -143,7 +143,7 @@ export const MATERIALS = [
     thickness: "3mm - 25mm",
     applications: ["Furniture", "Dekorasi", "Kerajinan", "Interior"],
     image: "/jasalasercutting/images/Ply Wood.webp",
-    keywords: "potong plywood banten, laser kayu serang, cutting multiplex tangerang, potong kayu cilegon, laser plywood pandeglang"
+    keywords: "potong plywood indonesia, laser kayu serang, cutting multiplex tangerang, potong kayu cilegon, laser plywood pandeglang"
   },
   {
     id: "metal",
@@ -153,7 +153,7 @@ export const MATERIALS = [
     thickness: "0.5mm - 10mm",
     applications: ["Industri", "Arsitektur", "Automotif", "Branding"],
     image: "/jasalasercutting/images/metal.webp",
-    keywords: "potong stainless banten, laser cutting metal serang, cutting alumunium tangerang, potong besi cilegon, laser stainless pandeglang"
+    keywords: "potong stainless indonesia, laser cutting metal serang, cutting alumunium tangerang, potong besi cilegon, laser stainless pandeglang"
   },
   {
     id: "acp",
@@ -163,7 +163,7 @@ export const MATERIALS = [
     thickness: "2mm - 6mm",
     applications: ["Signage", "Fasad", "Interior", "Eksterior"],
     image: "/jasalasercutting/images/acp.webp",
-    keywords: "potong acp aluminium banten, cutting acp serang, acp laser tangerang, potong acp cilegon, cutting acp pandeglang"
+    keywords: "potong acp aluminium indonesia, cutting acp serang, acp laser tangerang, potong acp cilegon, cutting acp pandeglang"
   },
   {
     id: "pvc",
@@ -173,7 +173,7 @@ export const MATERIALS = [
     thickness: "1mm - 10mm",
     applications: ["Signage", "Prototype", "Display", "Packaging"],
     image: "/jasalasercutting/images/pvc.webp",
-    keywords: "potong pvc banten, cutting pvc serang, laser pvc tangerang, potong pvc cilegon, cutting pvc pandeglang"
+    keywords: "potong pvc indonesia, cutting pvc serang, laser pvc tangerang, potong pvc cilegon, cutting pvc pandeglang"
   },
   {
     id: "grc",
@@ -183,7 +183,7 @@ export const MATERIALS = [
     thickness: "8mm - 15mm",
     applications: ["Fasad", "Ornamen", "Panel", "Eksterior"],
     image: "/jasalasercutting/images/grc.webp",
-    keywords: "potong grc banten, grc laser cutting serang, fasad grc tangerang, cutting grc cilegon, laser grc pandeglang"
+    keywords: "potong grc indonesia, grc laser cutting serang, fasad grc tangerang, cutting grc cilegon, laser grc pandeglang"
   }
 ];
 
@@ -193,7 +193,7 @@ export const TESTIMONIALS = [
     name: "Budi Santoso",
     company: "PT. Kreatif Nusantara Serang",
     position: "Project Manager",
-    content: "Kualitas laser cutting terbaik yang pernah kami gunakan di Banten. Presisi tinggi dan hasil sempurna untuk semua project signage kami.",
+    content: "Kualitas laser cutting terbaik yang pernah kami gunakan di indonesia. Presisi tinggi dan hasil sempurna untuk semua project signage kami.",
     rating: 5,
     image: "/jasalasercutting/images/budisantoso.webp"
   },
@@ -202,7 +202,7 @@ export const TESTIMONIALS = [
     name: "Sari Dewi",
     company: "Studio Arsitektur Modern Tangerang",
     position: "Lead Architect",
-    content: "Pelayanan profesional dan hasil cutting yang sangat memuaskan. Recommended untuk semua kebutuhan laser cutting di Banten.",
+    content: "Pelayanan profesional dan hasil cutting yang sangat memuaskan. Recommended untuk semua kebutuhan laser cutting di indonesia.",
     rating: 5,
     image: "/jasalasercutting/images/Sari Dewi.webp"
   },
@@ -287,9 +287,9 @@ export const FAQ = [
 export const BLOG_POSTS = [
   {
     id: 1,
-    title: "Cara Memilih Material yang Tepat untuk Laser Cutting di Banten",
-    slug: "cara-memilih-material-laser-cutting-banten",
-    excerpt: "Panduan lengkap memilih material yang sesuai untuk project laser cutting Anda di Banten",
+    title: "Cara Memilih Material yang Tepat untuk Laser Cutting di indonesia",
+    slug: "cara-memilih-material-laser-cutting-indonesia",
+    excerpt: "Panduan lengkap memilih material yang sesuai untuk project laser cutting Anda di indonesia",
     category: "Tutorial",
     readTime: "5 menit",
     publishDate: "2025-01-15",
@@ -307,9 +307,9 @@ export const BLOG_POSTS = [
   },
   {
     id: 3,
-    title: "Tren Industri Kreatif Banten 2025: Peluang Laser Cutting",
-    slug: "tren-industri-kreatif-banten-2025",
-    excerpt: "Insight tentang perkembangan industri kreatif di Banten dan peluang bisnis laser cutting",
+    title: "Tren Industri Kreatif indonesia 2025: Peluang Laser Cutting",
+    slug: "tren-industri-kreatif-indonesia-2025",
+    excerpt: "Insight tentang perkembangan industri kreatif di indonesia dan peluang bisnis laser cutting",
     category: "Industry",
     readTime: "6 menit",
     publishDate: "2025-01-05",
@@ -317,9 +317,9 @@ export const BLOG_POSTS = [
   },
   {
     id: 4,
-    title: "5 Kesalahan Umum Saat Memilih Jasa Laser Cutting di Banten",
-    slug: "kesalahan-umum-memilih-jasa-laser-cutting-banten",
-    excerpt: "Hindari kesalahan fatal yang bisa merugikan project Anda dengan tips dari ahli laser cutting Banten",
+    title: "5 Kesalahan Umum Saat Memilih Jasa Laser Cutting di indonesia",
+    slug: "kesalahan-umum-memilih-jasa-laser-cutting-indonesia",
+    excerpt: "Hindari kesalahan fatal yang bisa merugikan project Anda dengan tips dari ahli laser cutting indonesia",
     category: "Tips",
     readTime: "8 menit",
     publishDate: "2025-01-20",
@@ -357,9 +357,9 @@ export const BLOG_POSTS = [
   },
   {
     id: 8,
-    title: "Studi Kasus: Bagaimana CNC Router Mengubah Industri Furniture Custom di Banten",
-    slug: "cnc-router-industri-furniture-custom-banten",
-    excerpt: "Analisis mendalam bagaimana teknologi CNC Router merevolusi industri furniture custom di Banten dan sekitarnya",
+    title: "Studi Kasus: Bagaimana CNC Router Mengubah Industri Furniture Custom di indonesia",
+    slug: "cnc-router-industri-furniture-custom-indonesia",
+    excerpt: "Analisis mendalam bagaimana teknologi CNC Router merevolusi industri furniture custom di indonesia dan sekitarnya",
     category: "Case Study",
     readTime: "11 menit",
     publishDate: "2025-01-12",
