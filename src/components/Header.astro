@@ -90,7 +90,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   </div>
 
   <!-- Mobile Navigation -->
-  <div id="mobile-menu" class="fixed inset-0 top-0 bg-white z-50 hidden overflow-y-auto lg:hidden transform translate-x-full transition-all duration-300">
+  <div id="mobile-menu" class="fixed inset-x-0 inset-y-0 top-0 right-0 w-full bg-white z-50 hidden overflow-y-auto lg:hidden translate-x-full transition-transform duration-300 ease-in-out">
     <div class="container-custom py-6">
       <div class="flex items-center justify-between mb-8">
         <a href={SITE_CONFIG.url} class="flex items-center space-x-4">
@@ -162,27 +162,35 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
 
       function openMobileMenu() {
-        document.body.style.overflow = 'hidden';
+        document.body.classList.add('menu-open');
         mobileMenuButton.setAttribute('aria-expanded', 'true');
         mobileMenu.classList.remove('hidden');
+        mobileMenuOverlay.classList.remove('hidden');
+        
+        // Force a reflow
+        mobileMenu.offsetHeight;
+        
         requestAnimationFrame(() => {
           mobileMenu.classList.add('active');
-          mobileMenuOverlay.classList.remove('hidden');
-          requestAnimationFrame(() => {
-            mobileMenuOverlay.classList.add('active');
-          });
+          mobileMenuOverlay.classList.add('active');
         });
       }
       
       function closeMobileMenu() {
+        document.body.classList.remove('menu-open');
         mobileMenuButton.setAttribute('aria-expanded', 'false');
         mobileMenu.classList.remove('active');
         mobileMenuOverlay.classList.remove('active');
-        setTimeout(() => {
-          mobileMenu.classList.add('hidden');
-          mobileMenuOverlay.classList.add('hidden');
-          document.body.style.overflow = '';
-        }, 300);
+        
+        const onTransitionEnd = () => {
+          if (!mobileMenu.classList.contains('active')) {
+            mobileMenu.classList.add('hidden');
+            mobileMenuOverlay.classList.add('hidden');
+          }
+          mobileMenu.removeEventListener('transitionend', onTransitionEnd);
+        };
+        
+        mobileMenu.addEventListener('transitionend', onTransitionEnd);
       }
       mobileMenuButton?.addEventListener('click', openMobileMenu);
       mobileMenuCloseButton?.addEventListener('click', closeMobileMenu);
@@ -252,15 +260,25 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
     
     /* Mobile menu transitions */
     #mobile-menu {
-      transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out;
+      will-change: transform;
     }
     #mobile-menu.active {
-      transform: translateX(0);
-      visibility: visible;
+      transform: translateX(0) !important;
+    }
+    #mobile-menu-overlay {
+      transition: opacity 0.3s ease-in-out;
+      will-change: opacity;
     }
     #mobile-menu-overlay.active {
       opacity: 1;
-      visibility: visible;
+    }
+    
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+      overflow: hidden;
+      position: fixed;
+      width: 100%;
     }
   </style>
 </header>
