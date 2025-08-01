@@ -17,7 +17,7 @@ export const SITE_CONFIG = {
     instagram: "https://instagram.com/tepatlaser",
     facebook: "https://facebook.com/tepatlaser",
     youtube: "https://youtube.com/tepatlaser",
-    linkedin: "https://linkedin.com/company/tepatlaser"
+    
   }
 };
 
