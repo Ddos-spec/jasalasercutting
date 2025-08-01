@@ -95,7 +95,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed inset-0 top-0 left-0 w-full bg-white z-50 hidden overflow-y-auto lg:hidden">
+  <div id="mobile-menu" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto lg:hidden">
     <div class="container-custom py-6">
       <div class="flex items-center justify-between mb-8">
         <a href={SITE_CONFIG.url} class="flex items-center space-x-4">
@@ -157,7 +157,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   </div>
 
   <!-- Mobile Overlay -->
-  <div id="mobile-menu-overlay" class="fixed inset-0 bg-charcoal/50 z-40 hidden lg:hidden transition-opacity duration-300 backdrop-blur-sm" aria-hidden="true"></div>
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-charcoal/50 z-40 hidden lg:hidden" aria-hidden="true"></div>
 
   <!-- JavaScript -->
   <script type="module">
@@ -171,13 +171,16 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
 
       // Mobile Menu Functions
       function openMobileMenu() {
+        console.log('Opening mobile menu');
         document.body.style.overflow = 'hidden';
         mobileMenuButton.setAttribute('aria-expanded', 'true');
         mobileMenu.classList.remove('hidden');
         mobileMenuOverlay.classList.remove('hidden');
+        console.log('Mobile menu classes after open:', mobileMenu.className);
       }
 
       function closeMobileMenu() {
+        console.log('Closing mobile menu');
         document.body.style.overflow = '';
         mobileMenuButton.setAttribute('aria-expanded', 'false');
         mobileMenu.classList.add('hidden');
