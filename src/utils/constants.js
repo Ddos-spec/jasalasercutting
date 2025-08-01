@@ -257,15 +257,15 @@ export const PORTFOLIO_PROJECTS = [
     id: 5,
     title: "Cutting Plat Aluminium",
     category: "Laser Fiber",
-    image: "/jasalasercutting/images/furniturmetal.webp",
+    image: "/jasalasercutting/images/furnituremetal.webp",
     description: "Pemotongan plat aluminium untuk komponen otomotif",
     client: "PT. Otomotif Nusantara",
     material: "Aluminium 3mm",
     technique: "Fiber Laser Cutting",
     gallery: [
-      "/jasalasercutting/images/furniturmetal.webp",
-      "/jasalasercutting/images/furniturmetal.webp",
-      "/jasalasercutting/images/furniturmetal.webp"
+      "/jasalasercutting/images/furnituremetal.webp",
+      "/jasalasercutting/images/furnituremetal.webp",
+      "/jasalasercutting/images/furnituremetal.webp"
     ],
     detailDescription: "Pemotongan plat aluminium dengan ketebalan 3mm untuk komponen otomotif. Menggunakan laser fiber yang menghasilkan potongan bersih tanpa burr dan presisi tinggi sesuai standar industri otomotif."
   },
