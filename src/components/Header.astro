@@ -47,16 +47,16 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       <!-- Desktop Navigation -->
       <nav aria-label="Main navigation" class="hidden lg:flex items-center space-x-1">
         {processedNavigation.map((item, i) => (
-          <div class="relative group">
+          <div class="relative">
             {item.submenu ? (
               <>
-                <button class="desktop-dropdown-btn flex items-center space-x-2 text-charcoal hover:text-laser-green font-semibold px-4 py-3 rounded-lg hover:bg-silver-light transition-all duration-300 group" data-dropdown-index={i} aria-haspopup="true" aria-expanded="false">
+                <button class="desktop-dropdown-btn flex items-center space-x-2 text-charcoal hover:text-laser-green font-semibold px-4 py-3 rounded-lg hover:bg-silver-light transition-all duration-300" data-dropdown-index={i} aria-haspopup="true" aria-expanded="false">
                   <span>{item.name}</span>
                   <svg class="w-4 h-4 dropdown-arrow transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                   </svg>
                 </button>
-                <div data-dropdown-menu={i} class="dropdown-menu hidden absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-silver-mid py-3 z-50 transform opacity-0 scale-95 transition-all duration-300">
+                <div data-dropdown-menu={i} class="dropdown-menu hidden absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-silver-mid py-3 z-50 opacity-0 scale-95 transition-all duration-300">
                   {item.submenu.map(s => (
                     <a href={s.href} class="flex items-center px-4 py-3 text-graphite hover:text-laser-green hover:bg-silver-light text-sm font-medium transition-all duration-300 group">
                       <div class="w-2 h-2 bg-laser-green rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -95,7 +95,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed inset-x-0 inset-y-0 top-0 left-0 w-full bg-white z-50 hidden overflow-y-auto lg:hidden translate-x-full transition-transform duration-300 ease-in-out">
+  <div id="mobile-menu" class="fixed inset-0 top-0 left-0 w-full bg-white z-50 hidden overflow-y-auto lg:hidden">
     <div class="container-custom py-6">
       <div class="flex items-center justify-between mb-8">
         <a href={SITE_CONFIG.url} class="flex items-center space-x-4">
@@ -113,19 +113,20 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       </div>
 
       <nav class="space-y-1">
-        {processedNavigation.map((item) => (
+        {processedNavigation.map((item, index) => (
           <div class="mobile-nav-item">
             {item.submenu ? (
               <div class="space-y-1">
                 <button class="mobile-dropdown-btn w-full flex items-center justify-between p-4 text-charcoal hover:text-laser-green hover:bg-silver-light rounded-lg transition-all duration-300"
+                  data-mobile-submenu-index={index}
                   aria-expanded="false"
-                  aria-controls={`mobile-submenu-${item.name}`}>
+                  aria-controls={`mobile-submenu-${index}`}>
                   <span class="font-semibold">{item.name}</span>
                   <svg class="w-4 h-4 mobile-dropdown-arrow transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M19 9l-7 7-7-9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                   </svg>
                 </button>
-                <div id={`mobile-submenu-${item.name}`} class="mobile-submenu overflow-hidden max-h-0 opacity-0 pl-4 transition-all duration-300">
+                <div id={`mobile-submenu-${index}`} class="mobile-submenu overflow-hidden max-h-0 opacity-0 pl-4 transition-all duration-300">
                   <div class="space-y-1 py-2">
                     {item.submenu.map(subitem => (
                       <a href={subitem.href} class="block p-4 text-graphite hover:text-laser-green hover:bg-silver-light rounded-lg transition-all duration-300">
@@ -156,7 +157,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   </div>
 
   <!-- Mobile Overlay -->
-  <div id="mobile-menu-overlay" class="fixed inset-0 bg-charcoal/50 z-49 hidden lg:hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm" aria-hidden="true"></div>
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-charcoal/50 z-40 hidden lg:hidden transition-opacity duration-300 backdrop-blur-sm" aria-hidden="true"></div>
 
   <!-- JavaScript -->
   <script type="module">
@@ -165,49 +166,96 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
       const mobileMenu = document.getElementById('mobile-menu');
       const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+      const desktopDropdownBtns = document.querySelectorAll('.desktop-dropdown-btn');
       const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
 
+      // Mobile Menu Functions
       function openMobileMenu() {
-        document.body.classList.add('menu-open');
+        document.body.style.overflow = 'hidden';
         mobileMenuButton.setAttribute('aria-expanded', 'true');
         mobileMenu.classList.remove('hidden');
         mobileMenuOverlay.classList.remove('hidden');
-        // Force reflow
-        mobileMenu.offsetHeight;
-        requestAnimationFrame(() => {
-          mobileMenu.classList.add('active');
-          mobileMenuOverlay.classList.add('active');
-        });
       }
 
       function closeMobileMenu() {
-        document.body.classList.remove('menu-open');
+        document.body.style.overflow = '';
         mobileMenuButton.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.remove('active');
-        mobileMenuOverlay.classList.remove('active');
-        const onTransitionEnd = () => {
-          if (!mobileMenu.classList.contains('active')) {
-            mobileMenu.classList.add('hidden');
-            mobileMenuOverlay.classList.add('hidden');
+        mobileMenu.classList.add('hidden');
+        mobileMenuOverlay.classList.add('hidden');
+        
+        // Reset mobile submenus
+        mobileDropdownBtns.forEach((btn, index) => {
+          const submenu = document.getElementById(`mobile-submenu-${index}`);
+          const arrow = btn.querySelector('.mobile-dropdown-arrow');
+          btn.setAttribute('aria-expanded', 'false');
+          if (arrow) arrow.style.transform = 'rotate(0deg)';
+          if (submenu) {
+            submenu.style.maxHeight = '0px';
+            submenu.style.opacity = '0';
           }
-          mobileMenu.removeEventListener('transitionend', onTransitionEnd);
-        };
-        mobileMenu.addEventListener('transitionend', onTransitionEnd);
+        });
       }
 
-      mobileMenuButton?.addEventListener('click', openMobileMenu);
-      mobileMenuCloseButton?.addEventListener('click', closeMobileMenu);
+      // Desktop Dropdown Functions
+      function closeAllDesktopDropdowns() {
+        desktopDropdownBtns.forEach((btn, index) => {
+          const dropdown = document.querySelector(`[data-dropdown-menu="${index}"]`);
+          const arrow = btn.querySelector('.dropdown-arrow');
+          btn.setAttribute('aria-expanded', 'false');
+          if (dropdown) {
+            dropdown.classList.add('hidden');
+            dropdown.classList.remove('show');
+          }
+          if (arrow) arrow.style.transform = 'rotate(0deg)';
+        });
+      }
+
+      // Mobile Menu Event Listeners
+      mobileMenuButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openMobileMenu();
+      });
+
+      mobileMenuCloseButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMobileMenu();
+      });
+
       mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
 
-      // Mobile dropdown accordion
-      mobileDropdownBtns.forEach(btn => {
-        const submenuId = btn.getAttribute('aria-controls');
-        const submenu = document.getElementById(submenuId);
-        const arrow = btn.querySelector('.mobile-dropdown-arrow');
-        if (!submenu) return;
-
-        btn.addEventListener('click', () => {
+      // Desktop Dropdown Event Listeners
+      desktopDropdownBtns.forEach((btn, index) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const dropdown = document.querySelector(`[data-dropdown-menu="${index}"]`);
+          const arrow = btn.querySelector('.dropdown-arrow');
           const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+          // Close all other dropdowns first
+          closeAllDesktopDropdowns();
+
+          if (!isOpen && dropdown) {
+            btn.setAttribute('aria-expanded', 'true');
+            dropdown.classList.remove('hidden');
+            dropdown.classList.add('show');
+            if (arrow) arrow.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+      // Mobile Dropdown Event Listeners
+      mobileDropdownBtns.forEach((btn, index) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          const submenu = document.getElementById(`mobile-submenu-${index}`);
+          const arrow = btn.querySelector('.mobile-dropdown-arrow');
+          const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+          if (!submenu) return;
+
           if (isOpen) {
             btn.setAttribute('aria-expanded', 'false');
             if (arrow) arrow.style.transform = 'rotate(0deg)';
@@ -221,6 +269,38 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
           }
         });
       });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.desktop-dropdown-btn') && !e.target.closest('[data-dropdown-menu]')) {
+          closeAllDesktopDropdowns();
+        }
+      });
+
+      // Close mobile menu when clicking nav links
+      document.querySelectorAll('#mobile-menu a[href]').forEach((link) => {
+        link.addEventListener('click', () => {
+          setTimeout(closeMobileMenu, 100);
+        });
+      });
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) {
+          closeMobileMenu();
+          closeAllDesktopDropdowns();
+        }
+      });
+
+      // Handle escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!mobileMenu.classList.contains('hidden')) {
+            closeMobileMenu();
+          }
+          closeAllDesktopDropdowns();
+        }
+      });
     });
   </script>
 
@@ -228,38 +308,28 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   <style is:global>
     .dropdown-menu {
       transform-origin: top center;
-      transition-property: opacity, transform;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    
+    .dropdown-menu.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
     .mobile-submenu {
       transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     }
+    
     #mobile-menu-button[aria-expanded="true"] #menu-line-1 {
-      transform: translateY(10px) rotate(45deg);
+      transform: translateY(8px) rotate(45deg);
     }
+    
     #mobile-menu-button[aria-expanded="true"] #menu-line-2 {
       opacity: 0;
     }
+    
     #mobile-menu-button[aria-expanded="true"] #menu-line-3 {
-      transform: translateY(-10px) rotate(-45deg);
-    }
-    #mobile-menu {
-      will-change: transform;
-    }
-    #mobile-menu.active {
-      transform: translateX(0);
-    }
-    #mobile-menu-overlay {
-      will-change: opacity;
-    }
-    #mobile-menu-overlay.active {
-      opacity: 1;
-    }
-    body.menu-open {
-      overflow: hidden;
-      position: fixed;
-      width: 100%;
+      transform: translateY(-8px) rotate(-45deg);
     }
   </style>
 </header>
