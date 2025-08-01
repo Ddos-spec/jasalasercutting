@@ -95,41 +95,40 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto lg:hidden">
-    <div class="container-custom py-6">
-      <div class="flex items-center justify-between mb-8">
-        <a href={SITE_CONFIG.url} class="flex items-center space-x-4">
+  <div id="mobile-menu" class="lg:hidden fixed inset-0 bg-white z-50 hidden">
+    <div class="p-4">
+      <div class="flex items-center justify-between mb-6">
+        <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
           <img src="/jasalasercutting/images/logo.webp" alt="Jasa Laser Cutting Logo" class="h-10 w-auto" width="100" height="40" />
           <div>
             <h1 class="text-xl font-bold text-charcoal">Jasa Laser Cutting</h1>
             <p class="text-sm text-graphite">Laser Cutting Terpercaya</p>
           </div>
         </a>
-        <button id="mobile-menu-close-button" class="p-2 hover:bg-silver-light rounded-lg transition-colors duration-300" aria-label="Close menu">
+        <button id="mobile-menu-close-button" class="p-2" aria-label="Close menu">
           <svg class="w-6 h-6 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      <nav class="space-y-1">
+      <nav class="space-y-2">
         {processedNavigation.map((item, index) => (
-          <div class="mobile-nav-item">
+          <div>
             {item.submenu ? (
-              <div class="space-y-1">
-                <button class="mobile-dropdown-btn w-full flex items-center justify-between p-4 text-charcoal hover:text-laser-green hover:bg-silver-light rounded-lg transition-all duration-300"
+              <div>
+                <button class="mobile-dropdown-btn w-full flex items-center justify-between p-3 text-charcoal font-semibold text-left"
                   data-mobile-submenu-index={index}
-                  aria-expanded="false"
-                  aria-controls={`mobile-submenu-${index}`}>
-                  <span class="font-semibold">{item.name}</span>
-                  <svg class="w-4 h-4 mobile-dropdown-arrow transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  aria-expanded="false">
+                  <span>{item.name}</span>
+                  <svg class="w-4 h-4 mobile-dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                   </svg>
                 </button>
-                <div id={`mobile-submenu-${index}`} class="mobile-submenu overflow-hidden max-h-0 opacity-0 pl-4 transition-all duration-300">
+                <div id={`mobile-submenu-${index}`} class="mobile-submenu hidden pl-4">
                   <div class="space-y-1 py-2">
                     {item.submenu.map(subitem => (
-                      <a href={subitem.href} class="block p-4 text-graphite hover:text-laser-green hover:bg-silver-light rounded-lg transition-all duration-300">
+                      <a href={subitem.href} class="block p-2 text-graphite">
                         {subitem.name}
                       </a>
                     ))}
@@ -137,7 +136,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
                 </div>
               </div>
             ) : (
-              <a href={item.href} class="block p-4 text-charcoal hover:text-laser-green hover:bg-silver-light rounded-lg transition-all duration-300 font-semibold">
+              <a href={item.href} class="block p-3 text-charcoal font-semibold">
                 {item.name}
               </a>
             )}
@@ -145,11 +144,8 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
         ))}
       </nav>
 
-      <div class="mt-8 px-4">
-        <a href={createUrl('contact')} class="btn-primary w-full justify-center text-center">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-          </svg>
+      <div class="mt-6">
+        <a href={createUrl('contact')} class="btn-primary w-full text-center block py-3">
           Kontak Kami
         </a>
       </div>
@@ -157,7 +153,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   </div>
 
   <!-- Mobile Overlay -->
-  <div id="mobile-menu-overlay" class="fixed inset-0 bg-charcoal/50 z-40 hidden lg:hidden" aria-hidden="true"></div>
+  <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-black/50 z-40 hidden" aria-hidden="true"></div>
 
   <!-- JavaScript -->
   <script type="module">
@@ -169,33 +165,26 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       const desktopDropdownBtns = document.querySelectorAll('.desktop-dropdown-btn');
       const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
 
-      // Mobile Menu Functions
+      // Mobile Menu Functions - SIMPLE VERSION
       function openMobileMenu() {
-        console.log('Opening mobile menu');
         document.body.style.overflow = 'hidden';
         mobileMenuButton.setAttribute('aria-expanded', 'true');
         mobileMenu.classList.remove('hidden');
         mobileMenuOverlay.classList.remove('hidden');
-        console.log('Mobile menu classes after open:', mobileMenu.className);
       }
 
       function closeMobileMenu() {
-        console.log('Closing mobile menu');
         document.body.style.overflow = '';
         mobileMenuButton.setAttribute('aria-expanded', 'false');
         mobileMenu.classList.add('hidden');
         mobileMenuOverlay.classList.add('hidden');
         
-        // Reset mobile submenus
-        mobileDropdownBtns.forEach((btn, index) => {
-          const submenu = document.getElementById(`mobile-submenu-${index}`);
-          const arrow = btn.querySelector('.mobile-dropdown-arrow');
+        // Reset mobile submenus to hidden
+        document.querySelectorAll('.mobile-submenu').forEach(submenu => {
+          submenu.classList.add('hidden');
+        });
+        document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
           btn.setAttribute('aria-expanded', 'false');
-          if (arrow) arrow.style.transform = 'rotate(0deg)';
-          if (submenu) {
-            submenu.style.maxHeight = '0px';
-            submenu.style.opacity = '0';
-          }
         });
       }
 
@@ -248,27 +237,22 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
         });
       });
 
-      // Mobile Dropdown Event Listeners
+      // Mobile Dropdown Event Listeners - SIMPLE VERSION
       mobileDropdownBtns.forEach((btn, index) => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           
           const submenu = document.getElementById(`mobile-submenu-${index}`);
-          const arrow = btn.querySelector('.mobile-dropdown-arrow');
           const isOpen = btn.getAttribute('aria-expanded') === 'true';
 
           if (!submenu) return;
 
           if (isOpen) {
             btn.setAttribute('aria-expanded', 'false');
-            if (arrow) arrow.style.transform = 'rotate(0deg)';
-            submenu.style.maxHeight = '0px';
-            submenu.style.opacity = '0';
+            submenu.classList.add('hidden');
           } else {
             btn.setAttribute('aria-expanded', 'true');
-            if (arrow) arrow.style.transform = 'rotate(180deg)';
-            submenu.style.maxHeight = submenu.scrollHeight + 'px';
-            submenu.style.opacity = '1';
+            submenu.classList.remove('hidden');
           }
         });
       });
@@ -317,10 +301,6 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
     .dropdown-menu.show {
       opacity: 1;
       transform: scale(1);
-    }
-    
-    .mobile-submenu {
-      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     }
     
     #mobile-menu-button[aria-expanded="true"] #menu-line-1 {
