@@ -173,7 +173,8 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
               <div 
                 id={`mobile-submenu-${i}`}
                 data-mobile-submenu={i} 
-                class="mobile-submenu hidden pl-4 space-y-1 mt-2 transform transition-all duration-300 opacity-0 max-h-0 overflow-hidden"
+                class="mobile-submenu pl-4 space-y-1 mt-2 transition-all duration-300 overflow-hidden"
+                style="max-height: 0; opacity: 0;"
                 role="region"
                 aria-label={`${item.name} submenu`}
               >
@@ -304,14 +305,15 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
         
         // Close all mobile submenus when closing the main menu
         mobileDropdownBtns.forEach(btn => {
-          const submenu = document.querySelector(`[aria-controls="${btn.getAttribute('aria-controls')}"]`);
+          const submenuId = btn.getAttribute('aria-controls');
+          const submenu = document.getElementById(submenuId);
           if (submenu && btn.getAttribute('aria-expanded') === 'true') {
             btn.setAttribute('aria-expanded', 'false');
             const arrow = btn.querySelector('.mobile-dropdown-arrow');
-            if (arrow) arrow.style.transform = '';
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
             
-            submenu.style.maxHeight = null;
-            submenu.classList.add('opacity-0', 'max-h-0', 'overflow-hidden');
+            submenu.style.maxHeight = '0px';
+            submenu.style.opacity = '0';
             submenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '-1'));
           }
         });
@@ -352,25 +354,19 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
             // Close the submenu
             btn.setAttribute('aria-expanded', 'false');
             if (arrow) arrow.style.transform = 'rotate(0deg)';
-            submenu.style.maxHeight = null;
-            submenu.classList.add('opacity-0');
+            submenu.style.maxHeight = '0px';
+            submenu.style.opacity = '0';
             submenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '-1'));
           } else {
             // Open the submenu
             btn.setAttribute('aria-expanded', 'true');
             if (arrow) arrow.style.transform = 'rotate(180deg)';
-            submenu.classList.remove('hidden'); // Make it visible to calculate scrollHeight
-            submenu.style.maxHeight = submenu.scrollHeight + "px";
-            submenu.classList.remove('opacity-0');
+            // Calculate the scroll height first
+            const scrollHeight = submenu.scrollHeight;
+            submenu.style.maxHeight = scrollHeight + 'px';
+            submenu.style.opacity = '1';
             submenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '0'));
           }
-        });
-        
-        // Reset state after transition ends
-        submenu.addEventListener('transitionend', (e) => {
-            if (e.propertyName === 'max-height' && !submenu.style.maxHeight) {
-                submenu.classList.add('hidden');
-            }
         });
       });
 
