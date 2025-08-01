@@ -43,7 +43,7 @@ export const NAVIGATION = [
       { name: 'Plywood/Multiplex', href: '/material-ply-wood-multiplex/' },
       { name: 'Metal (Stainless, Aluminium)', href: '/material-metal/' },
       { name: 'ACP', href: '/material-acp/' },
-      { name: 'PVC Plastik', href: '/material-pvc/' },
+      { name: 'PVC BOARD', href: '/material-pvc/' },
       { name: 'GRC', href: '/material-grc/' }
     ]
   },
@@ -167,7 +167,7 @@ export const MATERIALS = [
   },
   {
     id: "pvc",
-    name: "PVC Plastik",
+    name: "PVC BOARD",
     slug: "material-pvc",
     description: "Cutting PVC custom untuk berbagai keperluan industri dan kreatif",
     thickness: "1mm - 10mm",
