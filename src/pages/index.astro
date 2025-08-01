@@ -1,107 +1,264 @@
 ---
-// src/components/Hero.astro
-// Versi Redesign: Tampilan lebih modern, dinamis, dan fokus konversi.
-import { SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
+// src/pages/index.astro
+// Halaman utama yang dioptimalkan untuk kecepatan dan SEO maksimal.
+// Semua data dan logika SEO ditarik dari /utils/constants.js dan /utils/seo.ts.
 
-// Props tetap fleksibel, tapi default-nya udah gue bikin lebih mantap.
-export interface Props {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  primaryCTA?: string;
-  primaryCTALink?: string; // Link ini bisa di-override
-  secondaryCTA?: string;
-  secondaryCTALink?: string;
-  backgroundImage?: string;
-  showTrustSignals?: boolean;
-}
+// Import komponen-komponen utama
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
 
-const {
-  title = "Jasa Laser Cutting #1 di Banten",
-  subtitle = "Presisi Tinggi, Pengerjaan Cepat, Kualitas Terjamin",
-  description = "Solusi terdepan untuk semua kebutuhan cutting Anda, mulai dari akrilik, kayu, hingga metal. Dipercaya oleh ratusan klien di Serang, Tangerang, dan Cilegon.",
-  primaryCTA = "Konsultasi via WhatsApp",
-  secondaryCTA = "Lihat Portfolio Kami",
-  secondaryCTALink = "/portfolio/",
-  // Ganti background default biar lebih relevan dengan kerjaan lo
-  backgroundImage = "/jasalasercutting/images/laserfiber.webp",
-  showTrustSignals = true,
-} = Astro.props;
+// Import data terpusat dari constants.js
+import { SERVICES, MATERIALS, TESTIMONIALS, PORTFOLIO, FAQ, SITE_CONFIG } from '../utils/constants.js';
 
-// Link WhatsApp sekarang jadi default utama, diambil dari constants.js
-const whatsappLink = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.default)}`;
+// Import fungsi-fungsi SEO dari seo.ts
+import { generateMetaTags, generateFAQSchema, generateReviewSchema } from '../utils/seo.ts';
+
+// 1. GENERATE META TAGS
+// Semua meta tags (title, description, OG, Twitter card) dibuat secara dinamis
+// menggunakan fungsi generateMetaTags. Cukup isi data di bawah, sisanya diurus seo.ts.
+const metaTags = generateMetaTags({
+  title: "Jasa Laser Cutting Profesional & Akurat #1 Banten - Akrilik, Kayu, Metal",
+  description: "Laser cutting presisi tinggi & pengerjaan cepat di Banten! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Serang, Tangerang, Cilegon.",
+  keywords: "jasa laser cutting banten, laser cutting serang, laser cutting tangerang, cnc router banten, laser fiber cutting, potong akrilik serang, potong kayu tangerang, cutting metal cilegon",
+  url: "/", // URL canonical untuk halaman ini
+  type: "website",
+  image: "/jasalasercutting/images/logo.webp", // Gambar utama untuk social media sharing
+  publishedTime: "2024-01-01T00:00:00Z",
+  modifiedTime: "2024-07-27T10:00:00Z", // Update tanggal modifikasi terakhir
+  author: SITE_CONFIG.author
+});
+
+// 2. GENERATE STRUCTURED DATA (JSON-LD)
+// Schema untuk FAQ dan Review juga digenerate dari seo.ts untuk hasil SEO yang lebih kaya.
+const faqSchema = generateFAQSchema(FAQ);
+const reviewSchema = generateReviewSchema(TESTIMONIALS);
 ---
 
-<section class="relative h-screen min-h-[700px] flex items-center justify-center text-white overflow-hidden">
-  <!-- Background Image & Overlay -->
-  <div class="absolute inset-0 z-[-1]">
-    <img
-      src={backgroundImage}
-      alt="Mesin laser cutting sedang beraksi"
-      class="w-full h-full object-cover"
-      loading="eager"
-      width="1920"
-      height="1080"
-    />
-    <!-- Overlay gradien yang lebih subtle dan modern -->
-    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/50 to-transparent"></div>
-  </div>
+<BaseLayout
+  metaTags={metaTags}
+  jsonLd={[faqSchema, reviewSchema]}
+>
+  <Header slot="header" />
 
-  <div class="relative z-10 container-custom text-center px-4">
-    <div class="max-w-3xl mx-auto">
-      <!-- Subtitle/Tagline -->
-      <p class="text-lg md:text-xl font-semibold text-blue-300 mb-4 animate-fade-in-up" style="animation-delay: 0.2s;">
-        {subtitle}
-      </p>
-      
-      <!-- Main Title -->
-      <h1 class="text-4xl md:text-6xl font-bold mb-6 text-shadow-lg animate-fade-in-up">
-        {title}
-      </h1>
-      
-      <!-- Description -->
-      <p class="text-md md:text-lg text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay: 0.4s;">
-        {description}
-      </p>
+  <main>
+    <Hero />
 
-      <!-- Tombol CTA -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.6s;">
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-success text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 shadow-xl inline-flex items-center justify-center gap-2"
-        >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
-          {primaryCTA}
-        </a>
-        <a
-          href={secondaryCTALink}
-          class="btn-secondary border-white text-white hover:bg-white hover:text-gray-900 text-lg px-8 py-4 w-full sm:w-auto shadow-xl"
-        >
-          {secondaryCTA}
-        </a>
+    <!-- Bagian Layanan -->
+    <section id="services" class="section-padding bg-gray-50">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="heading-lg text-gray-900 mb-6">Layanan Laser Cutting Profesional</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Teknologi terdepan dengan presisi tinggi untuk semua kebutuhan industri dan kreatif Anda di Banten.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {SERVICES.map((service) => (
+            <div class="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col">
+              <div class="relative overflow-hidden rounded-t-xl">
+                <img
+                  src={service.image}
+                  alt={`Layanan ${service.name} di Banten`}
+                  class="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
+                  width="400"
+                  height="208"
+                />
+              </div>
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                  {service.name}
+                </h3>
+                <p class="text-gray-600 mb-5 text-sm leading-relaxed flex-grow">
+                  {service.description}
+                </p>
+                <div class="mt-auto pt-4 border-t border-gray-100">
+                  <a
+                    href={`/${service.slug}/`}
+                    class="block w-full text-center bg-blue-600 text-white font-semibold px-4 py-3 rounded-lg transition-all duration-300 hover:bg-blue-700"
+                  >
+                    Lihat Detail
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<style>
-  .text-shadow-lg {
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-  }
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
-    opacity: 0;
-  }
-</style>
+    <!-- Bagian Material -->
+    <section id="materials" class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="heading-lg text-gray-900 mb-6">Material Pilihan Terbaik</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Kami memproses berbagai jenis material kualitas premium dengan hasil cutting yang presisi dan rapi.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {MATERIALS.slice(0, 6).map((material) => (
+            <div class="group bg-gray-50 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <div class="relative">
+                <img
+                  src={material.image}
+                  alt={`Jasa laser cutting material ${material.name}`}
+                  class="w-full h-48 object-cover"
+                  loading="lazy"
+                  width="400"
+                  height="192"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{material.name}</h3>
+                <p class="text-gray-600 mb-4 text-sm leading-relaxed">{material.description}</p>
+                <a href={`/${material.slug}/`} class="font-semibold text-blue-600 hover:text-blue-800 transition-colors text-sm group-hover:underline">
+                  Info Selengkapnya →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Bagian Portfolio -->
+    <section id="portfolio" class="section-padding bg-gray-50">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="heading-lg text-gray-900 mb-6">Portfolio Proyek Kami</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Beberapa hasil karya terbaik kami yang telah dipercaya oleh berbagai klien di Banten.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {PORTFOLIO.map((project) => (
+            <a href="/portfolio/" class="group relative block overflow-hidden rounded-xl shadow-lg">
+              <img
+                src={project.image}
+                alt={project.title}
+                class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+                width="400"
+                height="320"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                <h3 class="text-lg font-bold">{project.title}</h3>
+                <p class="text-sm text-gray-300">{project.category}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div class="text-center mt-12">
+          <a href="/portfolio/" class="btn-primary text-lg px-8 py-4">
+            Lihat Semua Portfolio
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bagian Testimoni -->
+    <section id="testimonials" class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="heading-lg text-gray-900 mb-6">Apa Kata Klien Kami</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Kepuasan klien adalah prioritas utama. Dengarkan pengalaman mereka yang telah mempercayakan proyeknya kepada kami.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {TESTIMONIALS.map((testimonial) => (
+            <div class="bg-gray-50 rounded-xl p-8 border border-gray-100">
+              <div class="flex items-center mb-4">
+                {Array(testimonial.rating).fill(0).map(() => (
+                  <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                ))}
+              </div>
+              <p class="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+              <div class="flex items-center">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  class="w-12 h-12 rounded-full object-cover mr-4"
+                  loading="lazy"
+                  width="48"
+                  height="48"
+                />
+                <div>
+                  <h4 class="font-bold text-gray-900">{testimonial.name}</h4>
+                  <p class="text-sm text-gray-600">{testimonial.company}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Bagian FAQ -->
+    <section id="faq" class="section-padding bg-gray-50">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="heading-lg text-gray-900 mb-6">Pertanyaan Umum (FAQ)</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Temukan jawaban cepat untuk pertanyaan yang sering diajukan tentang layanan kami.
+          </p>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-4" data-faq-container>
+          {FAQ.map((faq) => (
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+              <button class="flex items-center justify-between w-full text-left p-6" data-faq-button>
+                <h3 class="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
+                <svg class="w-5 h-5 text-blue-600 transition-transform duration-300 flex-shrink-0" data-faq-icon fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out" data-faq-answer>
+                <p class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CTA />
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<script>
+  // Script minimalis untuk fungsionalitas FAQ Accordion.
+  // Ditempatkan di sini agar tidak memblokir rendering.
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqContainer = document.querySelector('[data-faq-container]');
+    if (!faqContainer) return;
+
+    faqContainer.addEventListener('click', (e) => {
+      // FIX: Pastikan target adalah sebuah elemen sebelum memanggil method .closest
+      if (!(e.target instanceof Element)) return;
+
+      const button = e.target.closest('[data-faq-button]');
+      if (!button) return;
+
+      const answer = button.nextElementSibling as HTMLElement | null;
+      const icon = button.querySelector('[data-faq-icon]');
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      
+      button.setAttribute('aria-expanded', String(!isExpanded));
+
+      // FIX: Tambahkan pengecekan null sebelum mengakses properti .style atau .classList
+      if (answer) {
+        answer.style.maxHeight = isExpanded ? "0" : answer.scrollHeight + "px";
+      }
+      if (icon) {
+        icon.classList.toggle('rotate-180');
+      }
+    });
+  });
+</script>
