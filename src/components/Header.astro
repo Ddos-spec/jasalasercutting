@@ -9,7 +9,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
     <div class="flex items-center justify-between h-16">
       <!-- Logo Section -->
       <div class="flex items-center">
-        <a href="" class="flex items-center space-x-3">
+        <a href="/jasacuttinglaser/" class="flex items-center space-x-3">
           <div class="sm:block">
             <h1 class="text-xl font-bold text-gray-900">
               Jasa Cutting Laser
@@ -20,26 +20,27 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       </div>
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center space-x-8" aria-label="Main navigation">
-        {filteredNavigation.map((item) => (
-          <div class="relative group">
+        {filteredNavigation.map((item, index) => (
+          <div class="relative">
             {item.submenu ? (
               <div class="relative">
                 <button
-                  class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium py-2"
+                  class="flex items-center space-x-1 text-gray-700 hover:text-[#00C853] font-medium py-2"
                   aria-haspopup="true"
                   aria-expanded="false"
+                  data-desktop-dropdown={index}
                 >
                   <span>{item.name}</span>
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
-                <div class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 hidden group-hover:block">
+                <div class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 hidden" data-desktop-menu={index}>
                   <div class="py-2">
                     {item.submenu.map((subitem) => (
                       <a
-                        href={subitem.href}
-                        class="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 text-sm font-medium"
+                        href={`/jasacuttinglaser${subitem.href}`}
+                        class="block px-4 py-3 text-gray-700 hover:text-[#00C853] hover:bg-green-50 text-sm font-medium"
                       >
                         {subitem.name}
                       </a>
@@ -49,9 +50,9 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
               </div>
             ) : (
               <a
-                href={item.href}
-                class="text-gray-700 hover:text-blue-600 font-medium py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"
-                class:list={[item.active && 'text-blue-600 after:w-full']}
+                href={`/jasacuttinglaser${item.href}`}
+                class="text-gray-700 hover:text-[#00C853] font-medium py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#00C853] after:transition-all after:duration-300 hover:after:w-full"
+                class:list={[item.active && 'text-[#00C853] after:w-full']}
               >
                 {item.name}
               </a>
@@ -62,7 +63,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       <!-- Desktop Action Buttons -->
       <div class="hidden lg:flex items-center space-x-4">
         <a
-          href="contact"
+          href="/jasacuttinglaser/contact"
           class="btn-primary text-sm px-4 py-2"
         >
           Kontak Kita
@@ -92,7 +93,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
     <!-- Mobile Header Spacer -->
     <div class="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-4">
       <div class="flex items-center">
-        <a href="" class="flex items-center space-x-3">
+        <a href="/jasacuttinglaser/" class="flex items-center space-x-3">
           <h1 class="text-xl font-bold text-gray-900">Tepat Laser</h1>
         </a>
       </div>
@@ -137,8 +138,8 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
                   <div class="pl-4 pt-2 pb-2 space-y-1">
                     {item.submenu.map((subitem) => (
                       <a
-                        href={subitem.href}
-                        class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-white text-sm font-medium"
+                        href={`/jasacuttinglaser${subitem.href}`}
+                        class="block text-gray-600 hover:text-[#00C853] py-2 px-4 rounded-lg hover:bg-white text-sm font-medium"
                       >
                         {subitem.name}
                       </a>
@@ -148,9 +149,9 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
               </div>
             ) : (
               <a
-                href={item.href}
-                class="block text-gray-700 hover:text-blue-600 font-medium py-3 px-4 rounded-lg hover:bg-gray-50"
-                class:list={[item.active && 'text-blue-600 bg-blue-50']}
+                href={`/jasacuttinglaser${item.href}`}
+                class="block text-gray-700 hover:text-[#00C853] font-medium py-3 px-4 rounded-lg hover:bg-gray-50"
+                class:list={[item.active && 'text-[#00C853] bg-green-50']}
               >
                 {item.name}
               </a>
@@ -161,7 +162,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       <!-- Mobile Action Buttons -->
       <div class="p-4 border-t border-gray-200 space-y-3 bg-white">
         <a
-          href="contact"
+          href="/jasacuttinglaser/contact"
           class="btn-primary w-full text-center block py-3"
         >
           Kontak Kita
@@ -201,14 +202,74 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button'); // Tambahkan ini
+    const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const menuIcon = document.getElementById('menu-icon');
     const closeIcon = document.getElementById('close-icon');
     const header = document.getElementById('main-header');
 
-    // Mobile menu toggle functions (disederhanakan)
+    // Desktop dropdown functionality
+    let activeDesktopDropdown = null;
+
+    function closeAllDesktopDropdowns() {
+      document.querySelectorAll('[data-desktop-menu]').forEach((menu) => {
+        menu.classList.add('hidden');
+      });
+      document.querySelectorAll('[data-desktop-dropdown] svg').forEach((icon) => {
+        icon.style.transform = 'rotate(0deg)';
+      });
+      document.querySelectorAll('[data-desktop-dropdown]').forEach((button) => {
+        button.setAttribute('aria-expanded', 'false');
+      });
+      activeDesktopDropdown = null;
+    }
+
+    function toggleDesktopDropdown(index) {
+      const menu = document.querySelector(`[data-desktop-menu="${index}"]`);
+      const button = document.querySelector(`[data-desktop-dropdown="${index}"]`);
+      const icon = button?.querySelector('svg');
+
+      if (!menu || !button || !icon) return;
+
+      const isOpen = !menu.classList.contains('hidden');
+
+      if (isOpen && activeDesktopDropdown === index) {
+        // Close current dropdown
+        menu.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+        button.setAttribute('aria-expanded', 'false');
+        activeDesktopDropdown = null;
+      } else {
+        // Close all dropdowns first
+        closeAllDesktopDropdowns();
+        
+        // Open clicked dropdown
+        menu.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+        button.setAttribute('aria-expanded', 'true');
+        activeDesktopDropdown = index;
+      }
+    }
+
+    // Desktop dropdown event listeners
+    document.querySelectorAll('[data-desktop-dropdown]').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const index = parseInt(button.getAttribute('data-desktop-dropdown'));
+        toggleDesktopDropdown(index);
+      });
+    });
+
+    // Close desktop dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('[data-desktop-dropdown]') && !e.target.closest('[data-desktop-menu]')) {
+        closeAllDesktopDropdowns();
+      }
+    });
+
+    // Mobile menu toggle functions
     function openMobileMenu() {
       if (mobileMenu && mobileMenuOverlay) {
         mobileMenu.classList.remove('hidden');
@@ -250,7 +311,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       }
     }
 
-    // Submenu toggle function (disederhanakan)
+    // Mobile submenu toggle function
     function toggleSubmenu(index) {
       const submenu = document.getElementById(`submenu-${index}`);
       const icon = document.getElementById(`submenu-icon-${index}`);
@@ -265,7 +326,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
         icon.style.transform = 'rotate(0deg)';
         button.setAttribute('aria-expanded', 'false');
       } else {
-        // Tutup submenu lainnya terlebih dahulu
+        // Close other submenus first
         document.querySelectorAll('[id^="submenu-"]:not(#submenu-' + index + ')').forEach((otherSubmenu) => {
           otherSubmenu.classList.add('hidden');
           const otherIndex = otherSubmenu.id.split('-')[1];
@@ -281,20 +342,20 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       }
     }
 
-    // Event listeners
+    // Mobile menu event listeners
     mobileMenuButton?.addEventListener('click', (e) => {
       e.preventDefault();
       toggleMobileMenu();
     });
 
-    mobileMenuCloseButton?.addEventListener('click', (e) => { // Tambahkan ini
+    mobileMenuCloseButton?.addEventListener('click', (e) => {
       e.preventDefault();
       closeMobileMenu();
     });
 
     mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
 
-    // Submenu button event listeners
+    // Mobile submenu button event listeners
     document.querySelectorAll('[data-submenu-index]').forEach((button) => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
@@ -316,13 +377,18 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 1024) {
         closeMobileMenu();
+        closeAllDesktopDropdowns();
       }
     });
 
     // Handle escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
-        closeMobileMenu();
+      if (e.key === 'Escape') {
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+          closeMobileMenu();
+        } else {
+          closeAllDesktopDropdowns();
+        }
       }
     });
   });
@@ -331,11 +397,6 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
   /* Header styles */
   #main-header {
     transition: none;
-  }
-
-  /* Desktop dropdown hover effects */
-  .group:hover .group-hover\:block {
-    display: block;
   }
 
   /* Mobile submenu */
@@ -357,7 +418,8 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
   }
 
   /* Submenu icon rotation */
-  [id^="submenu-icon-"] {
+  [id^="submenu-icon-"],
+  [data-desktop-dropdown] svg {
     transition: transform 0.2s ease-in-out;
   }
 
