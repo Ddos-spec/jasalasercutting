@@ -11,7 +11,8 @@
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    color: #1A1A1A;
+    color: #1F2023;        /* charcoal */
+    background-color: #F5F6F7; /* silver-light */
   }
   
   /* Optimasi font loading */
@@ -43,11 +44,11 @@
 @layer components {
   /* Button Components */
   .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+    @apply bg-laser-green hover:bg-laser-green/90 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-laser-green focus:ring-offset-2;
   }
   
   .btn-secondary {
-    @apply border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+    @apply border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-charcoal focus:ring-offset-2;
   }
   
   .btn-success {
@@ -60,19 +61,24 @@
   
   /* Typography */
   .heading-xl {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-charcoal;
   }
   
   .heading-lg {
-    @apply text-3xl md:text-4xl font-bold leading-tight;
+    @apply text-3xl md:text-4xl font-bold leading-tight text-charcoal;
   }
   
   .heading-md {
-    @apply text-2xl md:text-3xl font-semibold leading-tight;
+    @apply text-2xl md:text-3xl font-semibold leading-tight text-charcoal;
   }
   
   .heading-sm {
-    @apply text-xl md:text-2xl font-semibold leading-tight;
+    @apply text-xl md:text-2xl font-semibold leading-tight text-charcoal;
+  }
+  
+  /* Paragraph */
+  p {
+    @apply text-graphite;
   }
   
   /* Layout */
@@ -105,11 +111,11 @@
   }
   
   .bg-gradient-primary {
-    background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+    background: linear-gradient(135deg, #00C853 0%, #00A045 100%);
   }
   
   .bg-gradient-secondary {
-    background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+    background: linear-gradient(135deg, #1F2023 0%, #4A4B4E 100%);
   }
 }
 
@@ -170,7 +176,6 @@ img {
 
 /* Focus styles */
 .focus-visible {
-  outline: 2px solid #0066FF;
+  outline: 2px solid #00C853;
   outline-offset: 2px;
 }
-

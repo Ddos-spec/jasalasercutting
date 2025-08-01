@@ -1,0 +1,59 @@
+---
+// src/pages/404.astro
+---
+
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halaman Tidak Ditemukan</title>
+    <meta http-equiv="refresh" content="1.5;url=/" />
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        margin-bottom: 1.5rem;
+        color: #64748b;
+      }
+      a {
+        display: inline-block;
+        background-color: #2563eb;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+      a:hover {
+        background-color: #1d4ed8;
+      }
+    </style>
+    <script>
+      // Fallback JS redirect in case meta refresh is blocked
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1500);
+    </script>
+  </head>
+  <body>
+    <h1>404 - Halaman Tidak Ditemukan</h1>
+    <p>Anda akan diarahkan ke beranda dalam 1,5 detik...</p>
+    <a href="/">Kembali ke Beranda</a>
+  </body>
+</html>

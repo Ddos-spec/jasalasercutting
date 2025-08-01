@@ -1,102 +1,77 @@
 ---
-// Header.astro - Komponen header dengan navigasi responsif dan dropdown click
 import { NAVIGATION, SITE_CONFIG } from '../utils/constants.js';
 
 interface NavigationItem {
   name: string;
   href: string;
-  submenu?: Array<{
-    name: string;
-    href: string;
-  }>;
+  submenu?: Array<{ name: string; href: string }>;
   active?: boolean;
 }
 
-// Function to create proper URL with base path
 function createUrl(path: string | null | undefined): string {
-  if (!path || path === null || path === undefined) {
-    return SITE_CONFIG.url || '/';
-  }
-  
-  const pathStr = String(path);
-  const cleanPath = pathStr.startsWith('/') ? pathStr.slice(1) : pathStr;
-  
-  if (cleanPath === '' || cleanPath === '/') {
-    return SITE_CONFIG.url || '/';
-  }
-  
-  if (cleanPath.startsWith('#')) {
-    return `${SITE_CONFIG.url || ''}${cleanPath}`;
-  }
-  
-  return `${SITE_CONFIG.url || ''}${cleanPath}`;
+  if (!path) return SITE_CONFIG.url || '/';
+  const clean = path.startsWith('/') ? path.slice(1) : path;
+  if (clean === '' || clean === '/') return SITE_CONFIG.url || '/';
+  return clean.startsWith('#')
+    ? `${SITE_CONFIG.url}${clean}`
+    : `${SITE_CONFIG.url}${clean}`;
 }
 
-// Filter navigasi untuk menghilangkan link "Kontak"
-// Filter and process navigation items
-const filteredNavigation = (NAVIGATION ?? [])
-  .filter((item): item is NavigationItem => Boolean(item) && item.name !== "Kontak");
-
-// Process navigation to include proper URLs
-const processedNavigation: NavigationItem[] = filteredNavigation.map(item => ({
-  ...item,
-  href: createUrl(item.href) || '/',
-  submenu: item.submenu?.map(subitem => ({
-    ...subitem,
-    href: createUrl(subitem.href) || '/'
-  }))
-}));
+const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
+  .filter(item => item.name !== 'Kontak')
+  .map(item => ({
+    ...item,
+    href: createUrl(item.href),
+    submenu: item.submenu?.map(s => ({
+      ...s,
+      href: createUrl(s.href)
+    })),
+    active: false // Tambahkan biar TS nggak error
+  }));
 ---
-<header class="fixed top-0 left-0 right-0 z-40 bg-white border-b border-gray-200" id="main-header">
+
+<header id="main-header" class="fixed top-0 inset-x-0 z-40 bg-silver-light border-b border-silver-mid">
   <div class="container-custom">
     <div class="flex items-center justify-between h-16">
-      <div class="flex items-center">
-        <a href={SITE_CONFIG?.url || '/'} class="flex items-center space-x-3">
-          <div class="sm:block">
-            <h1 class="text-xl font-bold text-gray-900">
-              Tepat Laser
-            </h1>
-            <p class="text-xs text-gray-600 hidden lg:block">Laser Cutting Terpercaya</p>
-          </div>
-        </a>
-      </div>
-      <nav class="hidden lg:flex items-center space-x-8" aria-label="Main navigation">
-        {processedNavigation.map((item, index) => (
+      <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
+        <h1 class="text-xl font-bold text-charcoal">Tepat Laser</h1>
+        <p class="hidden lg:block text-xs text-graphite">Laser Cutting Terpercaya</p>
+      </a>
+      <nav aria-label="Main navigation" class="hidden lg:flex items-center space-x-8">
+        {processedNavigation.map((item, i) => (
           <div class="relative">
-            {item?.submenu ? (
-              <div class="relative">
+            {item.submenu ? (
+              <>
                 <button
-                  class="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium py-2 desktop-dropdown-btn"
-                  data-dropdown-index={index}
+                  class="desktop-dropdown-btn flex items-center space-x-1 text-charcoal hover:text-laser-green font-medium py-2"
+                  data-dropdown-index={i}
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
                   <span>{item.name}</span>
-                  <svg class="w-4 h-4 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  <svg class="w-4 h-4 dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                   </svg>
                 </button>
-                <div 
-                  class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 hidden dropdown-menu"
-                  data-dropdown-menu={index}
+                <div
+                  data-dropdown-menu={i}
+                  class="dropdown-menu hidden absolute top-full left-0 mt-2 w-56 bg-silver-light rounded-lg shadow-lg border border-silver-mid py-2 z-50"
                 >
-                  <div class="py-2">
-                    {item.submenu?.map((subitem) => (
-                      <a
-                        href={subitem.href}
-                        class="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 text-sm font-medium"
-                      >
-                        {subitem.name}
-                      </a>
-                    ))}
-                  </div>
+                  {item.submenu.map(s => (
+                    <a
+                      href={s.href}
+                      class="block px-4 py-2 text-graphite hover:text-laser-green hover:bg-silver-mid text-sm font-medium"
+                    >
+                      {s.name}
+                    </a>
+                  ))}
                 </div>
-              </div>
+              </>
             ) : (
               <a
                 href={item.href}
-                class="text-gray-700 hover:text-blue-600 font-medium py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"
-                class:list={{'text-blue-600 after:w-full': item.active}}
+                class="relative text-charcoal hover:text-laser-green font-medium py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-laser-green after:transition-all after:duration-300 hover:after:w-full"
+                class:list={{ 'text-laser-green after:w-full': item.active }}
               >
                 {item.name}
               </a>
@@ -105,360 +80,154 @@ const processedNavigation: NavigationItem[] = filteredNavigation.map(item => ({
         ))}
       </nav>
       <div class="hidden lg:flex items-center space-x-4">
-        <a
-          href={createUrl("contact")}
-          class="btn-primary text-sm px-4 py-2"
-        >
-          Kontak Kita
-        </a>
+        <a href={createUrl('contact')} class="btn-primary text-sm">Kontak Kita</a>
       </div>
       <button
-        class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100"
         id="mobile-menu-button"
         aria-label="Toggle mobile menu"
         aria-expanded="false"
+        class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-silver-mid"
       >
-        <svg class="w-6 h-6 text-gray-700" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        <svg id="menu-icon" class="w-6 h-6 text-charcoal" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </svg>
-        <svg class="w-6 h-6 text-gray-700 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        <svg id="close-icon" class="w-6 h-6 text-charcoal hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </svg>
       </button>
     </div>
   </div>
-  <div
-    class="lg:hidden fixed inset-0 top-0 bg-white z-50 hidden overflow-y-auto"
-    id="mobile-menu"
-  >
-    <div class="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-4">
-      <div class="flex items-center">
-        <a href={SITE_CONFIG?.url || '/'} class="flex items-center space-x-3">
-          <h1 class="text-xl font-bold text-gray-900">Tepat Laser</h1>
-        </a>
-      </div>
-       <button
-        class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100"
-        id="mobile-menu-close-button"
-        aria-label="Close mobile menu"
-      >
-        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+
+  <div id="mobile-menu" class="fixed inset-0 top-0 bg-silver-light z-50 hidden overflow-y-auto lg:hidden">
+    <div class="flex items-center justify-between h-16 px-4 border-b border-silver-mid">
+      <a href={SITE_CONFIG.url} class="text-xl font-bold text-charcoal">Tepat Laser</a>
+      <button id="mobile-menu-close-button" aria-label="Close mobile menu" class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-silver-mid">
+        <svg class="w-6 h-6 text-charcoal" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </svg>
       </button>
     </div>
-    <div class="flex flex-col min-h-screen bg-white">
-            <nav class="flex-1 px-4 py-6 space-y-2" aria-label="Mobile navigation">
-        {processedNavigation.map((item, index) => (
-          <div>
-            {item?.submenu ? (
-              <div>
-                <button
-                  class="flex items-center justify-between w-full text-left text-gray-700 font-medium py-3 px-4 rounded-lg hover:bg-gray-50 mobile-dropdown-btn"
-                  data-mobile-submenu-index={index}
-                  aria-expanded="false"
-                >
-                  <span>{item.name}</span>
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                <div 
-                  class="hidden pl-4 space-y-2"
-                  data-mobile-submenu={index}
-                >
-                  {item.submenu?.map((subitem) => (
-                    <a
-                      href={subitem.href}
-                      class="block px-4 py-2 text-gray-700 hover:text-blue-600 text-sm"
-                    >
-                      {subitem.name}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <a
-                href={item.href}
-                class="block w-full text-left text-gray-700 font-medium py-3 px-4 rounded-lg hover:bg-gray-50"
-                class:list={{'text-blue-600 bg-blue-50': item.active}}
+    <nav class="flex flex-col p-4 space-y-2">
+      {processedNavigation.map((item, i) => (
+        <div>
+          {item.submenu ? (
+            <>
+              <button
+                data-mobile-submenu-index={i}
+                aria-expanded="false"
+                class="mobile-dropdown-btn flex justify-between w-full text-left text-charcoal font-medium py-3 px-4 rounded-lg hover:bg-silver-mid"
               >
-                {item.name}
-              </a>
-            )}
-          </div>
-        ))}
-      <div class="p-4 border-t border-gray-200 space-y-3 bg-white">
-        <a
-          href={createUrl("contact")}
-          class="btn-primary w-full text-center block py-3"
-        >
-          Kontak Kita
-        </a>
-        <div class="grid grid-cols-2 gap-3">
-          <a
-            href={`https://api.whatsapp.com/send?phone=${SITE_CONFIG?.whatsapp || ''}&text=${encodeURIComponent("Halo, saya tertarik dengan jasa laser cutting. Bisa konsultasi gratis?")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-green-600 hover:bg-green-700 text-white text-center py-2 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2"
-          >
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-            </svg>
-            <span>WhatsApp</span>
-          </a>
-          <a
-            href={`tel:${SITE_CONFIG?.phone || ''}`}
-            class="bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-            </svg>
-            <span>Telepon</span>
-          </a>
+                <span>{item.name}</span>
+                <svg class="w-4 h-4 text-charcoal mobile-dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                </svg>
+              </button>
+              <div data-mobile-submenu={i} class="mobile-submenu hidden pl-4 space-y-2">
+                {item.submenu.map(s => (
+                  <a href={s.href} class="block text-charcoal py-2 px-4 rounded-lg hover:bg-silver-mid text-sm">{s.name}</a>
+                ))}
+              </div>
+            </>
+          ) : (
+            <a href={item.href} class="block text-charcoal font-medium py-3 px-4 rounded-lg hover:bg-silver-mid">{item.name}</a>
+          )}
         </div>
+      ))}
+      <div class="border-t border-silver-mid mt-4 pt-4">
+        <a href={createUrl('contact')} class="btn-primary w-full text-center py-3">Kontak Kita</a>
       </div>
-    </div>
+    </nav>
   </div>
-</header>
-<div
-  class="lg:hidden fixed inset-0 bg-black/50 z-20 hidden"
-  id="mobile-menu-overlay"
-></div>
-<script type="module">
-  document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
 
-    // Desktop dropdown functionality
-    const desktopDropdownBtns = document.querySelectorAll('.desktop-dropdown-btn');
-    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      const desktopDropdownBtns = document.querySelectorAll('.desktop-dropdown-btn');
+      const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+      const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
 
-    // Mobile menu toggle functions
-    function openMobileMenu() {
-      if (mobileMenu && mobileMenuOverlay) {
+      function openMobileMenu() {
         mobileMenu.classList.remove('hidden');
         mobileMenuOverlay.classList.remove('hidden');
-        menuIcon?.classList.add('hidden');
-        closeIcon?.classList.remove('hidden');
-        mobileMenuButton?.setAttribute('aria-expanded', 'true');
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
       }
-    }
 
-    function closeMobileMenu() {
-      if (mobileMenu && mobileMenuOverlay) {
+      function closeMobileMenu() {
         mobileMenu.classList.add('hidden');
         mobileMenuOverlay.classList.add('hidden');
-        menuIcon?.classList.remove('hidden');
-        closeIcon?.classList.add('hidden');
-        mobileMenuButton?.setAttribute('aria-expanded', 'false');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
-
-        // Reset mobile submenus
-        document.querySelectorAll('.mobile-submenu').forEach((submenu) => {
-          submenu.classList.add('hidden');
-        });
-        document.querySelectorAll('.mobile-dropdown-arrow').forEach((arrow) => {
-          arrow.style.transform = 'rotate(0deg)';
-        });
-        document.querySelectorAll('.mobile-dropdown-btn').forEach((button) => {
-          button.setAttribute('aria-expanded', 'false');
-        });
+        document.querySelectorAll('.mobile-submenu').forEach(el => el.classList.add('hidden'));
+        mobileDropdownBtns.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
       }
-    }
 
-    // Desktop dropdown click handlers
-    desktopDropdownBtns.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const index = btn.getAttribute('data-dropdown-index');
-        const targetMenu = document.querySelector(`[data-dropdown-menu="${index}"]`);
-        const arrow = btn.querySelector('.dropdown-arrow');
-        
-        if (!targetMenu) return;
+      mobileMenuButton.addEventListener('click', openMobileMenu);
+      mobileMenuCloseButton.addEventListener('click', closeMobileMenu);
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
 
-        const isOpen = !targetMenu.classList.contains('hidden');
-        
-        // Close all other dropdowns
-        dropdownMenus.forEach((menu, menuIndex) => {
-          if (menu !== targetMenu) {
-            menu.classList.add('hidden');
-            const otherBtn = document.querySelector(`[data-dropdown-index="${menuIndex}"]`);
-            const otherArrow = otherBtn?.querySelector('.dropdown-arrow');
-            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
-            if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
-          }
+      desktopDropdownBtns.forEach((btn, idx) => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          dropdownMenus.forEach((m, i) => {
+            if (i === idx) m.classList.toggle('hidden');
+            else m.classList.add('hidden');
+          });
+          desktopDropdownBtns.forEach((b, i) => {
+            b.setAttribute('aria-expanded', i === idx && !dropdownMenus[idx].classList.contains('hidden'));
+          });
         });
+      });
 
-        // Toggle current dropdown
-        if (isOpen) {
-          targetMenu.classList.add('hidden');
-          btn.setAttribute('aria-expanded', 'false');
-          if (arrow) arrow.style.transform = 'rotate(0deg)';
-        } else {
-          targetMenu.classList.remove('hidden');
-          btn.setAttribute('aria-expanded', 'true');
-          if (arrow) arrow.style.transform = 'rotate(180deg)';
+      mobileDropdownBtns.forEach((btn, idx) => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          const submenu = document.querySelector(`[data-mobile-submenu="${idx}"]`);
+          const expanded = submenu.classList.toggle('hidden');
+          btn.setAttribute('aria-expanded', String(!expanded));
+        });
+      });
+
+      document.addEventListener('click', e => {
+        if (!e.target.closest('#main-header')) {
+          dropdownMenus.forEach(m => m.classList.add('hidden'));
+          desktopDropdownBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) closeMobileMenu();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          dropdownMenus.forEach(m => m.classList.add('hidden'));
+          desktopDropdownBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+          if (!mobileMenu.classList.contains('hidden')) closeMobileMenu();
         }
       });
     });
+  </script>
 
-    // Mobile submenu toggle function
-    function toggleMobileSubmenu(index) {
-      const submenu = document.querySelector(`[data-mobile-submenu="${index}"]`);
-      const arrow = document.querySelector(`[data-mobile-submenu-index="${index}"] .mobile-dropdown-arrow`);
-      const button = document.querySelector(`[data-mobile-submenu-index="${index}"]`);
-
-      if (!submenu || !arrow || !button) return;
-
-      const isOpen = !submenu.classList.contains('hidden');
-      if (isOpen) {
-        submenu.classList.add('hidden');
-        arrow.style.transform = 'rotate(0deg)';
-        button.setAttribute('aria-expanded', 'false');
-      } else {
-        // Close other submenus first
-        document.querySelectorAll('.mobile-submenu').forEach((otherSubmenu, otherIndex) => {
-          if (otherSubmenu !== submenu) {
-            otherSubmenu.classList.add('hidden');
-            const otherArrow = document.querySelector(`[data-mobile-submenu-index="${otherIndex}"] .mobile-dropdown-arrow`);
-            const otherButton = document.querySelector(`[data-mobile-submenu-index="${otherIndex}"]`);
-            if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
-            if (otherButton) otherButton.setAttribute('aria-expanded', 'false');
-          }
-        });
-
-        submenu.classList.remove('hidden');
-        arrow.style.transform = 'rotate(180deg)';
-        button.setAttribute('aria-expanded', 'true');
-      }
+  <style>
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--tw-color-laser-green);
+      outline-offset: 2px;
     }
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.relative')) {
-        dropdownMenus.forEach((menu, index) => {
-          menu.classList.add('hidden');
-          const btn = document.querySelector(`[data-dropdown-index="${index}"]`);
-          const arrow = btn?.querySelector('.dropdown-arrow');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
-          if (arrow) arrow.style.transform = 'rotate(0deg)';
-        });
-      }
-    });
-
-    // Event listeners
-    mobileMenuButton?.addEventListener('click', (e) => {
-      e.preventDefault();
-      openMobileMenu();
-    });
-    
-    mobileMenuCloseButton?.addEventListener('click', (e) => {
-      e.preventDefault();
-      closeMobileMenu();
-    });
-    
-    mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
-
-    // Mobile submenu button event listeners
-    document.querySelectorAll('.mobile-dropdown-btn').forEach((button) => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const index = parseInt(button.getAttribute('data-mobile-submenu-index') || '0');
-        toggleMobileSubmenu(index);
-      });
-    });
-
-    // Close mobile menu when clicking on nav links
-    document.querySelectorAll('#mobile-menu a[href]').forEach((link) => {
-      link.addEventListener('click', () => {
-        setTimeout(() => {
-          closeMobileMenu();
-        }, 100);
-      });
-    });
-
-    // Close menu on window resize to desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 1024) {
-        closeMobileMenu();
-      }
-    });
-
-    // Handle escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        // Close desktop dropdowns
-        dropdownMenus.forEach((menu, index) => {
-          menu.classList.add('hidden');
-          const btn = document.querySelector(`[data-dropdown-index="${index}"]`);
-          const arrow = btn?.querySelector('.dropdown-arrow');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
-          if (arrow) arrow.style.transform = 'rotate(0deg)';
-        });
-        
-        // Close mobile menu if open
-        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-          closeMobileMenu();
-        }
-      }
-    });
-  });
-</script>
-<style>
-  /* Header styles */
-  #main-header {
-    transition: none;
-  }
-
-  /* Smooth scrolling for mobile menu */
-  #mobile-menu {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Focus styles for accessibility */
-  button:focus-visible,
-  a:focus-visible {
-    outline: 2px solid #3b82f6;
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-
-  /* Dropdown arrow rotation */
-  .dropdown-arrow,
-  .mobile-dropdown-arrow {
-    transition: transform 0.2s ease-in-out;
-  }
-
-  /* Safe area untuk notch devices */
-  @supports (padding-top: env(safe-area-inset-top)) {
-    #main-header {
-      padding-top: env(safe-area-inset-top);
+    .dropdown-arrow,
+    .mobile-dropdown-arrow {
+      transition: transform 0.2s ease-in-out;
     }
-    #mobile-menu {
-      top: calc(env(safe-area-inset-top));
-    }
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      transition: none !important;
-      animation: none !important;
-    }
-  }
-
-  /* Print styles */
-  @media print {
-    #main-header {
-      display: none;
-    }
-  }
-</style>
+  </style>
+</header>
