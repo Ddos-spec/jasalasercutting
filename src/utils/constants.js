@@ -17,16 +17,16 @@ export const SITE_CONFIG = {
     instagram: "https://instagram.com/tepatlaser",
     facebook: "https://facebook.com/tepatlaser",
     youtube: "https://youtube.com/tepatlaser",
-    
   }
 };
 
 export const NAVIGATION = [
-  { name: 'Beranda', href: '/' },
-  { name: 'Tentang Kami', href: '/about/' },
+  { name: 'Beranda', href: '/', active: false },
+  { name: 'Tentang Kami', href: '/about/', active: false },
   { 
     name: 'Layanan', 
     href: '#',
+    active: false,
     submenu: [
       { name: 'Laser CO2', href: '/jasa-laser-co2/' },
       { name: 'Laser Fiber', href: '/jasa-laser-fiber/' },
@@ -47,8 +47,8 @@ export const NAVIGATION = [
       { name: 'GRC', href: '/material-grc/' }
     ]
   },
-  { name: 'Portfolio', href: '/portfolio/' },
-  { name: 'Blog', href: '/blog/' }
+  { name: 'Portfolio', href: '/portfolio/', active: false },
+  { name: 'Blog', href: '/blog/', active: false }
 ];
 
 export const SERVICES = [
@@ -184,6 +184,106 @@ export const MATERIALS = [
     applications: ["Fasad", "Ornamen", "Panel", "Eksterior"],
     image: "/jasalasercutting/images/grc.webp",
     keywords: "potong grc indonesia, grc laser cutting serang, fasad grc tangerang, cutting grc cilegon, laser grc pandeglang"
+  }
+];
+
+// Data portfolio yang dipindahkan dari portfolio.astro
+export const PORTFOLIO_PROJECTS = [
+  {
+    id: 1,
+    title: "Cutting Plat Besi Custom",
+    category: "Laser Fiber",
+    image: "/jasalasercutting/images/metal.webp",
+    description: "Pemotongan plat besi dengan presisi tinggi untuk komponen industri",
+    client: "PT. Industri Manufaktur",
+    material: "Plat Besi 5mm",
+    technique: "Laser Fiber Cutting",
+    gallery: [
+      "/jasalasercutting/images/metal.webp",
+      "/jasalasercutting/images/metal.webp",
+      "/jasalasercutting/images/metal.webp"
+    ],
+    detailDescription: "Proyek pemotongan plat besi custom dengan ketebalan 5mm menggunakan teknologi laser fiber. Hasil potongan sangat presisi dengan toleransi ±0.1mm, cocok untuk komponen industri yang membutuhkan akurasi tinggi."
+  },
+  {
+    id: 2,
+    title: "Engraving Logo Perusahaan",
+    category: "Galvo Engraving",
+    image: "/jasalasercutting/images/engraving.webp",
+    description: "Engraving logo perusahaan pada berbagai material dengan detail tinggi",
+    client: "CV. Karya Mandiri",
+    material: "Stainless Steel",
+    technique: "Galvo Laser Engraving",
+    gallery: [
+      "/jasalasercutting/images/engraving.webp",
+      "/jasalasercutting/images/engraving.webp",
+      "/jasalasercutting/images/engraving.webp"
+    ],
+    detailDescription: "Engraving logo perusahaan dengan teknologi galvo laser pada material stainless steel. Hasil engraving sangat detail dan tahan lama, cocok untuk branding perusahaan yang berkualitas tinggi."
+  },
+  {
+    id: 3,
+    title: "Cutting Akrilik Dekoratif",
+    category: "Laser CO2",
+    image: "/jasalasercutting/images/Acrylic.webp",
+    description: "Pemotongan akrilik untuk keperluan dekorasi interior dengan desain custom",
+    client: "Interior Design Studio",
+    material: "Akrilik 8mm",
+    technique: "CO2 Laser Cutting",
+    gallery: [
+      "/jasalasercutting/images/Acrylic.webp",
+      "/jasalasercutting/images/Acrylic.webp",
+      "/jasalasercutting/images/Acrylic.webp"
+    ],
+    detailDescription: "Pemotongan akrilik dekoratif dengan ketebalan 8mm menggunakan laser CO2. Menghasilkan potongan yang halus dan bersih tanpa crack, sempurna untuk aplikasi dekorasi interior yang elegan."
+  },
+  {
+    id: 4,
+    title: "CNC Router Kayu Jati",
+    category: "CNC Router",
+    image: "/jasalasercutting/images/mdf.webp",
+    description: "Pengerjaan kayu jati dengan CNC router untuk furniture custom",
+    client: "Furniture Artisan",
+    material: "Kayu Jati Solid",
+    technique: "CNC Router Machining",
+    gallery: [
+      "/jasalasercutting/images/mdf.webp",
+      "/jasalasercutting/images/mdf.webp",
+      "/jasalasercutting/images/mdf.webp"
+    ],
+    detailDescription: "Pengerjaan kayu jati solid menggunakan CNC router dengan presisi tinggi. Menghasilkan detail ukiran dan bentuk yang kompleks sesuai desain custom untuk furniture berkualitas premium."
+  },
+  {
+    id: 5,
+    title: "Cutting Plat Aluminium",
+    category: "Laser Fiber",
+    image: "/jasalasercutting/images/furniturmetal.webp",
+    description: "Pemotongan plat aluminium untuk komponen otomotif",
+    client: "PT. Otomotif Nusantara",
+    material: "Aluminium 3mm",
+    technique: "Fiber Laser Cutting",
+    gallery: [
+      "/jasalasercutting/images/furniturmetal.webp",
+      "/jasalasercutting/images/furniturmetal.webp",
+      "/jasalasercutting/images/furniturmetal.webp"
+    ],
+    detailDescription: "Pemotongan plat aluminium dengan ketebalan 3mm untuk komponen otomotif. Menggunakan laser fiber yang menghasilkan potongan bersih tanpa burr dan presisi tinggi sesuai standar industri otomotif."
+  },
+  {
+    id: 6,
+    title: "Engraving Kayu Mahoni",
+    category: "Laser CO2",
+    image: "/jasalasercutting/images/singagehote.webp",
+    description: "Engraving detail pada kayu mahoni untuk souvenir eksklusif",
+    client: "Souvenir Premium",
+    material: "Kayu Mahoni",
+    technique: "CO2 Laser Engraving",
+    gallery: [
+      "/jasalasercutting/images/singagehote.webp",
+      "/jasalasercutting/images/singagehote.webp",
+      "/jasalasercutting/images/singagehote.webp"
+    ],
+    detailDescription: "Engraving detail pada kayu mahoni premium menggunakan laser CO2. Menghasilkan detail ukiran yang halus dan artistik, cocok untuk souvenir eksklusif dan produk kerajinan berkualitas tinggi."
   }
 ];
 
@@ -366,6 +466,14 @@ export const BLOG_POSTS = [
     image: "/jasalasercutting/images/Ply Wood.webp"
   }
 ];
+
+// Define color classes for categories
+export const CATEGORY_COLORS = {
+  'Laser Fiber': 'bg-blue-600',
+  'Laser CO2': 'bg-green-600', 
+  'CNC Router': 'bg-purple-600',
+  'Galvo Engraving': 'bg-orange-600'
+};
 
 // Helper function to get proper image paths based on environment
 export const getImagePath = (imagePath) => {

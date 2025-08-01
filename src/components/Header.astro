@@ -1,8 +1,13 @@
 ---
 // Header.astro - Komponen header dengan navigasi responsif lengkap dan diperbaiki
 import { NAVIGATION, SITE_CONFIG } from '../utils/constants.js';
+
 // Filter navigasi untuk menghilangkan link "Kontak"
-const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
+const currentPath = new URL(Astro.request.url).pathname;
+const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak").map(item => ({
+  ...item,
+  active: currentPath === `/jasalasercutting${item.href}` || (item.submenu && item.submenu.some(subitem => currentPath === `/jasalasercutting${subitem.href}`))
+}));
 ---
 <header class="fixed top-0 left-0 right-0 z-40 bg-white border-b border-gray-200" id="main-header">
   <div class="container-custom">
