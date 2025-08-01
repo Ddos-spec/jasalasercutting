@@ -44,7 +44,7 @@
 @layer components {
   /* Button Components */
   .btn-primary {
-    @apply bg-laser-green hover:bg-laser-green/90 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-laser-green focus:ring-offset-2;
+    @apply bg-laser-green hover:bg-laser-green/90 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-laser-green focus:ring-offset-2 shadow-md;
   }
   
   .btn-secondary {
