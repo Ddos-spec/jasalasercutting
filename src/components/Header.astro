@@ -94,41 +94,43 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
     </div>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed inset-x-0 inset-y-0 top-0 left-0 w-full bg-white z-50 hidden overflow-y-auto lg:hidden translate-x-full transition-transform duration-300 ease-in-out">
-    <div class="container-custom py-6">
-      <div class="flex items-center justify-between mb-8">
-        <a href={SITE_CONFIG.url} class="flex items-center space-x-4">
-          <img src="/jasalasercutting/images/logo.webp" alt="Jasa Laser Cutting Logo" class="h-10 w-auto" width="100" height="40" />
+  <!-- MOBILE MENU YANG SUDAH DIPERBAIKI -->
+  <div id="mobile-menu" class="lg:hidden fixed inset-0 bg-white z-50 hidden overflow-y-auto">
+    <!-- Mobile Header dengan Close Button -->
+    <div class="h-20 border-b border-silver-mid bg-white flex items-center justify-between px-4">
+      <a href={SITE_CONFIG.url} class="flex items-center space-x-4">
+        <img src="/jasalasercutting/images/logo.webp" alt="Jasa Laser Cutting Logo" class="h-10 w-auto" width="100" height="40" />
+        <div>
+          <h1 class="text-xl font-bold text-charcoal">Jasa Laser Cutting</h1>
+          <p class="text-sm text-graphite">Laser Cutting Terpercaya</p>
+        </div>
+      </a>
+      <button id="mobile-menu-close-button" class="p-2 hover:bg-silver-light rounded-lg transition-colors duration-300" aria-label="Close mobile menu">
+        <svg class="w-6 h-6 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    
+    <div class="flex flex-col min-h-screen bg-white">
+      <!-- Mobile Navigation -->
+      <nav class="flex-1 px-4 py-6 space-y-2" aria-label="Mobile navigation">
+        {processedNavigation.map((item, index) => (
           <div>
-            <h1 class="text-xl font-bold text-charcoal">Jasa Laser Cutting</h1>
-            <p class="text-sm text-graphite">Laser Cutting Terpercaya</p>
-          </div>
-        </a>
-        <button id="mobile-menu-close-button" class="p-2 hover:bg-silver-light rounded-lg transition-colors duration-300" aria-label="Close menu">
-          <svg class="w-6 h-6 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <nav class="space-y-1">
-        {processedNavigation.map((item) => (
-          <div class="mobile-nav-item">
             {item.submenu ? (
-              <div class="space-y-1">
-                <button class="mobile-dropdown-btn w-full flex items-center justify-between p-4 text-charcoal hover:text-laser-green hover:bg-silver-light rounded-lg transition-all duration-300"
-                  aria-expanded="false"
-                  aria-controls={`mobile-submenu-${item.name}`}>
-                  <span class="font-semibold">{item.name}</span>
-                  <svg class="w-4 h-4 mobile-dropdown-arrow transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M19 9l-7 7-7-9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              <div>
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full text-left text-charcoal font-semibold py-3 px-4 rounded-lg hover:bg-silver-light" 
+                  data-submenu-index={index}
+                  aria-expanded="false">
+                  <span>{item.name}</span>
+                  <svg class="w-5 h-5 mobile-dropdown-arrow" id={`submenu-icon-${index}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                <div id={`mobile-submenu-${item.name}`} class="mobile-submenu overflow-hidden max-h-0 opacity-0 pl-4 transition-all duration-300">
-                  <div class="space-y-1 py-2">
-                    {item.submenu.map(subitem => (
-                      <a href={subitem.href} class="block p-4 text-graphite hover:text-laser-green hover:bg-silver-light rounded-lg transition-all duration-300">
+                <div class="hidden bg-silver-light rounded-lg mx-2 mt-1" id={`submenu-${index}`}>
+                  <div class="pl-4 pt-2 pb-2 space-y-1">
+                    {item.submenu.map((subitem) => (
+                      <a href={subitem.href} class="block text-graphite hover:text-laser-green py-2 px-4 rounded-lg hover:bg-white text-sm font-medium">
                         {subitem.name}
                       </a>
                     ))}
@@ -136,17 +138,18 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
                 </div>
               </div>
             ) : (
-              <a href={item.href} class="block p-4 text-charcoal hover:text-laser-green hover:bg-silver-light rounded-lg transition-all duration-300 font-semibold">
+              <a href={item.href} class="block text-charcoal hover:text-laser-green font-semibold py-3 px-4 rounded-lg hover:bg-silver-light">
                 {item.name}
               </a>
             )}
           </div>
         ))}
       </nav>
-
-      <div class="mt-8 px-4">
-        <a href={createUrl('contact')} class="btn-primary w-full justify-center text-center">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      
+      <!-- Mobile Action Buttons -->
+      <div class="p-4 border-t border-silver-mid space-y-3 bg-white">
+        <a href={createUrl('contact')} class="btn-primary w-full text-center block py-3">
+          <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
           </svg>
           Kontak Kami
@@ -155,111 +158,154 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
     </div>
   </div>
 
-  <!-- Mobile Overlay -->
-  <div id="mobile-menu-overlay" class="fixed inset-0 bg-charcoal/50 z-49 hidden lg:hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm" aria-hidden="true"></div>
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-black/50 z-40 hidden" aria-hidden="true"></div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript untuk Mobile Menu -->
   <script type="module">
     document.addEventListener('DOMContentLoaded', () => {
       const mobileMenuButton = document.getElementById('mobile-menu-button');
       const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
       const mobileMenu = document.getElementById('mobile-menu');
       const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-      const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
-
+      
+      // Fungsi untuk membuka mobile menu
       function openMobileMenu() {
-        document.body.classList.add('menu-open');
-        mobileMenuButton.setAttribute('aria-expanded', 'true');
-        mobileMenu.classList.remove('hidden');
-        mobileMenuOverlay.classList.remove('hidden');
-        // Force reflow
-        mobileMenu.offsetHeight;
-        requestAnimationFrame(() => {
-          mobileMenu.classList.add('active');
-          mobileMenuOverlay.classList.add('active');
-        });
+        if (mobileMenu && mobileMenuOverlay) {
+          mobileMenu.classList.remove('hidden');
+          mobileMenuOverlay.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
       }
-
+      
+      // Fungsi untuk menutup mobile menu
       function closeMobileMenu() {
-        document.body.classList.remove('menu-open');
-        mobileMenuButton.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.remove('active');
-        mobileMenuOverlay.classList.remove('active');
-        const onTransitionEnd = () => {
-          if (!mobileMenu.classList.contains('active')) {
-            mobileMenu.classList.add('hidden');
-            mobileMenuOverlay.classList.add('hidden');
-          }
-          mobileMenu.removeEventListener('transitionend', onTransitionEnd);
-        };
-        mobileMenu.addEventListener('transitionend', onTransitionEnd);
+        if (mobileMenu && mobileMenuOverlay) {
+          mobileMenu.classList.add('hidden');
+          mobileMenuOverlay.classList.add('hidden');
+          document.body.style.overflow = '';
+          
+          // Reset semua submenu
+          document.querySelectorAll('[id^="submenu-"]').forEach(submenu => {
+            submenu.classList.add('hidden');
+          });
+          
+          document.querySelectorAll('[id^="submenu-icon-"]').forEach(icon => {
+            icon.style.transform = 'rotate(0deg)';
+          });
+          
+          document.querySelectorAll('[data-submenu-index]').forEach(button => {
+            button.setAttribute('aria-expanded', 'false');
+          });
+        }
       }
-
-      mobileMenuButton?.addEventListener('click', openMobileMenu);
-      mobileMenuCloseButton?.addEventListener('click', closeMobileMenu);
+      
+      // Toggle submenu
+      function toggleSubmenu(index) {
+        const submenu = document.getElementById(`submenu-${index}`);
+        const icon = document.getElementById(`submenu-icon-${index}`);
+        const button = document.querySelector(`[data-submenu-index="${index}"]`);
+        
+        if (!submenu || !icon || !button) return;
+        
+        const isOpen = !submenu.classList.contains('hidden');
+        
+        if (isOpen) {
+          submenu.classList.add('hidden');
+          icon.style.transform = 'rotate(0deg)';
+          button.setAttribute('aria-expanded', 'false');
+        } else {
+          // Tutup submenu lainnya
+          document.querySelectorAll('[id^="submenu-"]').forEach(otherSubmenu => {
+            otherSubmenu.classList.add('hidden');
+          });
+          
+          document.querySelectorAll('[id^="submenu-icon-"]').forEach(otherIcon => {
+            otherIcon.style.transform = 'rotate(0deg)';
+          });
+          
+          document.querySelectorAll('[data-submenu-index]').forEach(otherButton => {
+            otherButton.setAttribute('aria-expanded', 'false');
+          });
+          
+          // Buka submenu yang dipilih
+          submenu.classList.remove('hidden');
+          icon.style.transform = 'rotate(180deg)';
+          button.setAttribute('aria-expanded', 'true');
+        }
+      }
+      
+      // Event listeners
+      mobileMenuButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openMobileMenu();
+      });
+      
+      mobileMenuCloseButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMobileMenu();
+      });
+      
       mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
-
-      // Mobile dropdown accordion
-      mobileDropdownBtns.forEach(btn => {
-        const submenuId = btn.getAttribute('aria-controls');
-        const submenu = document.getElementById(submenuId);
-        const arrow = btn.querySelector('.mobile-dropdown-arrow');
-        if (!submenu) return;
-
-        btn.addEventListener('click', () => {
-          const isOpen = btn.getAttribute('aria-expanded') === 'true';
-          if (isOpen) {
-            btn.setAttribute('aria-expanded', 'false');
-            if (arrow) arrow.style.transform = 'rotate(0deg)';
-            submenu.style.maxHeight = '0px';
-            submenu.style.opacity = '0';
-          } else {
-            btn.setAttribute('aria-expanded', 'true');
-            if (arrow) arrow.style.transform = 'rotate(180deg)';
-            submenu.style.maxHeight = submenu.scrollHeight + 'px';
-            submenu.style.opacity = '1';
-          }
+      
+      // Submenu button event listeners
+      document.querySelectorAll('[data-submenu-index]').forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const index = parseInt(button.getAttribute('data-submenu-index') || '0');
+          toggleSubmenu(index);
         });
+      });
+      
+      // Close menu when clicking on nav links
+      document.querySelectorAll('#mobile-menu a[href]').forEach(link => {
+        link.addEventListener('click', () => {
+          setTimeout(() => {
+            closeMobileMenu();
+          }, 100);
+        });
+      });
+      
+      // Close menu on window resize to desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) {
+          closeMobileMenu();
+        }
+      });
+      
+      // Handle escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+          closeMobileMenu();
+        }
       });
     });
   </script>
 
-  <!-- Global Styles -->
+  <!-- CSS untuk Mobile Menu -->
   <style is:global>
-    .dropdown-menu {
-      transform-origin: top center;
-      transition-property: opacity, transform;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-    }
-    .mobile-submenu {
-      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-    }
-    #mobile-menu-button[aria-expanded="true"] #menu-line-1 {
-      transform: translateY(10px) rotate(45deg);
-    }
-    #mobile-menu-button[aria-expanded="true"] #menu-line-2 {
-      opacity: 0;
-    }
-    #mobile-menu-button[aria-expanded="true"] #menu-line-3 {
-      transform: translateY(-10px) rotate(-45deg);
-    }
     #mobile-menu {
-      will-change: transform;
+      -webkit-overflow-scrolling: touch;
     }
-    #mobile-menu.active {
-      transform: translateX(0);
+    
+    [id^="submenu-icon-"] {
+      transition: transform 0.2s ease-in-out;
     }
-    #mobile-menu-overlay {
-      will-change: opacity;
+    
+    @supports (padding-top: env(safe-area-inset-top)) {
+      #main-header {
+        padding-top: env(safe-area-inset-top);
+      }
+      #mobile-menu {
+        top: calc(env(safe-area-inset-top));
+      }
     }
-    #mobile-menu-overlay.active {
-      opacity: 1;
-    }
-    body.menu-open {
-      overflow: hidden;
-      position: fixed;
-      width: 100%;
+    
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
     }
   </style>
 </header>
