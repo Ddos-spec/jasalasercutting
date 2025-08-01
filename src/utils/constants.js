@@ -1,12 +1,12 @@
 // src/utils/constants.js
 
 export const SITE_CONFIG = {
-  name: "Tepat Laser",
+  name: "Jasa Cutting Laser",
   title: "Jasa Laser Cutting Profesional #1 Banten - Akrilik, Kayu, Metal",
   description: "Laser cutting presisi tinggi & pengerjaan cepat di Banten! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Serang, Tangerang, Cilegon, Pandeglang, Lebak.",
   keywords: "laser cutting banten, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal banten",
   url: "https://ddos-spec.github.io/jasalasercutting/",
-  author: "Tepat Laser Team",
+  author: "Jasa Cutting Laser Team",
   whatsapp: "6285165693179",
   email: "info@tepatlaser.com",
   address: "Jl. Raya Serang No. 123, Kota Serang, Banten",
@@ -211,7 +211,7 @@ export const TESTIMONIALS = [
     name: "Ahmad Rizki",
     company: "Furniture Mebel Jaya Cilegon",
     position: "Owner",
-    content: "Sudah 3 tahun menggunakan jasa Tepat Laser. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan, pengiriman ke Cilegon juga cepat.",
+    content: "Sudah 3 tahun menggunakan jasa Jasa Cutting Laser. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan, pengiriman ke Cilegon juga cepat.",
     rating: 5,
     image: "/jasalasercutting/images/Ahmad Rizki.webp"
   }
