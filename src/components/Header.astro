@@ -9,7 +9,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
     <div class="flex items-center justify-between h-16">
       <!-- Logo Section -->
       <div class="flex items-center">
-        <a href="/jasacuttinglaser/" class="flex items-center space-x-3">
+        <a href="/jasalasercutting/" class="flex items-center space-x-3">
           <div class="sm:block">
             <h1 class="text-xl font-bold text-gray-900">
               Jasa Cutting Laser
@@ -39,7 +39,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
                   <div class="py-2">
                     {item.submenu.map((subitem) => (
                       <a
-                        href={`/jasacuttinglaser${subitem.href}`}
+                        href={`/jasalasercutting${subitem.href}`}
                         class="block px-4 py-3 text-gray-700 hover:text-[#00C853] hover:bg-green-50 text-sm font-medium"
                       >
                         {subitem.name}
@@ -50,7 +50,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
               </div>
             ) : (
               <a
-                href={`/jasacuttinglaser${item.href}`}
+                href={`/jasalasercutting${item.href}`}
                 class="text-gray-700 hover:text-[#00C853] font-medium py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#00C853] after:transition-all after:duration-300 hover:after:w-full"
                 class:list={[item.active && 'text-[#00C853] after:w-full']}
               >
@@ -63,7 +63,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       <!-- Desktop Action Buttons -->
       <div class="hidden lg:flex items-center space-x-4">
         <a
-          href="/jasacuttinglaser/contact"
+          href="/jasalasercutting/contact"
           class="btn-primary text-sm px-4 py-2"
         >
           Kontak Kita
@@ -93,7 +93,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
     <!-- Mobile Header Spacer -->
     <div class="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-4">
       <div class="flex items-center">
-        <a href="/jasacuttinglaser/" class="flex items-center space-x-3">
+        <a href="/jasalasercutting/" class="flex items-center space-x-3">
           <h1 class="text-xl font-bold text-gray-900">Tepat Laser</h1>
         </a>
       </div>
@@ -138,7 +138,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
                   <div class="pl-4 pt-2 pb-2 space-y-1">
                     {item.submenu.map((subitem) => (
                       <a
-                        href={`/jasacuttinglaser${subitem.href}`}
+                        href={`/jasalasercutting${subitem.href}`}
                         class="block text-gray-600 hover:text-[#00C853] py-2 px-4 rounded-lg hover:bg-white text-sm font-medium"
                       >
                         {subitem.name}
@@ -149,7 +149,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
               </div>
             ) : (
               <a
-                href={`/jasacuttinglaser${item.href}`}
+                href={`/jasalasercutting${item.href}`}
                 class="block text-gray-700 hover:text-[#00C853] font-medium py-3 px-4 rounded-lg hover:bg-gray-50"
                 class:list={[item.active && 'text-[#00C853] bg-green-50']}
               >
@@ -162,7 +162,7 @@ const filteredNavigation = NAVIGATION.filter(item => item.name !== "Kontak");
       <!-- Mobile Action Buttons -->
       <div class="p-4 border-t border-gray-200 space-y-3 bg-white">
         <a
-          href="/jasacuttinglaser/contact"
+          href="/jasalasercutting/contact"
           class="btn-primary w-full text-center block py-3"
         >
           Kontak Kita
