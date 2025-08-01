@@ -24,7 +24,6 @@
                   width="120"
                   height="48"
                 />
-                <div class="absolute -inset-2 bg-laser-green/20 rounded-full blur-sm"></div>
               </div>
               <div>
                 <h3 class="text-2xl font-bold text-white">Tepat Laser</h3>
@@ -244,7 +243,7 @@
         }
   
         // Logo error handling
-        const logoImg = document.querySelector('footer img[alt="Tepat Laser Logo"]');
+        const logoImg = document.querySelector('footer img[alt="Tepat Laser Logo"]') as HTMLImageElement;
         if (logoImg) {
           logoImg.addEventListener('error', () => {
             logoImg.src = '/jasalasercutting/images/Logo.webp';
