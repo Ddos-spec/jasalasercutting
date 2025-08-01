@@ -33,7 +33,6 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
 <header id="main-header" class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-b border-silver-mid shadow-lg transition-all duration-300">
   <div class="container-custom">
     <div class="flex items-center justify-between h-20">
-      <!-- Logo Section -->
       <a href={SITE_CONFIG.url} class="flex items-center space-x-4 group">
         <div class="relative">
           <img
@@ -52,7 +51,6 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
         </div>
       </a>
 
-      <!-- Desktop Navigation -->
       <nav aria-label="Main navigation" class="hidden lg:flex items-center space-x-1">
         {processedNavigation.map((item, i) => (
           <div class="relative group">
@@ -98,7 +96,6 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
         ))}
       </nav>
 
-      <!-- CTA Button & Mobile Menu -->
       <div class="flex items-center space-x-4">
         <a href={createUrl('contact')} class="hidden lg:flex btn-primary text-sm shadow-lg hover:shadow-xl">
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,6 +108,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
           id="mobile-menu-button"
           aria-label="Toggle mobile menu"
           aria-expanded="false"
+          aria-controls="mobile-menu"
           class="lg:hidden flex items-center justify-center w-12 h-12 rounded-xl hover:bg-silver-light transition-all duration-300 group"
         >
           <div class="relative w-6 h-6">
@@ -123,9 +121,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
     </div>
   </div>
 
-  <!-- Mobile Menu -->
   <div id="mobile-menu" class="fixed inset-0 top-0 bg-white z-50 hidden overflow-y-auto lg:hidden transform translate-x-full transition-transform duration-300">
-    <!-- Mobile Header -->
     <div class="flex items-center justify-between h-20 px-6 border-b border-silver-mid bg-white sticky top-0 z-10">
       <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
         <img
@@ -152,7 +148,6 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       </button>
     </div>
     
-    <!-- Mobile Navigation -->
     <nav class="flex flex-col px-6 py-6 space-y-2" role="navigation" aria-label="Mobile navigation">
       {processedNavigation.map((item, i) => (
         <div class="border-b border-silver-mid/30 pb-4 mb-4 last:border-b-0 last:pb-0 last:mb-0">
@@ -179,7 +174,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
                 id={`mobile-submenu-${i}`}
                 data-mobile-submenu={i} 
                 class="mobile-submenu hidden pl-4 space-y-1 mt-2 transform transition-all duration-300 opacity-0 max-h-0 overflow-hidden"
-                role="menu"
+                role="region"
                 aria-label={`${item.name} submenu`}
               >
                 {item.submenu.map((s, subIndex) => (
@@ -216,7 +211,6 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
         </div>
       ))}
       
-      <!-- Mobile CTA Section -->
       <div class="pt-6 mt-6 border-t border-silver-mid/30">
         <a 
           href={createUrl('contact')} 
@@ -228,7 +222,6 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
           Kontak Kami
         </a>
         
-        <!-- Additional Mobile Actions -->
         <div class="mt-4 flex flex-col space-y-2">
           <button 
             id="mobile-search-btn"
@@ -244,7 +237,6 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
     </nav>
   </div>
   
-  <!-- Mobile Menu Overlay -->
   <div 
     id="mobile-menu-overlay" 
     class="fixed inset-0 bg-charcoal/50 z-40 hidden lg:hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm"
@@ -254,6 +246,7 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
   <script type="module">
     document.addEventListener('DOMContentLoaded', () => {
       // Elements
+      const mainHeader = document.getElementById('main-header');
       const mobileMenuButton = document.getElementById('mobile-menu-button');
       const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
       const mobileMenu = document.getElementById('mobile-menu');
@@ -266,244 +259,148 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
       const mobileSearchBtn = document.getElementById('mobile-search-btn');
 
-      // Mobile Menu Functions
+      // --- Mobile Menu Functions ---
       function openMobileMenu() {
-        // Prevent body scroll
+        if (!mobileMenu || !mobileMenuOverlay || !menuLine1 || !menuLine2 || !menuLine3) return;
+
         document.body.style.overflow = 'hidden';
         
-        // Show elements
-        mobileMenu.classList.remove('hidden', 'translate-x-full');
+        mobileMenu.classList.remove('hidden');
         mobileMenuOverlay.classList.remove('hidden');
         
-        // Animate in
         requestAnimationFrame(() => {
-          mobileMenu.classList.add('translate-x-0');
-          mobileMenuOverlay.classList.add('opacity-100');
+          mobileMenu.classList.remove('translate-x-full');
+          mobileMenuOverlay.classList.remove('opacity-0');
         });
         
-        // Animate hamburger to X
-        menuLine1.style.transform = 'rotate(45deg) translate(6px, 6px)';
+        menuLine1.style.transform = 'translateY(8px) rotate(45deg)';
         menuLine2.style.opacity = '0';
-        menuLine3.style.transform = 'rotate(-45deg) translate(6px, -6px)';
+        menuLine3.style.transform = 'translateY(-8px) rotate(-45deg)';
         
-        // Update ARIA
         mobileMenuButton.setAttribute('aria-expanded', 'true');
         
-        // Focus management
         setTimeout(() => {
-          const firstFocusable = mobileMenu.querySelector('a, button');
-          if (firstFocusable) firstFocusable.focus();
+          mobileMenuCloseButton.focus();
         }, 300);
       }
 
       function closeMobileMenu() {
-        // Animate out
-        mobileMenu.classList.remove('translate-x-0');
+        if (!mobileMenu || !mobileMenuOverlay || !menuLine1 || !menuLine2 || !menuLine3) return;
+
         mobileMenu.classList.add('translate-x-full');
-        mobileMenuOverlay.classList.remove('opacity-100');
+        mobileMenuOverlay.classList.add('opacity-0');
         
-        // Hide elements after animation
         setTimeout(() => {
           mobileMenu.classList.add('hidden');
           mobileMenuOverlay.classList.add('hidden');
           document.body.style.overflow = '';
         }, 300);
         
-        // Reset hamburger
         menuLine1.style.transform = '';
         menuLine2.style.opacity = '1';
         menuLine3.style.transform = '';
         
-        // Update ARIA
         mobileMenuButton.setAttribute('aria-expanded', 'false');
         
-        // Close all mobile submenus
-        document.querySelectorAll('.mobile-submenu').forEach(submenu => {
-          submenu.classList.add('hidden');
-          submenu.classList.remove('opacity-100');
-          submenu.classList.add('opacity-0');
-          submenu.style.maxHeight = '0';
-        });
-        
-        // Reset mobile dropdown buttons
+        // Close all mobile submenus when closing the main menu
         mobileDropdownBtns.forEach(btn => {
-          btn.setAttribute('aria-expanded', 'false');
-          const arrow = btn.querySelector('.mobile-dropdown-arrow');
-          if (arrow) arrow.style.transform = '';
+          const submenu = document.querySelector(`[aria-controls="${btn.getAttribute('aria-controls')}"]`);
+          if (submenu && btn.getAttribute('aria-expanded') === 'true') {
+            btn.setAttribute('aria-expanded', 'false');
+            const arrow = btn.querySelector('.mobile-dropdown-arrow');
+            if (arrow) arrow.style.transform = '';
+            
+            submenu.style.maxHeight = null;
+            submenu.classList.add('opacity-0', 'max-h-0', 'overflow-hidden');
+            submenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '-1'));
+          }
         });
-        
-        // Return focus to menu button
+
         mobileMenuButton.focus();
       }
-
-      // Event Listeners
+      
+      // --- Event Listeners ---
       mobileMenuButton?.addEventListener('click', openMobileMenu);
       mobileMenuCloseButton?.addEventListener('click', closeMobileMenu);
       mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
-
-      // Desktop dropdown functionality
-      desktopDropdownBtns.forEach((btn, idx) => {
-        btn.addEventListener('click', e => {
-          e.preventDefault();
-          const menu = dropdownMenus[idx];
-          const isOpen = !menu.classList.contains('hidden');
-          
-          // Close all dropdowns first
-          dropdownMenus.forEach((m, i) => {
-            m.classList.add('hidden');
-            m.classList.remove('opacity-100', 'scale-100');
-            m.classList.add('opacity-0', 'scale-95');
-            desktopDropdownBtns[i].setAttribute('aria-expanded', 'false');
-          });
-          
-          // Open clicked dropdown if it was closed
-          if (!isOpen) {
-            menu.classList.remove('hidden');
-            requestAnimationFrame(() => {
-              menu.classList.remove('opacity-0', 'scale-95');
-              menu.classList.add('opacity-100', 'scale-100');
-            });
-            btn.setAttribute('aria-expanded', 'true');
-          }
+      
+      // --- Desktop dropdown functionality ---
+      desktopDropdownBtns.forEach(btn => {
+        const menu = btn.nextElementSibling;
+        btn.addEventListener('mouseenter', () => {
+          menu.classList.remove('hidden', 'opacity-0', 'scale-95');
+          btn.setAttribute('aria-expanded', 'true');
+        });
+        btn.parentElement.addEventListener('mouseleave', () => {
+          menu.classList.add('hidden', 'opacity-0', 'scale-95');
+          btn.setAttribute('aria-expanded', 'false');
         });
       });
 
-      // Mobile dropdown functionality
-      mobileDropdownBtns.forEach((btn, idx) => {
-        btn.addEventListener('click', e => {
-          e.preventDefault();
-          const submenu = document.querySelector(`[data-mobile-submenu="${idx}"]`);
-          const arrow = btn.querySelector('.mobile-dropdown-arrow');
-          const isOpen = !submenu.classList.contains('hidden');
-          
+      // --- Mobile dropdown (accordion) functionality ---
+      mobileDropdownBtns.forEach(btn => {
+        const submenuId = btn.getAttribute('aria-controls');
+        const submenu = document.getElementById(submenuId);
+        const arrow = btn.querySelector('.mobile-dropdown-arrow');
+
+        if (!submenu) return;
+
+        btn.addEventListener('click', () => {
+          const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
           if (isOpen) {
-            // Close submenu
-            submenu.classList.remove('opacity-100');
-            submenu.classList.add('opacity-0');
-            submenu.style.maxHeight = '0';
-            
-            setTimeout(() => {
-              submenu.classList.add('hidden');
-            }, 300);
-            
-            if (arrow) arrow.style.transform = '';
+            // Close the submenu
             btn.setAttribute('aria-expanded', 'false');
-            
-            // Update tabindex for submenu items
-            submenu.querySelectorAll('a').forEach(link => {
-              link.setAttribute('tabindex', '-1');
-            });
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+            submenu.style.maxHeight = null;
+            submenu.classList.add('opacity-0');
+            submenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '-1'));
           } else {
-            // Open submenu
-            submenu.classList.remove('hidden');
-            submenu.style.maxHeight = submenu.scrollHeight + 'px';
-            
-            requestAnimationFrame(() => {
-              submenu.classList.remove('opacity-0');
-              submenu.classList.add('opacity-100');
-            });
-            
-            if (arrow) arrow.style.transform = 'rotate(180deg)';
+            // Open the submenu
             btn.setAttribute('aria-expanded', 'true');
-            
-            // Update tabindex for submenu items
-            submenu.querySelectorAll('a').forEach(link => {
-              link.setAttribute('tabindex', '0');
-            });
+            if (arrow) arrow.style.transform = 'rotate(180deg)';
+            submenu.classList.remove('hidden'); // Make it visible to calculate scrollHeight
+            submenu.style.maxHeight = submenu.scrollHeight + "px";
+            submenu.classList.remove('opacity-0');
+            submenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '0'));
           }
+        });
+        
+        // Reset state after transition ends
+        submenu.addEventListener('transitionend', (e) => {
+            if (e.propertyName === 'max-height' && !submenu.style.maxHeight) {
+                submenu.classList.add('hidden');
+            }
         });
       });
 
-      // Mobile search functionality
-      mobileSearchBtn?.addEventListener('click', () => {
-        // Add your search functionality here
-        console.log('Mobile search clicked');
-        // For example: open search modal, redirect to search page, etc.
-      });
-
-      // Close dropdowns when clicking outside
-      document.addEventListener('click', e => {
-        if (!e.target.closest('#main-header')) {
-          dropdownMenus.forEach((m, i) => {
-            m.classList.add('hidden');
-            m.classList.remove('opacity-100', 'scale-100');
-            m.classList.add('opacity-0', 'scale-95');
-            desktopDropdownBtns[i].setAttribute('aria-expanded', 'false');
-          });
-        }
-      });
-
-      // Handle window resize
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) {
+      // --- Other Functionalities ---
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenuButton?.getAttribute('aria-expanded') === 'true') {
           closeMobileMenu();
         }
       });
 
-      // Keyboard navigation
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          // Close desktop dropdowns
-          dropdownMenus.forEach((m, i) => {
-            m.classList.add('hidden');
-            m.classList.remove('opacity-100', 'scale-100');
-            m.classList.add('opacity-0', 'scale-95');
-            desktopDropdownBtns[i].setAttribute('aria-expanded', 'false');
-          });
-          
-          // Close mobile menu
-          if (!mobileMenu.classList.contains('hidden')) {
-            closeMobileMenu();
-          }
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024 && mobileMenuButton?.getAttribute('aria-expanded') === 'true') {
+          closeMobileMenu();
         }
       });
 
-      // Trap focus in mobile menu
-      mobileMenu?.addEventListener('keydown', e => {
-        if (e.key === 'Tab') {
-          const focusableElements = mobileMenu.querySelectorAll(
-            'a[href], button:not([disabled]), [tabindex="0"]'
-          );
-          const firstElement = focusableElements[0];
-          const lastElement = focusableElements[focusableElements.length - 1];
-
-          if (e.shiftKey) {
-            if (document.activeElement === firstElement) {
-              e.preventDefault();
-              lastElement.focus();
-            }
-          } else {
-            if (document.activeElement === lastElement) {
-              e.preventDefault();
-              firstElement.focus();
-            }
-          }
-        }
-      });
-
-      // Header scroll effect
       let lastScrollY = window.scrollY;
       let ticking = false;
-
-      function updateHeader() {
-        const header = document.getElementById('main-header');
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > 100) {
-          header.classList.add('shadow-xl');
-          header.classList.remove('shadow-lg');
-        } else {
-          header.classList.remove('shadow-xl');
-          header.classList.add('shadow-lg');
-        }
-        
-        lastScrollY = currentScrollY;
-        ticking = false;
-      }
-
       window.addEventListener('scroll', () => {
         if (!ticking) {
-          requestAnimationFrame(updateHeader);
+          window.requestAnimationFrame(() => {
+            if (window.scrollY > 100) {
+              mainHeader?.classList.add('shadow-xl');
+              mainHeader?.classList.remove('shadow-lg');
+            } else {
+              mainHeader?.classList.remove('shadow-xl');
+              mainHeader?.classList.add('shadow-lg');
+            }
+            ticking = false;
+          });
           ticking = true;
         }
       });
@@ -515,53 +412,16 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
     });
   </script>
 
-  <style>
+  <style is:global>
     .dropdown-menu {
       transform-origin: top center;
-    }
-    
-    .mobile-dropdown-arrow {
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    #menu-line-1,
-    #menu-line-2,
-    #menu-line-3 {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition-property: opacity, transform;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
     }
     
     .mobile-submenu {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .mobile-nav-item:hover {
-      transform: translateX(2px);
-    }
-    
-    /* Smooth scrolling for mobile menu */
-    #mobile-menu {
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    /* Focus styles */
-    .focus\:ring-2:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
-    }
-    
-    /* Active states */
-    .active\:bg-silver-light:active {
-      background-color: rgba(156, 163, 175, 0.1);
-    }
-    
-    .active\:scale-\[0\.98\]:active {
-      transform: scale(0.98);
-    }
-    
-    /* Hover animations */
-    .hover\:scale-\[1\.02\]:hover {
-      transform: scale(1.02);
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     }
   </style>
 </header>
