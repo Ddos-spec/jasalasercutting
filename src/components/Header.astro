@@ -26,42 +26,59 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       ...s,
       href: createUrl(s.href)
     })),
-    active: false // Tambahkan biar TS nggak error
+    active: false
   }));
 ---
 
-<header id="main-header" class="fixed top-0 inset-x-0 z-40 bg-silver-light border-b border-silver-mid">
+<header id="main-header" class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-b border-silver-mid shadow-lg transition-all duration-300">
   <div class="container-custom">
-    <div class="flex items-center justify-between h-16">
-      <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
-        <h1 class="text-xl font-bold text-charcoal">Tepat Laser</h1>
-        <p class="hidden lg:block text-xs text-graphite">Laser Cutting Terpercaya</p>
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo Section -->
+      <a href={SITE_CONFIG.url} class="flex items-center space-x-4 group">
+        <div class="relative">
+          <img
+            src="/jasalasercutting/images/logo.webp"
+            alt="Tepat Laser Logo"
+            class="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+            width="120"
+            height="48"
+            onerror="this.src='/jasalasercutting/images/Logo.webp'"
+          />
+          <div class="absolute -inset-2 bg-laser-green/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+        <div class="hidden md:block">
+          <h1 class="text-2xl font-bold text-charcoal group-hover:text-laser-green transition-colors duration-300">Tepat Laser</h1>
+          <p class="text-sm text-graphite font-medium">Laser Cutting Terpercaya</p>
+        </div>
       </a>
-      <nav aria-label="Main navigation" class="hidden lg:flex items-center space-x-8">
+
+      <!-- Desktop Navigation -->
+      <nav aria-label="Main navigation" class="hidden lg:flex items-center space-x-1">
         {processedNavigation.map((item, i) => (
-          <div class="relative">
+          <div class="relative group">
             {item.submenu ? (
               <>
                 <button
-                  class="desktop-dropdown-btn flex items-center space-x-1 text-charcoal hover:text-laser-green font-medium py-2"
+                  class="desktop-dropdown-btn flex items-center space-x-2 text-charcoal hover:text-laser-green font-semibold px-4 py-3 rounded-lg hover:bg-silver-light transition-all duration-300 group"
                   data-dropdown-index={i}
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
                   <span>{item.name}</span>
-                  <svg class="w-4 h-4 dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg class="w-4 h-4 dropdown-arrow transition-transform duration-300 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                   </svg>
                 </button>
                 <div
                   data-dropdown-menu={i}
-                  class="dropdown-menu hidden absolute top-full left-0 mt-2 w-56 bg-silver-light rounded-lg shadow-lg border border-silver-mid py-2 z-50"
+                  class="dropdown-menu hidden absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-silver-mid py-3 z-50 transform opacity-0 scale-95 transition-all duration-300"
                 >
                   {item.submenu.map(s => (
                     <a
                       href={s.href}
-                      class="block px-4 py-2 text-graphite hover:text-laser-green hover:bg-silver-mid text-sm font-medium"
+                      class="flex items-center px-4 py-3 text-graphite hover:text-laser-green hover:bg-silver-light text-sm font-medium transition-all duration-300 group"
                     >
+                      <div class="w-2 h-2 bg-laser-green rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       {s.name}
                     </a>
                   ))}
@@ -70,75 +87,110 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
             ) : (
               <a
                 href={item.href}
-                class="relative text-charcoal hover:text-laser-green font-medium py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-laser-green after:transition-all after:duration-300 hover:after:w-full"
-                class:list={{ 'text-laser-green after:w-full': item.active }}
+                class="relative text-charcoal hover:text-laser-green font-semibold px-4 py-3 rounded-lg hover:bg-silver-light transition-all duration-300 group"
+                class:list={{ 'text-laser-green bg-silver-light': item.active }}
               >
                 {item.name}
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-laser-green group-hover:w-8 transition-all duration-300"></div>
               </a>
             )}
           </div>
         ))}
       </nav>
-      <div class="hidden lg:flex items-center space-x-4">
-        <a href={createUrl('contact')} class="btn-primary text-sm">Kontak Kita</a>
+
+      <!-- CTA Button & Mobile Menu -->
+      <div class="flex items-center space-x-4">
+        <a href={createUrl('contact')} class="hidden lg:flex btn-primary text-sm shadow-lg hover:shadow-xl">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          Kontak Kami
+        </a>
+        
+        <button
+          id="mobile-menu-button"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+          class="lg:hidden flex items-center justify-center w-12 h-12 rounded-xl hover:bg-silver-light transition-all duration-300 group"
+        >
+          <div class="relative w-6 h-6">
+            <span id="menu-line-1" class="absolute top-1 left-0 w-6 h-0.5 bg-charcoal group-hover:bg-laser-green transition-all duration-300 transform origin-center"></span>
+            <span id="menu-line-2" class="absolute top-3 left-0 w-6 h-0.5 bg-charcoal group-hover:bg-laser-green transition-all duration-300"></span>
+            <span id="menu-line-3" class="absolute top-5 left-0 w-6 h-0.5 bg-charcoal group-hover:bg-laser-green transition-all duration-300 transform origin-center"></span>
+          </div>
+        </button>
       </div>
-      <button
-        id="mobile-menu-button"
-        aria-label="Toggle mobile menu"
-        aria-expanded="false"
-        class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-silver-mid"
-      >
-        <svg id="menu-icon" class="w-6 h-6 text-charcoal" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        </svg>
-        <svg id="close-icon" class="w-6 h-6 text-charcoal hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        </svg>
-      </button>
     </div>
   </div>
 
-  <div id="mobile-menu" class="fixed inset-0 top-0 bg-silver-light z-50 hidden overflow-y-auto lg:hidden">
-    <div class="flex items-center justify-between h-16 px-4 border-b border-silver-mid">
-      <a href={SITE_CONFIG.url} class="text-xl font-bold text-charcoal">Tepat Laser</a>
-      <button id="mobile-menu-close-button" aria-label="Close mobile menu" class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-silver-mid">
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 top-0 bg-white z-50 hidden overflow-y-auto lg:hidden transform translate-x-full transition-transform duration-300">
+    <div class="flex items-center justify-between h-20 px-6 border-b border-silver-mid">
+      <a href={SITE_CONFIG.url} class="flex items-center space-x-3">
+        <img
+          src="/jasalasercutting/images/logo.webp"
+          alt="Tepat Laser Logo"
+          class="h-10 w-auto"
+          width="120"
+          height="40"
+        />
+        <div>
+          <h1 class="text-xl font-bold text-charcoal">Tepat Laser</h1>
+          <p class="text-xs text-graphite">Laser Cutting Terpercaya</p>
+        </div>
+      </a>
+      <button id="mobile-menu-close-button" aria-label="Close mobile menu" class="w-12 h-12 flex items-center justify-center rounded-xl hover:bg-silver-light transition-all duration-300">
         <svg class="w-6 h-6 text-charcoal" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </svg>
       </button>
     </div>
-    <nav class="flex flex-col p-4 space-y-2">
+    
+    <nav class="flex flex-col p-6 space-y-2">
       {processedNavigation.map((item, i) => (
-        <div>
+        <div class="border-b border-silver-mid pb-4 mb-4 last:border-b-0 last:pb-0 last:mb-0">
           {item.submenu ? (
             <>
               <button
                 data-mobile-submenu-index={i}
                 aria-expanded="false"
-                class="mobile-dropdown-btn flex justify-between w-full text-left text-charcoal font-medium py-3 px-4 rounded-lg hover:bg-silver-mid"
+                class="mobile-dropdown-btn flex justify-between items-center w-full text-left text-charcoal font-semibold py-4 px-4 rounded-xl hover:bg-silver-light transition-all duration-300 group"
               >
                 <span>{item.name}</span>
-                <svg class="w-4 h-4 text-charcoal mobile-dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <svg class="w-5 h-5 text-graphite mobile-dropdown-arrow transition-transform duration-300 group-hover:text-laser-green" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                 </svg>
               </button>
-              <div data-mobile-submenu={i} class="mobile-submenu hidden pl-4 space-y-2">
+              <div data-mobile-submenu={i} class="mobile-submenu hidden pl-4 space-y-2 mt-2">
                 {item.submenu.map(s => (
-                  <a href={s.href} class="block text-charcoal py-2 px-4 rounded-lg hover:bg-silver-mid text-sm">{s.name}</a>
+                  <a href={s.href} class="flex items-center text-graphite py-3 px-4 rounded-xl hover:bg-silver-light hover:text-laser-green transition-all duration-300 group">
+                    <div class="w-2 h-2 bg-laser-green rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {s.name}
+                  </a>
                 ))}
               </div>
             </>
           ) : (
-            <a href={item.href} class="block text-charcoal font-medium py-3 px-4 rounded-lg hover:bg-silver-mid">{item.name}</a>
+            <a href={item.href} class="flex items-center text-charcoal font-semibold py-4 px-4 rounded-xl hover:bg-silver-light hover:text-laser-green transition-all duration-300 group">
+              <div class="w-2 h-2 bg-laser-green rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              {item.name}
+            </a>
           )}
         </div>
       ))}
-      <div class="border-t border-silver-mid mt-4 pt-4">
-        <a href={createUrl('contact')} class="btn-primary w-full text-center py-3">Kontak Kita</a>
+      
+      <div class="pt-6 mt-6 border-t border-silver-mid">
+        <a href={createUrl('contact')} class="btn-primary w-full text-center py-4 text-lg shadow-lg">
+          <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          Kontak Kami
+        </a>
       </div>
     </nav>
   </div>
-  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+  
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-charcoal/50 z-40 hidden lg:hidden opacity-0 transition-opacity duration-300"></div>
 
   <script type="module">
     document.addEventListener('DOMContentLoaded', () => {
@@ -146,26 +198,45 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
       const mobileMenu = document.getElementById('mobile-menu');
       const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-      const menuIcon = document.getElementById('menu-icon');
-      const closeIcon = document.getElementById('close-icon');
+      const menuLine1 = document.getElementById('menu-line-1');
+      const menuLine2 = document.getElementById('menu-line-2');
+      const menuLine3 = document.getElementById('menu-line-3');
       const desktopDropdownBtns = document.querySelectorAll('.desktop-dropdown-btn');
       const dropdownMenus = document.querySelectorAll('.dropdown-menu');
       const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
 
       function openMobileMenu() {
-        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.remove('hidden', 'translate-x-full');
         mobileMenuOverlay.classList.remove('hidden');
-        menuIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
+        setTimeout(() => {
+          mobileMenu.classList.add('translate-x-0');
+          mobileMenuOverlay.classList.add('opacity-100');
+        }, 10);
+        
+        // Animate hamburger to X
+        menuLine1.style.transform = 'rotate(45deg) translate(6px, 6px)';
+        menuLine2.style.opacity = '0';
+        menuLine3.style.transform = 'rotate(-45deg) translate(6px, -6px)';
+        
         mobileMenuButton.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
       }
 
       function closeMobileMenu() {
-        mobileMenu.classList.add('hidden');
-        mobileMenuOverlay.classList.add('hidden');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
+        mobileMenu.classList.remove('translate-x-0');
+        mobileMenu.classList.add('translate-x-full');
+        mobileMenuOverlay.classList.remove('opacity-100');
+        
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuOverlay.classList.add('hidden');
+        }, 300);
+        
+        // Reset hamburger
+        menuLine1.style.transform = '';
+        menuLine2.style.opacity = '1';
+        menuLine3.style.transform = '';
+        
         mobileMenuButton.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
         document.querySelectorAll('.mobile-submenu').forEach(el => el.classList.add('hidden'));
@@ -176,58 +247,113 @@ const processedNavigation: NavigationItem[] = (NAVIGATION ?? [])
       mobileMenuCloseButton.addEventListener('click', closeMobileMenu);
       mobileMenuOverlay.addEventListener('click', closeMobileMenu);
 
+      // Desktop dropdown functionality
       desktopDropdownBtns.forEach((btn, idx) => {
         btn.addEventListener('click', e => {
           e.preventDefault();
+          const menu = dropdownMenus[idx];
+          const isOpen = !menu.classList.contains('hidden');
+          
+          // Close all dropdowns
           dropdownMenus.forEach((m, i) => {
-            if (i === idx) m.classList.toggle('hidden');
-            else m.classList.add('hidden');
+            m.classList.add('hidden');
+            m.classList.remove('opacity-100', 'scale-100');
+            m.classList.add('opacity-0', 'scale-95');
+            desktopDropdownBtns[i].setAttribute('aria-expanded', 'false');
           });
-          desktopDropdownBtns.forEach((b, i) => {
-            b.setAttribute('aria-expanded', i === idx && !dropdownMenus[idx].classList.contains('hidden'));
-          });
+          
+          // Open clicked dropdown if it was closed
+          if (!isOpen) {
+            menu.classList.remove('hidden');
+            setTimeout(() => {
+              menu.classList.remove('opacity-0', 'scale-95');
+              menu.classList.add('opacity-100', 'scale-100');
+            }, 10);
+            btn.setAttribute('aria-expanded', 'true');
+          }
         });
       });
 
+      // Mobile dropdown functionality
       mobileDropdownBtns.forEach((btn, idx) => {
         btn.addEventListener('click', e => {
           e.preventDefault();
           const submenu = document.querySelector(`[data-mobile-submenu="${idx}"]`);
-          const expanded = submenu.classList.toggle('hidden');
-          btn.setAttribute('aria-expanded', String(!expanded));
+          const arrow = btn.querySelector('.mobile-dropdown-arrow');
+          const isOpen = !submenu.classList.contains('hidden');
+          
+          if (isOpen) {
+            submenu.classList.add('hidden');
+            arrow.style.transform = '';
+            btn.setAttribute('aria-expanded', 'false');
+          } else {
+            submenu.classList.remove('hidden');
+            arrow.style.transform = 'rotate(180deg)';
+            btn.setAttribute('aria-expanded', 'true');
+          }
         });
       });
 
+      // Close dropdowns when clicking outside
       document.addEventListener('click', e => {
         if (!e.target.closest('#main-header')) {
-          dropdownMenus.forEach(m => m.classList.add('hidden'));
-          desktopDropdownBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+          dropdownMenus.forEach((m, i) => {
+            m.classList.add('hidden');
+            m.classList.remove('opacity-100', 'scale-100');
+            m.classList.add('opacity-0', 'scale-95');
+            desktopDropdownBtns[i].setAttribute('aria-expanded', 'false');
+          });
         }
       });
 
+      // Handle window resize
       window.addEventListener('resize', () => {
         if (window.innerWidth >= 1024) closeMobileMenu();
       });
 
+      // Keyboard navigation
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
-          dropdownMenus.forEach(m => m.classList.add('hidden'));
-          desktopDropdownBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+          dropdownMenus.forEach((m, i) => {
+            m.classList.add('hidden');
+            desktopDropdownBtns[i].setAttribute('aria-expanded', 'false');
+          });
           if (!mobileMenu.classList.contains('hidden')) closeMobileMenu();
         }
+      });
+
+      // Header scroll effect
+      let lastScrollY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        const header = document.getElementById('main-header');
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > 100) {
+          header.classList.add('shadow-xl');
+          header.classList.remove('shadow-lg');
+        } else {
+          header.classList.remove('shadow-xl');
+          header.classList.add('shadow-lg');
+        }
+        
+        lastScrollY = currentScrollY;
       });
     });
   </script>
 
   <style>
-    button:focus-visible,
-    a:focus-visible {
-      outline: 2px solid var(--tw-color-laser-green);
-      outline-offset: 2px;
+    .dropdown-menu {
+      transform-origin: top center;
     }
-    .dropdown-arrow,
+    
     .mobile-dropdown-arrow {
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.3s ease;
+    }
+    
+    #menu-line-1,
+    #menu-line-2,
+    #menu-line-3 {
+      transition: all 0.3s ease;
     }
   </style>
 </header>
