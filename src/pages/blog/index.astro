@@ -65,7 +65,7 @@ const jsonLd = {
                 <span class="text-sm text-gray-500">{post.readTime}</span>
               </div>
               <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                <a href={`${post.slug}/`} class="hover:text-blue-600 transition-colors">
+                <a href={`/blog/${post.slug}`} class="hover:text-blue-600 transition-colors">
                   {post.title}
                 </a>
               </h2>
@@ -81,7 +81,7 @@ const jsonLd = {
                   })}
                 </span>
                 <a 
-                  href={`${post.slug}/`}
+                  href={`/blog/${post.slug}/`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
                   Baca Selengkapnya →

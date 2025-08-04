@@ -588,6 +588,12 @@ export const BLOG_POSTS = [
     title: "Panduan Lengkap Memilih Material untuk Laser Cutting",
     slug: "panduan-memilih-material-laser-cutting",
     excerpt: "Pelajari cara memilih material yang tepat untuk project laser cutting Anda. Tips dari para ahli untuk hasil optimal.",
+    category: "Tutorial",
+    image: "/images/Acrylic.webp",
+    publishDate: "2025-01-15", // <-- INI DIA YANG HILANG
+    readTime: "8 menit baca",   // <-- INI JUGA HILANG
+    author: "Tim LaserCut Pro",
+    tags: ["material", "tutorial", "tips", "laser cutting"],
     content: `
       <h2>Mengapa Pemilihan Material Penting?</h2>
       <p>Pemilihan material yang tepat adalah kunci sukses dalam project laser cutting. Setiap material memiliki karakteristik unik yang mempengaruhi hasil akhir, waktu pengerjaan, dan biaya produksi.</p>
@@ -628,6 +634,12 @@ export const BLOG_POSTS = [
     title: "5 Keunggulan Teknologi Laser Fiber untuk Industri Metal",
     slug: "keunggulan-laser-fiber-industri-metal",
     excerpt: "Mengapa laser fiber menjadi pilihan utama industri metal? Simak 5 keunggulan utama yang membuatnya unggul.",
+    category: "Teknologi",
+    image: "/images/laserfiber.webp",
+    publishDate: "2025-01-12", // <-- INI DIA YANG HILANG
+    readTime: "6 menit baca",   // <-- INI JUGA HILANG
+    author: "Ahmad Rizki",
+    tags: ["laser fiber", "teknologi", "industri", "metal"],
     content: `
       <h2>Revolusi Teknologi Laser Fiber</h2>
       <p>Teknologi laser fiber telah merevolusi industri metal cutting dengan memberikan solusi yang lebih cepat, presisi, dan efisien dibandingkan metode konvensional.</p>
@@ -662,6 +674,12 @@ export const BLOG_POSTS = [
     title: "Cara Optimasi File Design untuk Laser Cutting",
     slug: "optimasi-file-design-laser-cutting",
     excerpt: "Tips praktis untuk mempersiapkan file design agar hasil laser cutting optimal dan biaya produksi efisien.",
+    category: "Tutorial",
+    image: "/images/prototype.webp",
+    publishDate: "2025-01-10",
+    readTime: "10 menit baca",
+    author: "Sari Dewi",
+    tags: ["design", "tutorial", "optimasi", "tips"],
     content: `
       <h2>Persiapan File Design yang Benar</h2>
       <p>File design yang baik adalah 50% dari kesuksesan project laser cutting. Persiapan yang tepat akan menghemat waktu, biaya, dan menghasilkan kualitas terbaik.</p>
@@ -719,6 +737,12 @@ export const BLOG_POSTS = [
     title: "Perbandingan CNC Router vs Laser Cutting untuk Kayu",
     slug: "perbandingan-cnc-router-vs-laser-cutting-kayu",
     excerpt: "Mana yang lebih baik untuk project kayu Anda? Simak perbandingan lengkap CNC Router dan Laser Cutting.",
+    category: "Perbandingan",
+    image: "/images/cncrouter.webp",
+    publishDate: "2025-01-08",
+    readTime: "7 menit baca",
+    author: "Budi Santoso",
+    tags: ["cnc router", "laser cutting", "kayu", "perbandingan"],
     content: `
       <h2>CNC Router vs Laser Cutting: Mana yang Tepat?</h2>
       <p>Kedua teknologi ini memiliki kelebihan masing-masing untuk pengerjaan material kayu. Pemilihan yang tepat tergantung pada kebutuhan spesifik project Anda.</p>
@@ -789,6 +813,12 @@ export const BLOG_POSTS = [
     title: "Trend Terbaru Aplikasi Laser Cutting di Industri Fashion",
     slug: "trend-laser-cutting-industri-fashion",
     excerpt: "Bagaimana teknologi laser cutting mengubah industri fashion? Lihat trend dan aplikasi terbaru yang sedang populer.",
+    category: "Trend",
+    image: "/images/galvo.webp",
+    publishDate: "2025-01-05",
+    readTime: "9 menit baca",
+    author: "Sari Dewi",
+    tags: ["fashion", "trend", "aplikasi", "industri"],
     content: `
       <h2>Laser Cutting Merevolusi Industri Fashion</h2>
       <p>Industri fashion semakin memanfaatkan teknologi laser cutting untuk menciptakan design yang unik, presisi, dan efisien dalam produksi.</p>
@@ -852,6 +882,12 @@ export const BLOG_POSTS = [
     title: "Maintenance dan Perawatan Hasil Laser Cutting",
     slug: "maintenance-perawatan-hasil-laser-cutting",
     excerpt: "Panduan lengkap merawat produk hasil laser cutting agar tetap awet dan berkualitas dalam jangka panjang.",
+    category: "Maintenance",
+    image: "/images/displyacrylic.webp",
+    publishDate: "2025-01-03",
+    readTime: "12 menit baca",
+    author: "Tim LaserCut Pro",
+    tags: ["maintenance", "perawatan", "tips", "durability"],
     content: `
       <h2>Merawat Produk Laser Cutting untuk Durabilitas Maksimal</h2>
       <p>Produk hasil laser cutting yang berkualitas tinggi membutuhkan perawatan yang tepat untuk mempertahankan penampilan dan fungsinya dalam jangka panjang.</p>
