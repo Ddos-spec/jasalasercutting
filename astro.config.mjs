@@ -1,6 +1,7 @@
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config  
 export default defineConfig({
@@ -8,7 +9,7 @@ export default defineConfig({
   site: 'https://jasalasercutting.com', // Ganti dengan domain utama Anda
   base: '/', // Karena dihosting di root domain, bukan subfolder
   
-  integrations: [tailwind()],
+  integrations: [tailwind(), sitemap()],
   
   // CRITICAL: Custom routing untuk file di root src/
   vite: {
