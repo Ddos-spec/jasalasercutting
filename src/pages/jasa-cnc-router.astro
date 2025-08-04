@@ -1,0 +1,307 @@
+---
+// jasa-cnc-router.astro - Halaman layanan CNC Router (FIXED)
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+import { SERVICES, SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
+import { generateMetaTags, generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo.ts';
+
+// Find CNC Router service - Fixed with proper error handling
+const service = SERVICES.find(s => s.slug === 'jasa-cnc-router');
+
+// Handle case where service is not found
+if (!service) {
+  throw new Error('CNC Router service not found in SERVICES array');
+}
+
+// SEO Meta Tags - Fixed with proper service handling
+const metaTags = generateMetaTags({
+  title: `${service.name} - Presisi Tinggi untuk Material Kayu & MDF`,
+  description: `${service.description}. Teknologi CNC Router terdepan dengan presisi 0.1mm. Melayani cutting kayu, MDF, dan plastik hingga ukuran 2x3 meter. Quote gratis 24 jam.`,
+  keywords: service.keywords,
+  url: `/jasa-cnc-router/`,
+  type: "service",
+  image: service.image,
+  publishedTime: "2025-01-01T00:00:00Z",
+  modifiedTime: "2025-01-01T00:00:00Z",
+  author: SITE_CONFIG.author
+});
+
+// Structured Data - Now safe to use service
+const serviceSchema = generateServiceSchema({
+  name: service.name,
+  description: service.description,
+  price: "Competitive pricing"
+});
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Layanan', url: '/#services' },
+  { name: service.name, url: '/jasa-cnc-router/' }
+]);
+---
+
+<BaseLayout 
+  title={metaTags.title}
+  description={metaTags.description}
+  keywords={metaTags.keywords}
+  url={metaTags.canonical}
+  jsonLd={[serviceSchema, breadcrumbSchema]}
+>
+  <Header slot="header" />
+  
+  <!-- Hero Section -->
+  <Hero
+    title={`${service.name} Profesional`}
+    subtitle="Presisi 0.1mm | Material Kayu & MDF | Ukuran hingga 2x3 Meter"
+    description="Teknologi CNC Router terdepan untuk cutting dan engraving material kayu, MDF, dan plastik dengan hasil sempurna. Cocok untuk furniture, signage, prototype, dan dekorasi."
+    primaryCTA="Konsultasi CNC Router"
+    secondaryCTA="Lihat Portofolio"
+    backgroundImage={service.image}
+    whatsappMessage={WHATSAPP_MESSAGES.cnc}
+  />
+
+  <!-- Service Overview -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="heading-lg text-gray-900 mb-6">Solusi Cutting & Engraving Presisi Tinggi</h2>
+          <p class="text-xl text-gray-600 mb-8">
+            CNC Router kami mampu memotong dan mengukir material kayu dan MDF dengan presisi hingga 0.1mm, menjadikannya pilihan utama untuk project berkualitas tinggi di Jabodetabek.
+          </p>
+          
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Presisi Tinggi 0.1mm</h3>
+                <p class="text-gray-600">Toleransi cutting yang sangat ketat untuk hasil akurat dan konsisten.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Ukuran Maksimal 2x3 Meter</h3>
+                <p class="text-gray-600">Area kerja luas untuk memenuhi kebutuhan project besar Anda.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Multi-Material</h3>
+                <p class="text-gray-600">Mampu memproses berbagai jenis kayu, MDF, dan plastik.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <img 
+            src={service.image} 
+            alt={service.name}
+            class="rounded-xl shadow-xl w-full"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+          <div class="absolute -bottom-6 -left-6 bg-white rounded-lg shadow-lg p-6">
+            <div class="text-3xl font-bold text-blue-600 mb-1">0.1mm</div>
+            <div class="text-gray-600 text-sm">Presisi Tinggi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Steps -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-4">Proses Pengerjaan CNC Router</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Kami memastikan setiap project Anda dikerjakan dengan standar kualitas tinggi dan presisi maksimal
+        </p>
+      </div>
+      
+      <div class="relative">
+        <div class="hidden lg:block absolute top-16 left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-blue-200"></div>
+        
+        <div class="grid md:grid-cols-2 gap-8 relative">
+          <div class="bg-white rounded-xl shadow-lg p-8 relative">
+            <div class="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
+            <div class="hidden md:block absolute top-8 left-full w-full h-0.5 bg-blue-200 transform -translate-y-1/2"></div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Setup & Programming</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Persiapan mesin, programming toolpath, dan setting parameter cutting sesuai dengan material dan design.
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg p-8 relative md:mt-16">
+            <div class="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
+            <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-blue-200 transform -translate-y-1/2 -translate-x-full"></div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Cutting & Engraving</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Proses cutting dan engraving dilakukan dengan presisi tinggi menggunakan teknologi CNC Router terkini.
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg p-8 relative md:mt-16">
+            <div class="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
+            <div class="hidden md:block absolute top-8 left-full w-full h-0.5 bg-blue-200 transform -translate-y-1/2"></div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Finishing & Quality Check</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Pemolesan, pembersihan, dan pengecekan kualitas untuk memastikan hasil akhir memenuhi standar tinggi kami.
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg p-8 relative">
+            <div class="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">4</div>
+            <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-blue-200 transform -translate-y-1/2 -translate-x-full"></div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Delivery & Installation</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Pengiriman tepat waktu dan instalasi (jika diperlukan) oleh tim ahli kami di area Jabodetabek.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Material Capabilities -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-4">Material yang Dapat Diproses</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          CNC Router kami dirancang untuk memberikan hasil terbaik pada berbagai jenis material
+        </p>
+      </div>
+      
+      <div class="bg-white rounded-xl shadow-lg p-8">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">Material yang Dapat Diproses</h3>
+        <div class="space-y-6">
+          <div class="bg-green-50 rounded-lg p-4">
+            <h4 class="font-semibold text-green-900 mb-3">Kayu & Turunannya</h4>
+            <ul class="space-y-2 text-green-800">
+              <li class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-green-600 rounded-full"></span>
+                <span>Kayu solid (Pine, Oak, Mahogany)</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-green-600 rounded-full"></span>
+                <span>MDF (Medium Density Fiberboard)</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-green-600 rounded-full"></span>
+                <span>Plywood/Multiplex</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-green-600 rounded-full"></span>
+                <span>Blockboard</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="bg-blue-50 rounded-lg p-4">
+            <h4 class="font-semibold text-blue-900 mb-3">Plastik & Komposit</h4>
+            <ul class="space-y-2 text-blue-800">
+              <li class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
+                <span>Acrylic/Plexiglass</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
+                <span>HDPE (High-Density Polyethylene)</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
+                <span>PP (Polypropylene)</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
+                <span>PVC Foam Board</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Features -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-4">Keunggulan Layanan CNC Router Kami</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Mengapa memilih layanan CNC Router dari LaserCut Pro untuk project Anda
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {service.features.map((feature, index) => (
+          <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">{feature}</h3>
+            <p class="text-gray-600 text-sm">Feature unggulan yang menjadikan layanan kami terdepan di industri</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-4">Aplikasi CNC Router</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Berbagai aplikasi industri yang dapat ditangani dengan teknologi CNC Router kami
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {service.applications.map((application, index) => (
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300">
+            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+              <span class="text-2xl font-bold text-blue-600">{index + 1}</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">{application}</h3>
+            <p class="text-gray-600 text-sm">Solusi profesional untuk industri {application.toLowerCase()}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <CTA 
+    title="Butuh CNC Router Profesional?"
+    description="Konsultasikan kebutuhan CNC Router Anda dengan tim ahli kami. Dapatkan quote terbaik dan solusi tepat untuk project Anda."
+    variant="gradient"
+    size="lg"
+  />
+
+  <Footer slot="footer" />
+</BaseLayout>

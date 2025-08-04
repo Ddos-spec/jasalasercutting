@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+import { SERVICES, SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
+import { generateMetaTags, generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo.ts';
+
+// Find Galvo Engraving service
+const service = SERVICES.find(s => s.slug === 'jasa-galvo-engraving');
+
+// Handle case where service is not found
+if (!service) {
+  throw new Error('Galvo Engraving service not found in SERVICES array');
+}
+
+// SEO Meta Tags
+const metaTags = generateMetaTags({
+  title: `${service.name} - Engraving Presisi untuk Material Metal`,
+  description: `${service.description}. Teknologi galvo laser tercepat & akurat untuk engraving stainless steel, aluminium hingga ketebalan 20mm. Quote gratis 24 jam.`,
+  keywords: service.keywords,
+  url: `/jasalasercutting/${service.slug}/`,
+  type: "article",
+  image: service.image,
+  publishedTime: "2025-01-01T00:00:00Z",
+  modifiedTime: "2025-01-01T00:00:00Z",
+  author: SITE_CONFIG.author
+});
+
+// Generate structured data
+const serviceSchema = generateServiceSchema(service);
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '' },
+  { name: 'Layanan', url: '#services' },
+  { name: service.name, url: `/jasalasercutting/${service.slug}/` }
+]);
+
+const jsonLd = [serviceSchema, breadcrumbSchema].filter(Boolean);
+---
+<BaseLayout
+  metaTags={metaTags}
+  jsonLd={jsonLd}
+>
+  <Header slot="header" />
+  <!-- Hero Section -->
+  <Hero
+    title={`${service.name} Profesional`}
+    subtitle="Engraving Presisi | Logam, Plastik, Kayu | Kecepatan Tinggi"
+    description="Teknologi galvo laser tercepat untuk engraving detail tinggi pada berbagai material. Ideal untuk branding produk, serial number, QR code, barcode, dan personalisasi dengan hasil yang tajam dan tahan lama."
+    primaryCTA="Konsultasi Galvo Engraving"
+    secondaryCTA="Lihat Portofolio"
+    backgroundImage={service.image}
+    whatsappMessage={WHATSAPP_MESSAGES.engraving}
+  />
+  <!-- Service Overview -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1">
+          <img
+            src={service.image}
+            alt={service.name}
+            class="rounded-xl shadow-xl w-full"
+            loading="lazy"
+          />
+        </div>
+        <div class="order-1 lg:order-2">
+          <h2 class="heading-lg text-gray-900 mb-6">Solusi Engraving Presisi Tinggi</h2>
+          <p class="text-xl text-gray-600 mb-8">
+            Galvo Engraving kami menggunakan teknologi laser galvanometer tercepat untuk memberikan hasil engraving yang sangat detail dan presisi pada berbagai material, menjadikannya pilihan utama untuk branding produk dan personalisasi di Jabodetabek.
+          </p>
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Kecepatan Tinggi</h3>
+                <p class="text-gray-600">Proses engraving yang jauh lebih cepat dibandingkan metode konvensional.</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Detail Tinggi 0.05mm</h3>
+                <p class="text-gray-600">Resolusi engraving yang sangat tinggi hingga 0.05mm untuk hasil yang tajam.</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Tahan Lama & Permanent</h3>
+                <p class="text-gray-600">Hasil engraving yang tahan lama dan tidak mudah hilang karena merupakan bagian dari material itu sendiri.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Material Capabilities -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-4">Material yang Dapat Diproses</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Galvo Engraving kami dirancang untuk memberikan hasil terbaik pada berbagai jenis material
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Logam</h3>
+          <p class="text-gray-600 mb-4">Stainless steel, aluminium, titanium, dan berbagai jenis logam lainnya.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">SS304</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Aluminium</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Titanium</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Plastik</h3>
+          <p class="text-gray-600 mb-4">Acrylic, ABS, polycarbonate, dan berbagai jenis plastik industri.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Acrylic</span>
+            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">ABS</span>
+            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">PC</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Kayu & MDF</h3>
+          <p class="text-gray-600 mb-4">Kayu keras, kayu lunak, MDF untuk hasil engraving yang alami dan estetik.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Kayu Keras</span>
+            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">MDF</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Applications -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="heading-lg text-gray-900 mb-6">Aplikasi Galvo Engraving</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Berbagai kebutuhan industri dan komersial yang dapat dipenuhi dengan teknologi galvo engraving kami
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Branding Produk</h3>
+          <p class="text-gray-600">
+            Logo, nama merek, dan informasi produk pada berbagai material untuk meningkatkan nilai dan identitas produk.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Serial Number & Barcode</h3>
+          <p class="text-gray-600">
+            Penomoran seri, barcode, dan QR code untuk pelacakan produk, inventaris, dan sistem manajemen.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Personalisasi</h3>
+          <p class="text-gray-600">
+            Nama, tanggal, pesan pribadi, atau desain unik pada souvenir, hadiah, dan produk custom.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Keamanan & Identifikasi</h3>
+          <p class="text-gray-600">
+            Tanda pengenal, watermark, dan informasi keamanan untuk dokumen, peralatan, dan aset perusahaan.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Instrumen & Komponen</h3>
+          <p class="text-gray-600">
+            Penandaan pada instrumen presisi, komponen elektronik, dan peralatan medis untuk identifikasi dan pelacakan.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Seni & Kerajinan</h3>
+          <p class="text-gray-600">
+            Karya seni, hiasan dekoratif, dan kerajinan tangan dengan detail yang rumit dan presisi tinggi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- CTA Section -->
+  <CTA />
+  <Footer slot="footer" />
+</BaseLayout>

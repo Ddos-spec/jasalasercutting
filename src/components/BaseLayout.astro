@@ -1,0 +1,165 @@
+---
+import '../styles/global.css';
+
+interface MetaTags {
+  title: string;
+  description: string;
+  keywords: string;
+  canonical: string;
+  url: string;
+  type: string;
+  openGraph: {
+    title: string;
+    description: string;
+    url: string;
+    image: string;
+    type: string;
+    siteName: string;
+    locale: string;
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+  };
+  twitter: {
+    card: string;
+    title: string;
+    description: string;
+    image: string;
+  };
+}
+
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  url?: string;
+  type?: "article" | "website" | "blog" | "service" | "CollectionPage";
+  noindex?: boolean;
+  jsonLd?: any[];
+  canonical?: string;
+  metaTags?: MetaTags;
+}
+
+const { metaTags, noindex = false, jsonLd } = Astro.props;
+
+const defaultMetaTags = {
+  title: "Jasa Laser Cutting Terpercaya #1 di Jawa Barat | Jasa Cutting Laser",
+  description: "Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman, 1000+ proyek selesai, garansi kualitas premium. Melayani CNC Router, Laser Fiber, Laser CO2, dan Galvo Engraving.",
+  keywords: "jasa laser cutting, cnc router, laser fiber, laser co2, galvo engraving, jawa barat, bandung, bekasi, bogor, depok, cimahi, sukabumi",
+  canonical: typeof Astro.url === 'string' ? Astro.url : Astro.url.href,
+  url: typeof Astro.url === 'string' ? Astro.url : Astro.url.href,
+  type: "website",
+  openGraph: {
+    title: "Jasa Laser Cutting Terpercaya #1 di Jawa Barat | Jasa Cutting Laser",
+    description: "Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman, 1000+ proyek selesai, garansi kualitas premium.",
+    url: typeof Astro.url === 'string' ? Astro.url : Astro.url.href,
+    image: "/images/logo.webp",
+    type: "website",
+    siteName: "Jasa Cutting Laser",
+    locale: "id_ID"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Jasa Laser Cutting Terpercaya #1 di Jawa Barat | Jasa Cutting Laser",
+    description: "Solusi laser cutting profesional dengan teknologi terdepan.",
+    image: "/images/logo.webp"
+  }
+};
+
+const meta = metaTags || defaultMetaTags;
+
+if (!Astro.site) {
+  throw new Error('SITE_URL environment variable is not set. Please update your astro.config.mjs');
+}
+
+const siteUrl = new URL(Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-Equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <meta name="keywords" content={meta.keywords} />
+    <meta name="author" content="Jasa Cutting Laser Team" />
+    <link rel="canonical" href={meta.canonical} />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"} />
+
+    <meta property="og:type" content={meta.openGraph.type} />
+    <meta property="og:title" content={meta.openGraph.title} />
+    <meta property="og:description" content={meta.openGraph.description} />
+    <meta property="og:url" content={meta.openGraph.url} />
+    <meta property="og:image" content={new URL(meta.openGraph.image, siteUrl).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content={meta.openGraph.siteName} />
+    <meta property="og:locale" content={meta.openGraph.locale} />
+
+    <meta name="twitter:card" content={meta.twitter.card} />
+    <meta name="twitter:title" content={meta.twitter.title} />
+    <meta name="twitter:description" content={meta.twitter.description} />
+    <meta name="twitter:image" content={new URL(meta.twitter.image, siteUrl).href} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="icon" type="image/webp" href="/images/logo.webp" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="preload" href="/images/logo.webp" as="image" type="image/webp" />
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin />
+
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="//api.whatsapp.com" />
+
+    {jsonLd && jsonLd.length > 0 && jsonLd.map(json => (
+      <script type="application/ld+json" set:html={JSON.stringify(json)} />
+    ))}
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Jasa Cutting Laser",
+      url: siteUrl.href,
+      logo: new URL("/images/logo.webp", siteUrl).href,
+      description: "Solusi laser cutting profesional dengan teknologi terdepan di Jawa Barat",
+      telephone: "+62 851 6569 3179",
+      email: "info@tepatlaser.com",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Jl. Raya Serang No. 123",
+        addressLocality: "Serang",
+        addressRegion: "indonesia",
+        postalCode: "42111",
+        addressCountry: "ID"
+      },
+      openingHours: "Mo-Sa 08:00-17:00",
+      sameAs: [
+        "https://facebook.com/tepatlaser",
+        "https://instagram.com/tepatlaser",
+        "https://youtube.com/tepatlaser",
+        
+      ],
+      areaServed: ["Serang", "Tangerang", "Cilegon", "Pandeglang", "Lebak"],
+      serviceType: ["Laser Cutting", "CNC Router", "Laser Fiber", "Laser CO2", "Galvo Engraving"]
+    })} />
+
+    <meta name="theme-color" content="#00C853" />
+  </head>
+  <body class="antialiased bg-silver-light text-charcoal">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-laser-green text-white px-4 py-2 rounded-md z-50">
+      Skip to main content
+    </a>
+
+    <slot name="header" />
+
+    <main id="main-content" class="min-h-screen">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+  </body>
+</html>

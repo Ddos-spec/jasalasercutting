@@ -1,0 +1,248 @@
+  ---
+  import { SITE_CONFIG, SERVICES, MATERIALS } from '../utils/constants.js';
+  ---
+  
+  <footer class="bg-charcoal text-silver-light relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 20px 20px;"></div>
+    </div>
+    
+    <div class="relative">
+      <!-- Main Footer Content -->
+      <div class="container-custom py-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          
+          <!-- Company Info -->
+          <div class="lg:col-span-1">
+            <div class="flex items-center space-x-4 mb-8">
+              <div class="relative">
+                <img
+                  src="/images/logo.webp"
+                  alt="Jasa Cutting Laser Logo"
+                  class="h-12 w-auto"
+                  width="120"
+                  height="48"
+                />
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-white">Jasa Cutting Laser</h3>
+                <p class="text-sm text-silver-mid font-medium">Laser Cutting Terpercaya</p>
+              </div>
+            </div>
+            
+            <p class="text-silver-mid mb-8 leading-relaxed">
+              Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman melayani berbagai industri di indonesia dan sekitarnya dengan kualitas premium.
+            </p>
+            
+            <!-- Social Media -->
+            <div class="flex space-x-4">
+              <a href={SITE_CONFIG.socialMedia.facebook} target="_blank" rel="noopener noreferrer" 
+                 class="group w-12 h-12 bg-silver-dark/20 hover:bg-laser-green rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                <svg class="w-5 h-5 text-silver-light group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a href={SITE_CONFIG.socialMedia.instagram} target="_blank" rel="noopener noreferrer"
+                 class="group w-12 h-12 bg-silver-dark/20 hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                <svg class="w-5 h-5 text-silver-light group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.611-3.197-1.559-.187-.237-.318-.507-.391-.799-.073-.292-.088-.598-.043-.898.089-.598.35-1.155.739-1.614.389-.459.897-.798 1.474-.985.577-.187 1.2-.214 1.794-.077.594.137 1.136.428 1.571.842.435.414.748.948.906 1.546.158.598.154 1.235-.011 1.831-.165.596-.479 1.136-.909 1.563-.43.427-.97.741-1.566.906-.298.083-.608.125-.918.125-.31 0-.62-.042-.918-.125-.596-.165-1.136-.479-1.563-.909z"/>
+                </svg>
+              </a>
+              <a href={SITE_CONFIG.socialMedia.youtube} target="_blank" rel="noopener noreferrer"
+                 class="group w-12 h-12 bg-silver-dark/20 hover:bg-red-600 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                <svg class="w-5 h-5 text-silver-light group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+              
+            </div>
+          </div>
+  
+          <!-- Services -->
+          <div>
+            <h4 class="text-xl font-bold text-white mb-8 relative">
+              Layanan Kami
+              <div class="absolute -bottom-2 left-0 w-12 h-1 bg-laser-green rounded-full"></div>
+            </h4>
+            <ul class="space-y-4">
+              {SERVICES.map(service => (
+                <li>
+                  <a href={`/${service.slug}`} 
+                     class="group flex items-center text-silver-mid hover:text-white transition-all duration-300">
+                    <div class="w-2 h-2 bg-laser-green rounded-full mr-4 opacity-60 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300"></div>
+                    <span class="group-hover:translate-x-1 transition-transform duration-300">{service.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+  
+          <!-- Materials -->
+          <div>
+            <h4 class="text-xl font-bold text-white mb-8 relative">
+              Material
+              <div class="absolute -bottom-2 left-0 w-12 h-1 bg-laser-green rounded-full"></div>
+            </h4>
+            <ul class="space-y-4">
+              {MATERIALS.slice(0, 6).map(material => (
+                <li>
+                  <a href={`/${material.slug}`} 
+                     class="group flex items-center text-silver-mid hover:text-white transition-all duration-300">
+                    <div class="w-2 h-2 bg-laser-green rounded-full mr-4 opacity-60 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300"></div>
+                    <span class="group-hover:translate-x-1 transition-transform duration-300">{material.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+  
+          <!-- Contact Info -->
+          <div>
+            <h4 class="text-xl font-bold text-white mb-8 relative">
+              Kontak Kami
+              <div class="absolute -bottom-2 left-0 w-12 h-1 bg-laser-green rounded-full"></div>
+            </h4>
+            <div class="space-y-6">
+              <div class="group flex items-start space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-laser-green/20 rounded-xl flex items-center justify-center group-hover:bg-laser-green transition-colors duration-300">
+                  <svg class="w-5 h-5 text-laser-green group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-white mb-1">Alamat</h5>
+                  <p class="text-silver-mid text-sm leading-relaxed">{SITE_CONFIG.address}</p>
+                </div>
+              </div>
+              
+              <div class="group flex items-start space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-laser-green/20 rounded-xl flex items-center justify-center group-hover:bg-laser-green transition-colors duration-300">
+                  <svg class="w-5 h-5 text-laser-green group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-white mb-1">Telepon</h5>
+                  <a href={`tel:${SITE_CONFIG.phone}`} class="text-laser-green hover:text-white font-medium transition-colors duration-300">{SITE_CONFIG.phone}</a>
+                  <p class="text-silver-mid text-sm mt-1">{SITE_CONFIG.businessHours}</p>
+                </div>
+              </div>
+              
+              <div class="group flex items-start space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-laser-green/20 rounded-xl flex items-center justify-center group-hover:bg-laser-green transition-colors duration-300">
+                  <svg class="w-5 h-5 text-laser-green group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-white mb-1">Email</h5>
+                  <a href={`mailto:${SITE_CONFIG.email}`} class="text-laser-green hover:text-white font-medium transition-colors duration-300">{SITE_CONFIG.email}</a>
+                  <p class="text-silver-mid text-sm mt-1">Kirim file design Anda</p>
+                </div>
+              </div>
+  
+              <!-- WhatsApp CTA -->
+              <div class="mt-8 p-4 bg-gradient-to-r from-laser-green/20 to-laser-green/10 rounded-xl border border-laser-green/30">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h5 class="font-semibold text-white mb-1">Chat Langsung</h5>
+                    <p class="text-silver-mid text-sm">Respon cepat & konsultasi gratis</p>
+                  </div>
+                  <a href={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}`} 
+                     target="_blank" rel="noopener noreferrer"
+                     class="bg-laser-green hover:bg-laser-green/90 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 shadow-lg">
+                    <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                    </svg>
+                    Chat
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Bottom Bar -->
+      <div class="border-t border-silver-dark/30 bg-charcoal/50">
+        <div class="container-custom py-8">
+          <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-silver-mid text-sm">
+              <p>© 2025 Jasa Cutting Laser. All rights reserved.</p>
+              <div class="flex items-center space-x-4">
+                <a href="/privacy-policy" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <span class="text-silver-dark">|</span>
+                <a href="/terms-of-service" class="hover:text-white transition-colors duration-300">Terms of Service</a>
+              </div>
+            </div>
+            <div class="text-silver-mid text-sm text-center md:text-right">
+              <p class="font-medium">Melayani Area:</p>
+              <p>Serang, Tangerang, Cilegon, Pandeglang, Lebak & Sekitarnya</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Back to Top Button -->
+    <button id="back-to-top" 
+            aria-label="Back to top of page"
+            class="fixed bottom-8 left-8 w-14 h-14 bg-laser-green hover:bg-laser-green/90 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform translate-y-16 opacity-0 z-40 group">
+      <svg class="w-6 h-6 mx-auto group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+      </svg>
+    </button>
+
+    <!-- Floating WhatsApp Button -->
+    <a href={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}`}
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Chat via WhatsApp"
+       class="fixed bottom-8 right-8 w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center z-40 group">
+      <svg class="w-8 h-8 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+      </svg>
+      
+      <!-- Ripple Effect -->
+      <div class="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20"></div>
+    </a>
+      </a>
+    </div>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        if (backToTopButton) {
+          // Show/hide back to top button
+          window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+              backToTopButton.classList.remove('translate-y-16', 'opacity-0');
+              backToTopButton.classList.add('translate-y-0', 'opacity-100');
+            } else {
+              backToTopButton.classList.remove('translate-y-0', 'opacity-100');
+              backToTopButton.classList.add('translate-y-16', 'opacity-0');
+            }
+          });
+          
+          // Smooth scroll to top
+          backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ 
+              top: 0, 
+              behavior: 'smooth' 
+            });
+          });
+        }
+  
+        // Logo error handling
+        const logoImg = document.querySelector('footer img[alt="Jasa Cutting Laser Logo"]') as HTMLImageElement;
+        if (logoImg) {
+          logoImg.addEventListener('error', () => {
+            logoImg.src = '/images/Logo.webp';
+          });
+        }
+      });
+    </script>
+  </footer>

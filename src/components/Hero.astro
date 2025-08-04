@@ -1,0 +1,211 @@
+---
+import { SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  primaryCTA?: string;
+  primaryCTALink?: string;
+  secondaryCTA?: string;
+  secondaryCTALink?: string;
+  backgroundImage?: string;
+  showTrustSignals?: boolean;
+  whatsappMessage?: string;
+  bgClass?: string;
+}
+
+const {
+  title = "Solusi Laser Cutting Terpercaya #1 di indonesia",
+  subtitle = "10+ Tahun Pengalaman | 1000+ Proyek Selesai | Garansi Kualitas Premium",
+  description = "Teknologi laser cutting terdepan dengan presisi tinggi untuk semua kebutuhan industri dan kreatif Anda. Dari CNC Router hingga Galvo Engraving, kami siap memberikan hasil terbaik.",
+  primaryCTA = "Konsultasi Gratis Sekarang",
+  primaryCTALink = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.default)}`,
+  secondaryCTA = "Lihat Portfolio Kami",
+  secondaryCTALink = "/jasalasercutting/portfolio",
+  backgroundImage = "/images/logo.webp",
+  showTrustSignals = true,
+  whatsappMessage = WHATSAPP_MESSAGES.default,
+  bgClass = "bg-gradient-to-br from-silver-light via-white to-silver-light"
+} = Astro.props;
+---
+
+<section class:list={["relative min-h-screen flex items-center justify-center overflow-hidden", bgClass]}>
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, rgba(31,32,35,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
+  </div>
+  
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src={backgroundImage}
+      alt="Laser cutting technology"
+      class="w-full h-full object-cover opacity-10"
+      loading="eager"
+      width="1920"
+      height="1080"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/80 to-silver-light/90"></div>
+  </div>
+  
+  <!-- Floating Elements -->
+  <div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+    <div class="absolute top-20 left-20 w-32 h-32 bg-laser-green/10 rounded-full blur-xl animate-bounce-slow"></div>
+    <div class="absolute top-40 right-32 w-24 h-24 bg-charcoal/10 rounded-full blur-lg animate-pulse"></div>
+    <div class="absolute bottom-32 left-32 w-20 h-20 bg-laser-green/20 rounded-full blur-lg animate-bounce-slow" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-20 right-20 w-16 h-16 bg-charcoal/15 rounded-full blur-md animate-pulse" style="animation-delay: 2s;"></div>
+  </div>
+  
+  <div class="relative z-20 container-custom text-center pt-32 pb-20">
+    <div class="max-w-5xl mx-auto">
+      <!-- Badge -->
+      <div class="inline-flex items-center px-6 py-3 bg-laser-green/10 border border-laser-green/20 rounded-full text-laser-green font-semibold text-sm mb-8 animate-fade-in">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        Terpercaya Sejak 2014
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="heading-xl text-charcoal mb-8 animate-slide-up">
+        {title}
+      </h1>
+      
+      <!-- Subtitle -->
+      <p class="text-xl md:text-2xl font-semibold text-laser-green mb-8 animate-slide-up" style="animation-delay: 0.2s;">
+        {subtitle}
+      </p>
+      
+      <!-- Description -->
+      <p class="text-lg md:text-xl text-graphite mb-12 max-w-4xl mx-auto leading-relaxed animate-slide-up" style="animation-delay: 0.4s;">
+        {description}
+      </p>
+      
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-16 animate-slide-up" style="animation-delay: 0.6s;">
+        <a 
+          href={primaryCTALink}
+          target={primaryCTALink.startsWith('http') ? '_blank' : '_self'}
+          rel={primaryCTALink.startsWith('http') ? 'noopener noreferrer' : ''}
+          class="group btn-primary text-lg px-10 py-5 w-full sm:w-auto shadow-xl hover:shadow-2xl transform hover:scale-105 relative overflow-hidden"
+        >
+          <div class="absolute inset-0 bg-gradient-to-r from-laser-green to-laser-green/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative flex items-center justify-center">
+            <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+            </svg>
+            {primaryCTA}
+          </div>
+        </a>
+        
+        <a 
+          href={secondaryCTALink}
+          class="group btn-secondary text-lg px-10 py-5 w-full sm:w-auto shadow-xl hover:shadow-2xl border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-white relative overflow-hidden"
+        >
+          <div class="absolute inset-0 bg-charcoal transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+          <div class="relative flex items-center justify-center">
+            <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+            {secondaryCTA}
+          </div>
+        </a>
+      </div>
+
+      {showTrustSignals && (
+        <div class="animate-slide-up" style="animation-delay: 0.8s;">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div class="group text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-silver-mid/50">
+              <div class="w-20 h-20 bg-laser-green/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-laser-green/20 transition-colors duration-300">
+                <svg class="w-10 h-10 text-laser-green group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h2 class="text-3xl font-bold text-charcoal mb-3 group-hover:text-laser-green transition-colors duration-300">10+</h2>
+              <p class="text-graphite font-medium">Tahun Pengalaman</p>
+            </div>
+            
+            <div class="group text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-silver-mid/50">
+              <div class="w-20 h-20 bg-laser-green/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-laser-green/20 transition-colors duration-300">
+                <svg class="w-10 h-10 text-laser-green group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+              </div>
+              <h2 class="text-3xl font-bold text-charcoal mb-3 group-hover:text-laser-green transition-colors duration-300">1000+</h2>
+              <p class="text-graphite font-medium">Proyek Selesai</p>
+            </div>
+            
+            <div class="group text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-silver-mid/50 md:col-span-1">
+              <div class="w-20 h-20 bg-laser-green/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-laser-green/20 transition-colors duration-300">
+                <svg class="w-10 h-10 text-laser-green group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+              <h2 class="text-3xl font-bold text-charcoal mb-3 group-hover:text-laser-green transition-colors duration-300">100%</h2>
+              <p class="text-graphite font-medium">Garansi Kualitas</p>
+            </div>
+          </div>
+          
+          <!-- Trust Indicators -->
+          <div class="mt-12 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm font-medium text-graphite">
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-laser-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span>Respon dalam 24 jam</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-laser-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span>Konsultasi gratis</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-laser-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              <span>Tanpa komitmen</span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+    <div class="w-6 h-10 border-2 border-charcoal/30 rounded-full flex justify-center">
+      <div class="w-1 h-3 bg-charcoal/50 rounded-full mt-2 animate-pulse"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(30px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+</style>

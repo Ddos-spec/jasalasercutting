@@ -1,0 +1,242 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTA from '../components/CTA.astro';
+import { SITE_CONFIG } from '../utils/constants.js';
+
+const metaTags = {
+  title: "Tentang Kami - LaserCut Pro | 10+ Tahun Pengalaman Laser Cutting",
+  description: "Mengenal LaserCut Pro, perusahaan laser cutting terpercaya di Jabodetabek dengan 10+ tahun pengalaman.",
+  canonical: new URL('/about/', Astro.site).href
+};
+---
+
+<BaseLayout 
+  title={metaTags.title}
+  description={metaTags.description}
+  url={metaTags.canonical}
+>
+  <Header slot="header" />
+  
+  <!-- Hero Section -->
+  <section class="bg-laser-green text-white py-20 mt-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold mb-6">Tentang LaserCut Pro</h1>
+      <p class="text-xl max-w-3xl mx-auto text-white">
+        Lebih dari 10 tahun menghadirkan solusi laser cutting terdepan
+      </p>
+    </div>
+  </section>
+  
+  <!-- Breadcrumb -->
+  <section class="bg-gray-50 py-4">
+    <div class="max-w-7xl mx-auto px-4">
+      <nav class="flex">
+        <a href="/" class="text-gray-700 hover:text-blue-600">Beranda</a>
+        <span class="mx-2 text-gray-500">/</span>
+        <span class="text-gray-500">Tentang Kami</span>
+      </nav>
+    </div>
+  </section>
+  
+  <!-- Siapa Kami -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Siapa Kami</h2>
+          <p class="text-lg text-gray-700 mb-6">
+            LaserCut Pro adalah perusahaan terdepan dalam industri laser cutting di Jabodetabek 
+            yang telah berpengalaman lebih dari 10 tahun.
+          </p>
+          <p class="text-lg text-gray-700 mb-8">
+            Kami telah menyelesaikan lebih dari 1000 proyek untuk berbagai klien mulai dari 
+            UMKM hingga perusahaan multinasional.
+          </p>
+          
+          <!-- Stats -->
+          <div class="grid grid-cols-2 gap-6">
+            <div class="text-center p-4 bg-blue-50 rounded-lg">
+              <div class="text-3xl font-bold text-blue-600">10+</div>
+              <div class="text-sm text-gray-700">Tahun Pengalaman</div>
+            </div>
+            <div class="text-center p-4 bg-green-50 rounded-lg">
+              <div class="text-3xl font-bold text-green-600">1000+</div>
+              <div class="text-sm text-gray-700">Proyek Selesai</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Main Image -->
+        <div>
+          <img 
+            src="/images/team.webp"
+            alt="Workshop LaserCut Pro"
+            class="w-full rounded-xl shadow-lg"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Tim Ahli -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Tim Ahli Kami</h2>
+        <p class="text-xl text-gray-600">
+          Tim profesional berpengalaman yang siap memberikan solusi terbaik
+        </p>
+      </div>
+      
+      <!-- Team Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl p-6 text-center shadow-lg">
+          <img 
+            src="/images/budisantoso.webp"
+            alt="Budi Santoso - Direktur"
+            class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
+            loading="lazy"
+          />
+          <h4 class="text-lg font-bold mb-2">Budi Santoso</h4>
+          <p class="text-blue-600 font-medium mb-3">Direktur & Founder</p>
+          <p class="text-sm text-gray-600">
+            15+ tahun pengalaman di industri laser cutting
+          </p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 text-center shadow-lg">
+          <img 
+            src="/images/Ahmad Rizki.webp"
+            alt="Ahmad Rizki - Technical Manager"
+            class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
+            loading="lazy"
+          />
+          <h4 class="text-lg font-bold mb-2">Ahmad Rizki</h4>
+          <p class="text-green-600 font-medium mb-3">Technical Manager</p>
+          <p class="text-sm text-gray-600">
+            Ahli teknis dengan sertifikasi internasional
+          </p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 text-center shadow-lg">
+          <img 
+            src="/images/Sari Dewi.webp"
+            alt="Sari Dewi - Design Specialist"
+            class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
+            loading="lazy"
+          />
+          <h4 class="text-lg font-bold mb-2">Sari Dewi</h4>
+          <p class="text-purple-600 font-medium mb-3">Design Specialist</p>
+          <p class="text-sm text-gray-600">
+            Spesialis design dan optimasi file cutting
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Test Gambar -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Galeri Workshop & Peralatan</h2>
+      
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="relative overflow-hidden rounded-lg">
+          <img src="/images/laserfiber.webp" alt="Laser Fiber" class="w-full h-48 object-cover" />
+          <div class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white font-medium">Laser Fiber</p>
+          </div>
+        </div>
+        
+        <div class="relative overflow-hidden rounded-lg">
+          <img src="/images/cncrouter.webp" alt="CNC Router" class="w-full h-48 object-cover" />
+          <div class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white font-medium">CNC Router</p>
+          </div>
+        </div>
+        
+        <div class="relative overflow-hidden rounded-lg">
+          <img src="/images/galvo.webp" alt="Galvo Engraving" class="w-full h-48 object-cover" />
+          <div class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white font-medium">Galvo Engraving</p>
+          </div>
+        </div>
+        
+        <div class="relative overflow-hidden rounded-lg">
+          <img src="/images/Acrylic.webp" alt="Material Acrylic" class="w-full h-48 object-cover" />
+          <div class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white font-medium">Acrylic</p>
+          </div>
+        </div>
+        
+        <div class="relative overflow-hidden rounded-lg">
+          <img src="/images/acp.webp" alt="Material ACP" class="w-full h-48 object-cover" />
+          <div class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white font-medium">ACP</p>
+          </div>
+        </div>
+        
+        <div class="relative overflow-hidden rounded-lg">
+          <img src="/images/pvc.webp" alt="Material PVC" class="w-full h-48 object-cover" />
+          <div class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white font-medium">PVC</p>
+          </div>
+        </div>
+        
+        <div class="relative overflow-hidden rounded-lg">
+          <img src="/images/grc.webp" alt="Material GRC" class="w-full h-48 object-cover" />
+          <div class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white font-medium">GRC</p>
+          </div>
+        </div>
+        
+        <div class="relative overflow-hidden rounded-lg">
+          <img src="/images/prototype.webp" alt="Prototype Project" class="w-full h-48 object-cover" />
+          <div class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white font-medium">Prototype</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTA 
+    title="Siap Berkolaborasi dengan Kami?"
+    description="Mari wujudkan project laser cutting Anda bersama tim ahli LaserCut Pro."
+    primaryText="Konsultasi Gratis"
+    primaryLink={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=Halo, saya tertarik berkolaborasi dengan LaserCut Pro`}
+    secondaryText="Lihat Portfolio"
+    secondaryLink="/portfolio/"
+  />
+  
+  <Footer slot="footer" />
+</BaseLayout>
+
+<script>
+  // Simple image error handling with fallback to logo
+  document.querySelectorAll('img').forEach(img => {
+    img.onerror = function() {
+      this.src = '/images/logo.webp';
+    };
+  });
+</script>
+
+<style>
+  /* Basic hover effects */
+  .hover\:opacity-100:hover {
+    opacity: 1;
+  }
+  
+  .transition-opacity {
+    transition: opacity 0.3s ease;
+  }
+  
+  .shadow-lg:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+</style>
