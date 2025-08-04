@@ -497,7 +497,7 @@ export const TESTIMONIALS = [
     name: "Budi Santoso",
     company: "PT. Maju Bersama",
     rating: 5,
-    content: "Pelayanan sangat memuaskan! Hasil cutting stainless steel sangat presisi dan tepat waktu. Tim LaserCut Pro sangat profesional dan responsif.",
+    content: "Pelayanan sangat memuaskan! Hasil cutting stainless steel sangat presisi dan tepat waktu. Tim jasa cutting laser sangat profesional dan responsif.",
     image: "/images/budisantoso.webp",
     project: "Cutting Komponen Industri",
     location: "Jakarta"
@@ -592,7 +592,7 @@ export const BLOG_POSTS = [
     image: "/images/Acrylic.webp",
     publishDate: "2025-01-15", // <-- INI DIA YANG HILANG
     readTime: "8 menit baca",   // <-- INI JUGA HILANG
-    author: "Tim LaserCut Pro",
+    author: "Tim jasa cutting laser",
     tags: ["material", "tutorial", "tips", "laser cutting"],
     content: `
       <h2>Mengapa Pemilihan Material Penting?</h2>
@@ -627,7 +627,7 @@ export const BLOG_POSTS = [
     publishDate: "2025-01-15",
     readTime: "8 menit baca",
     tags: ["material", "tutorial", "tips", "laser cutting"],
-    author: "Tim LaserCut Pro"
+    author: "Tim jasa cutting laser"
   },
   {
     id: 2,
@@ -886,7 +886,7 @@ export const BLOG_POSTS = [
     image: "/images/displyacrylic.webp",
     publishDate: "2025-01-03",
     readTime: "12 menit baca",
-    author: "Tim LaserCut Pro",
+    author: "Tim jasa cutting laser",
     tags: ["maintenance", "perawatan", "tips", "durability"],
     content: `
       <h2>Merawat Produk Laser Cutting untuk Durabilitas Maksimal</h2>
@@ -954,7 +954,7 @@ export const BLOG_POSTS = [
     publishDate: "2025-01-03",
     readTime: "12 menit baca",
     tags: ["maintenance", "perawatan", "tips", "durability"],
-    author: "Tim LaserCut Pro"
+    author: "Tim jasa cutting laser"
   }
 ];
 

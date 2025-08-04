@@ -1,5 +1,5 @@
 # Nama workflow, bisa disesuain sama nama proyek
-name: Deploy LaserCut Pro to GitHub Pages
+name: Deploy jasa cutting laser to GitHub Pages
 
 # Kapan workflow ini jalan
 on:

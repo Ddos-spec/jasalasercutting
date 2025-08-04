@@ -9,25 +9,25 @@ import { BLOG_POSTS } from '../../utils/constants.js';
 const sortedPosts = BLOG_POSTS.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
 // Safely construct the base URL
-const baseUrl = Astro.site ? Astro.site.toString() : 'https://ddos-spec.github.io/jasalasercutting/'; // Sesuaikan dengan URL produksi Anda
+const baseUrl = Astro.site ? Astro.site.toString() : 'https://jasalasercutting.com'; // Sesuaikan dengan URL produksi Anda
 const blogUrl = `${baseUrl}blog/`;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "name": "Blog LaserCut Pro",
+  "name": "Blog jasa cutting laser",
   "description": "Tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur",
   "url": blogUrl,
   "publisher": {
     "@type": "Organization",
-    "name": "LaserCut Pro"
+    "name": "jasa cutting laser"
   }
 };
 ---
 
 <BaseLayout 
   title="Blog - Tips & Tutorial Laser Cutting Terbaru"
-  description="Dapatkan tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur dari para ahli LaserCut Pro"
+  description="Dapatkan tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur dari para ahli jasa cutting laser"
   keywords="blog laser cutting, tutorial cnc router, tips laser fiber, panduan laser co2, artikel manufaktur"
   jsonLd={[jsonLd]}
 >
@@ -37,7 +37,7 @@ const jsonLd = {
   <section class="bg-laser-green text-white py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h1 class="text-4xl lg:text-5xl font-bold mb-6">
-        Blog LaserCut Pro
+        Blog jasa cutting laser
       </h1>
       <p class="text-xl text-blue-100 max-w-3xl mx-auto">
         Tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur dari para ahli
