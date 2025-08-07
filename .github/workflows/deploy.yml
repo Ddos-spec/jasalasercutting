@@ -1,60 +1,55 @@
-# Nama workflow, bisa disesuain sama nama proyek
-name: Deploy jasa cutting laser to GitHub Pages
+# Nama workflow yang akan muncul di tab Actions di GitHub
+name: Deploy Astro to Hostinger FTP
 
-# Kapan workflow ini jalan
+# Kapan workflow ini dijalankan
 on:
+  # Dijalankan setiap kali ada push ke branch 'main'
   push:
-    branches:
-      - main
+    branches: ["main"]
+  # Bisa juga dijalankan manual dari tab Actions
   workflow_dispatch:
 
-# Izin buat si Actions
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Daftar kerjaan (jobs)
+# Langkah-langkah yang akan dijalankan
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  # Nama job-nya
+  build-and-deploy:
+    runs-on: ubuntu-latest # Menjalankan job di mesin virtual Ubuntu
     steps:
-      - name: Checkout repository
+      # 1. Mengambil kode dari repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
+      # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          # README minta v18+, kita pake 20 yang LTS dan lebih baru
-          node-version: '20'
-          # Cache buat 'npm' biar install lebih ngebut ke depannya
+          node-version: "20" # Versi Node.js yang direkomendasikan untuk Astro
           cache: 'npm'
 
-      - name: Install dependencies
-        # Perintah install sesuai dokumentasi di README.md
+      # 3. Install semua dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build static files
-        # Perintah build sesuai dokumentasi di README.md
+      # 4. Build project Astro jadi file statis di folder 'dist'
+      - name: Build Astro Project
         run: npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      # 5. Deploy ke Hostinger via FTP
+      - name: Deploy to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          # Arahin ke folder 'dist' sesuai instruksi deploy di README.md
-          path: './dist'
-
-  deploy:
-    # Job ini sama, gak perlu diubah
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          # Alamat server FTP/SSH dari secret
+          server: ${{ secrets.FTP_SERVER }}
+          # Username FTP dari secret
+          username: ${{ secrets.FTP_USERNAME }}
+          # Password FTP dari secret
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Folder hasil build Astro yang akan di-upload (dist bukan out)
+          local-dir: ./dist/
+          # Folder tujuan di hosting (sesuaikan dengan domain kamu)
+          server-dir: public_html/
+          # Exclude file tertentu jika perlu
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/** 
