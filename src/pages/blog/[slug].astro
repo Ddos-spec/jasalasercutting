@@ -84,11 +84,11 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
       <div class="mb-8">
         <div class="flex items-center space-x-4 mb-4">
           <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
-            {post.category}
+            {postData.category}
           </span>
-          <span class="text-gray-500">{post.readTime}</span>
+          <span class="text-gray-500">{postData.readTime}</span>
           <span class="text-gray-500">
-            {new Date(post.publishDate).toLocaleDateString('id-ID', { 
+            {new Date(postData.publishDate).toLocaleDateString('id-ID', { 
               year: 'numeric', 
               month: 'long', 
               day: 'numeric' 
@@ -96,10 +96,10 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
           </span>
         </div>
         <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-          {post.title}
+          {postData.title}
         </h1>
         <p class="text-xl text-gray-600 leading-relaxed">
-          {post.excerpt}
+          {postData.excerpt}
         </p>
       </div>
 
