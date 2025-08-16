@@ -2,20 +2,12 @@
 import BaseLayout from '../../components/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { BLOG_POSTS } from '../../utils/constants.js';
+import { getCollection } from 'astro:content';
 import { generateBlogPostSchema, generateBreadcrumbSchema } from '../../utils/seo';
 
-type Post = {
-  id: number;
-  title: string;
-  slug: string;
-  excerpt: string;
-  category: string;
-  image: string;
-};
-
 export async function getStaticPaths() {
-  return BLOG_POSTS.map((post) => ({
+  const allPosts = await getCollection('blog');
+  return allPosts.map((post) => ({
     params: { slug: post.slug },
     props: { post }
   }));
@@ -23,19 +15,43 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-// Get related posts (same category, excluding current post)
-const relatedPosts = BLOG_POSTS
-  .filter(p => p.category === post.category && p.id !== post.id)
-  .slice(0, 3);
+// Transform post data to match old structure for compatibility
+const postData = {
+  id: post.id,
+  title: post.data.title,
+  slug: post.slug,
+  excerpt: post.data.description,
+  category: post.data.category,
+  image: post.data.image,
+  publishDate: post.data.pubDate,
+  readTime: post.data.readTime,
+  author: post.data.author,
+  tags: post.data.tags,
+  content: post.body // This will be the rendered markdown content
+};
+
+// Get all posts for related posts functionality
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter(p => p.data.category === postData.category && p.slug !== postData.slug && !p.data.draft)
+  .slice(0, 3)
+  .map(p => ({
+    title: p.data.title,
+    slug: p.slug,
+    excerpt: p.data.description,
+    category: p.data.category,
+    image: p.data.image,
+    readTime: p.data.readTime
+  }));
 
 // Generate JSON-LD for blog post
-const jsonLd = generateBlogPostSchema(post);
+const jsonLd = generateBlogPostSchema(postData);
 
 // Generate breadcrumb schema with correct base path
 const breadcrumbs = [
   { name: 'Beranda', url: '/jasalasercutting/' },
   { name: 'Blog', url: '/jasalasercutting/blog/' },
-  { name: post.title, url: `/jasalasercutting/blog/${post.slug}/` }
+  { name: postData.title, url: `/jasalasercutting/blog/${postData.slug}/` }
 ];
 const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 ---
