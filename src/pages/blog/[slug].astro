@@ -57,10 +57,10 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 ---
 
 <BaseLayout 
-  title={`${post.title} | Blog jasa cutting laser`}
-  description={post.excerpt}
-  keywords={`${post.title.toLowerCase()}, laser cutting, cnc router, ${post.category.toLowerCase()}`}
-  image={post.image}
+  title={`${postData.title} | Blog jasa cutting laser`}
+  description={postData.excerpt}
+  keywords={`${postData.title.toLowerCase()}, laser cutting, cnc router, ${postData.category.toLowerCase()}`}
+  image={postData.image}
   type="article"
   jsonLd={[jsonLd, breadcrumbSchema]}
 >
