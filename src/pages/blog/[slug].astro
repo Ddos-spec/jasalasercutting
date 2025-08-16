@@ -114,7 +114,8 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
       </div>
 
       <!-- Article Content -->
-      <div class="prose prose-lg max-w-none" set:html={post.content}>
+      <div class="prose prose-lg max-w-none">
+        <post.Content />
       </div>
 
       <!-- CTA Section -->
