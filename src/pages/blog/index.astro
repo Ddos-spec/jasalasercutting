@@ -3,10 +3,26 @@
 import BaseLayout from '../../components/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { BLOG_POSTS } from '../../utils/constants.js';
+import { getCollection } from 'astro:content';
 
-// Sort blog posts by date (newest first)
-const sortedPosts = BLOG_POSTS.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
+// Get all blog posts from Content Collections
+const allPosts = await getCollection('blog');
+
+// Sort blog posts by date (newest first) and transform to match old structure
+const sortedPosts = allPosts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .map(post => ({
+    title: post.data.title,
+    slug: post.slug,
+    excerpt: post.data.description,
+    category: post.data.category,
+    image: post.data.image,
+    publishDate: post.data.pubDate,
+    readTime: post.data.readTime,
+    author: post.data.author,
+    tags: post.data.tags
+  }));
 
 // Safely construct the base URL
 const baseUrl = Astro.site ? Astro.site.toString() : 'https://jasalasercutting.com'; // Sesuaikan dengan URL produksi Anda
