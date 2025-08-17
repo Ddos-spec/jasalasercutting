@@ -1,5 +1,5 @@
 ---
-// blog./index,astro (filecode)
+// blog./index,astro
 import BaseLayout from '../../components/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -70,7 +70,7 @@ const jsonLd = {
                 <span class="text-sm text-gray-500">{post.data.readTime}</span>
               </div>
               <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                <a href={`/blog/${post.slug}`} class="hover:text-blue-600 transition-colors">
+                <a href={`/jasalasercutting/blog/${post.slug}/`} class="hover:text-blue-600 transition-colors">
                   {post.data.title}
                 </a>
               </h2>
@@ -86,7 +86,7 @@ const jsonLd = {
                   })}
                 </span>
                 <a 
-                  href={`/blog/${post.slug}/`}
+                  href={`/jasalasercutting/blog/${post.slug}/`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
                   Baca Selengkapnya →
@@ -121,7 +121,7 @@ const jsonLd = {
           Konsultasi via WhatsApp
         </a>
         <a 
-          href="contact/" 
+          href="/jasalasercutting/contact/" 
           class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors"
         >
           Request Quote
@@ -147,4 +147,4 @@ const jsonLd = {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-</style>    
+</style>

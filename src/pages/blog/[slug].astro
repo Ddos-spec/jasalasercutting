@@ -7,14 +7,14 @@ import { generateBlogPostSchema, generateBreadcrumbSchema } from '../../utils/se
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
-  return allPosts.map((post) => ({
+  return allPosts.map(post => ({
     params: { slug: post.slug },
     props: { post }
   }));
 }
 
 const { post }: { post: CollectionEntry<'blog'> } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await post.render(); // Ensure post is not undefined before calling render()
 
 // Get all posts for related posts functionality
 const allPosts = await getCollection('blog');
@@ -161,7 +161,7 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
                   {relatedPost.data.description}
                 </p>
                 <a 
-                  href={`/blog/${relatedPost.slug}/`}
+                  href={`/jasalasercutting/blog/${relatedPost.slug}/`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
                   Baca Selengkapnya →
