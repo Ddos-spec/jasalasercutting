@@ -8,21 +8,10 @@ import { getCollection } from 'astro:content';
 // Get all blog posts from Content Collections
 const allPosts = await getCollection('blog');
 
-// Sort blog posts by date (newest first) and transform to match old structure
+// Sort blog posts by date (newest first)
 const sortedPosts = allPosts
   .filter(post => !post.data.draft)
-  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
-  .map(post => ({
-    title: post.data.title,
-    slug: post.slug,
-    excerpt: post.data.description,
-    category: post.data.category,
-    image: post.data.image,
-    publishDate: post.data.pubDate,
-    readTime: post.data.readTime,
-    author: post.data.author,
-    tags: post.data.tags
-  }));
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
 
 // Safely construct the base URL
 const baseUrl = Astro.site ? Astro.site.toString() : 'https://jasalasercutting.com'; // Sesuaikan dengan URL produksi Anda
@@ -68,29 +57,29 @@ const jsonLd = {
         {sortedPosts.map((post) => (
           <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
             <img 
-              src={post.image} 
-              alt={post.title}
+              src={post.data.image} 
+              alt={post.data.title}
               class="w-full h-48 object-cover"
               loading="lazy"
             />
             <div class="p-6">
               <div class="flex items-center justify-between mb-3">
                 <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
-                  {post.category}
+                  {post.data.category}
                 </span>
-                <span class="text-sm text-gray-500">{post.readTime}</span>
+                <span class="text-sm text-gray-500">{post.data.readTime}</span>
               </div>
               <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                 <a href={`/blog/${post.slug}`} class="hover:text-blue-600 transition-colors">
-                  {post.title}
+                  {post.data.title}
                 </a>
               </h2>
               <p class="text-gray-600 mb-4 line-clamp-3">
-                {post.excerpt}
+                {post.data.description}
               </p>
               <div class="flex items-center justify-between">
                 <span class="text-sm text-gray-500">
-                  {new Date(post.publishDate).toLocaleDateString('id-ID', {
+                  {new Date(post.data.pubDate).toLocaleDateString('id-ID', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
