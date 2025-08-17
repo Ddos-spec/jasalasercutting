@@ -23,7 +23,13 @@ const relatedPosts = allPosts
   .slice(0, 3);
 
 // Generate JSON-LD for blog post
-const jsonLd = generateBlogPostSchema(post.data);
+const jsonLd = generateBlogPostSchema({
+  title: post.data.title,
+  excerpt: post.data.description,
+  image: post.data.image,
+  publishDate: post.data.pubDate.toISOString(),
+  slug: post.slug
+});
 
 // Generate breadcrumb schema with correct base path
 const breadcrumbs = [
