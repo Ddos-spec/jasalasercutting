@@ -6,7 +6,6 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jasalasercutting.com',
-  base: '/jasalasercutting', // Sesuaikan dengan path di kode Anda
   
   integrations: [tailwind(), sitemap()],
   
