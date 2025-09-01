@@ -33,9 +33,9 @@ const jsonLd = generateBlogPostSchema({
 
 // Generate breadcrumb schema with correct base path
 const breadcrumbs = [
-  { name: 'Beranda', url: '/jasalasercutting/' },
-  { name: 'Blog', url: '/jasalasercutting/blog/' },
-  { name: post.data.title, url: `/jasalasercutting/blog/${post.slug}/` }
+  { name: 'Beranda', url: '/' },
+  { name: 'Blog', url: '/blog/' },
+  { name: post.data.title, url: `/blog/${post.slug}/` }
 ];
 const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 ---
